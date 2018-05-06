@@ -19,9 +19,13 @@
       "testTsconfig": "tsconfig.spec.json",
       "prefix": "app",
       "styles": [
+        "../node_modules/office-ui-fabric-js/dist/css/fabric.min.css",
+        "../node_modules/office-ui-fabric-js/dist/css/fabric.components.min.css",
         "styles.css"
       ],
-      "scripts": [],
+      "scripts": [
+        "../node_modules/office-ui-fabric-js/dist/js/fabric.min.js"
+      ],
       "environmentSource": "environments/environment.ts",
       "environments": {
         "dev": "environments/environment.ts",
