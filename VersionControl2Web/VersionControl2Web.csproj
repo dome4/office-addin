@@ -136,6 +136,8 @@
     <None Include="bin\VersionControl2Web.dll.config" />
     <None Include="packages.config" />
     <Content Include="README.md" />
+    <Content Include="src\app\dropdown\dropdown.component.css" />
+    <Content Include="src\app\dropdown\dropdown.component.html" />
     <Content Include="src\assets\.gitkeep" />
     <Content Include="src\tsconfig.app.json" />
     <Content Include="src\tsconfig.spec.json" />
@@ -499,6 +501,7 @@
     <TypeScriptCompile Include="src\app\app.component.spec.ts" />
     <TypeScriptCompile Include="src\app\app.component.ts" />
     <TypeScriptCompile Include="src\app\app.module.ts" />
+    <TypeScriptCompile Include="src\app\dropdown\dropdown.component.ts" />
     <TypeScriptCompile Include="src\environments\environment.prod.ts" />
     <TypeScriptCompile Include="src\environments\environment.ts" />
     <TypeScriptCompile Include="src\main.ts" />
