@@ -502,6 +502,8 @@
     <TypeScriptCompile Include="src\app\app.component.ts" />
     <TypeScriptCompile Include="src\app\app.module.ts" />
     <TypeScriptCompile Include="src\app\dropdown\dropdown.component.ts" />
+    <TypeScriptCompile Include="src\app\models\requirement.ts" />
+    <TypeScriptCompile Include="src\app\services\requirement.service.ts" />
     <TypeScriptCompile Include="src\environments\environment.prod.ts" />
     <TypeScriptCompile Include="src\environments\environment.ts" />
     <TypeScriptCompile Include="src\main.ts" />
