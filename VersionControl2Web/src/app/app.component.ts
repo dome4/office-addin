@@ -19,10 +19,6 @@ export class AppComponent implements OnInit{
   ngOnInit() {
     this.reqService.getRequirements()
       .subscribe(requirements => {
-
-        console.log('Request');
-        console.log(requirements);
-
         this.requirements = requirements;
     });
   }
