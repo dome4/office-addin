@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Requirement } from '../models/requirement';
 
-const api = '/api';
+const api = 'http://localhost:3000/api';
 
 @Injectable()
 export class RequirementService {
