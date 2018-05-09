@@ -5,12 +5,14 @@ import { HttpClientModule } from '@angular/common/http';
 import { AppComponent } from './app.component';
 import { DropdownComponent } from './dropdown/dropdown.component';
 import { RequirementService } from './services/requirement.service';
+import { RequirementListComponent } from './requirement-list/requirement-list.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    DropdownComponent
+    DropdownComponent,
+    RequirementListComponent
   ],
   imports: [
     BrowserModule,
