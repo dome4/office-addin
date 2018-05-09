@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Requirement } from '../models/requirement';
+import { environment } from '../../environments/environment';
 
-const api = '/api';
+const api = environment.apiUrl;
 
 @Injectable()
 export class RequirementService {
