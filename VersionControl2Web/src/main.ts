@@ -8,18 +8,11 @@ if (environment.production) {
   enableProdMode();
 }
 
-declare const Office: any;
-
-Office.initialize = (reason: any) => {
-
-  console.log('Version Control: initializing office.js...');
-
-  // bootstrap
-  platformBrowserDynamic().bootstrapModule(AppModule)
-    .then((success: any) => {
-      console.log('Version Control: bootstrap success', success);
-    })
-    .catch((error: any) => {
-      console.log('Version Control: bootstrap error', error);
-    });
-};
+// bootstrap
+platformBrowserDynamic().bootstrapModule(AppModule)
+  .then((success: any) => {
+    console.log('Version Control: bootstrap success', success);
+  })
+  .catch((error: any) => {
+    console.log('Version Control: bootstrap error', error);
+  });
