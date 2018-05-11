@@ -17,9 +17,14 @@ export class RequirementListComponent implements OnInit {
 
   ngOnInit() {
     this.reqService.getRequirements()
-      .subscribe(requirements => {
-        this.requirements = requirements;
-      });
+      .subscribe(
+        requirements => {
+          this.requirements = requirements;
+        },
+        error => {
+          console.log(error);
+        }
+    );
   }
 
 }
