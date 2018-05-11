@@ -6,13 +6,15 @@ import { AppComponent } from './app.component';
 import { DropdownComponent } from './dropdown/dropdown.component';
 import { RequirementService } from './services/requirement.service';
 import { RequirementListComponent } from './requirement-list/requirement-list.component';
+import { RequirementComponent } from './requirement/requirement.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     DropdownComponent,
-    RequirementListComponent
+    RequirementListComponent,
+    RequirementComponent
   ],
   imports: [
     BrowserModule,
