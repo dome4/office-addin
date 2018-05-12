@@ -99,9 +99,7 @@ export class RequirementComponent implements OnInit {
     // who knows what might have changed in the selected node and data?
     this.showDetails(this.node);
 
-    console.log('Model Changed');
-    console.log(this.model.toJson());
-    console.log('Model Changed');
+    //console.log(this.model.toJson());
     // ToDo send current model as json to server
   }
 
