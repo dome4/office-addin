@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import * as go from 'gojs/release/go-debug.js';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import * as go from 'gojs';
 import { AfterViewInit } from '@angular/core/src/metadata/lifecycle_hooks';
 
 @Component({
@@ -7,29 +7,62 @@ import { AfterViewInit } from '@angular/core/src/metadata/lifecycle_hooks';
   templateUrl: './requirement.component.html',
   styleUrls: ['./requirement.component.css']
 })
-export class RequirementComponent implements AfterViewInit {
+export class RequirementComponent {
 
-  constructor() { }
+  model = new go.GraphLinksModel(
+    [
+      { key: 1, text: "Alpha", color: "lightblue" },
+      { key: 2, text: "Beta", color: "orange" },
+      { key: 3, text: "Gamma", color: "lightgreen" },
+      { key: 4, text: "Delta", color: "pink" }
+    ],
+    [
+      { from: 1, to: 2 },
+      { from: 1, to: 3 },
+      { from: 2, to: 2 },
+      { from: 3, to: 4 },
+      { from: 4, to: 1 }
+    ]);
 
-  ngAfterViewInit() {
+  @ViewChild('text')
+  private textField: ElementRef;
 
-    var $ = go.GraphObject.make;
+  data: any;
+  node: go.Node;
 
-    var myDiagram =
-      $(go.Diagram, "myDiagramDiv",
-        {
-          "undoManager.isEnabled": true // enable Ctrl-Z to undo and Ctrl-Y to redo
-        });
+  showDetails(node: go.Node | null) {
+    this.node = node;
+    if (node) {
+      // copy the editable properties into a separate Object
+      this.data = {
+        text: node.data.text,
+        color: node.data.color
+      };
+    } else {
+      this.data = null;
+    }
+  }
 
-    var myModel = $(go.Model);
-    // in the model data, each node is represented by a JavaScript object:
-    myModel.nodeDataArray = [
-      { key: "Alpha" },
-      { key: "Beta" },
-      { key: "Gamma" }
-    ];
-    myDiagram.model = myModel;
+  onCommitDetails() {
+    if (this.node) {
+      const model = this.node.diagram.model;
+      // copy the edited properties back into the node's model data,
+      // all within a transaction
+      model.startTransaction();
+      model.setDataProperty(this.node.data, "text", this.data.text);
+      model.setDataProperty(this.node.data, "color", this.data.color);
+      model.commitTransaction("modified properties");
+    }
+  }
 
+  onCancelChanges() {
+    // wipe out anything the user may have entered
+    this.showDetails(this.node);
+  }
+
+  onModelChanged(c: go.ChangedEvent) {
+    // who knows what might have changed in the selected node and data?
+    this.showDetails(this.node);
   }
 
 }

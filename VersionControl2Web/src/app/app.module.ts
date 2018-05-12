@@ -7,6 +7,8 @@ import { DropdownComponent } from './dropdown/dropdown.component';
 import { RequirementService } from './services/requirement.service';
 import { RequirementListComponent } from './requirement-list/requirement-list.component';
 import { RequirementComponent } from './requirement/requirement.component';
+import { RequirementEditorComponent } from './requirement/requirement-editor/requirement-editor.component';
+import { FormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -14,11 +16,13 @@ import { RequirementComponent } from './requirement/requirement.component';
     AppComponent,
     DropdownComponent,
     RequirementListComponent,
-    RequirementComponent
+    RequirementComponent,
+    RequirementEditorComponent
   ],
   imports: [
     BrowserModule,
-    HttpClientModule
+    HttpClientModule,
+    FormsModule      
   ],
   providers: [RequirementService],
   bootstrap: [AppComponent]
