@@ -14,6 +14,10 @@ export class RequirementService {
     return this.http.get<Array<Requirement>>(`${api}/requirements`)
   }
 
+  getRequirement(requirement: Requirement) {
+    return this.http.get<Requirement>(`${api}/requirement/${requirement.id}`)
+  }
+
   deleteRequirement(requirement: Requirement) {
     return this.http.delete(`${api}/requirement/${requirement.id}`);
   }

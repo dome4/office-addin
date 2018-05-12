@@ -1,5 +1,6 @@
 export class Requirement {
   id: number;
-  name: string;
-  content: string;
+  name: String;
+  description: String;
+  jsonModel: String;
 }

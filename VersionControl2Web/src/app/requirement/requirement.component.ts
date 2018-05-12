@@ -1,13 +1,17 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
 import * as go from 'gojs';
-import { AfterViewInit } from '@angular/core/src/metadata/lifecycle_hooks';
+import { RequirementService } from '../services/requirement.service';
+import { Requirement } from '../models/requirement';
+
+// office-ui-fabric variable
+declare let fabric: any;
 
 @Component({
   selector: 'app-requirement',
   templateUrl: './requirement.component.html',
   styleUrls: ['./requirement.component.css']
 })
-export class RequirementComponent {
+export class RequirementComponent implements OnInit, AfterViewInit{
 
   /*
    * flowchart model
@@ -32,6 +36,47 @@ export class RequirementComponent {
 
   data: any;
   node: go.Node;
+
+  /*
+   * in dropdown selected requirement
+   */
+  public selectedRequirement: Requirement = null;
+
+  /*
+   * all requirements
+   */
+  public requirements: Requirement[] = [];
+
+  /*
+   * constructor
+   */
+  constructor(private requirementService: RequirementService) {}
+
+
+  ngOnInit() {
+    // ToDo
+    this.requirementService.getRequirements().subscribe(
+      (requirements) => {
+        this.requirements = requirements;
+        console.log(requirements);
+      }
+    );
+  }
+
+  ngAfterViewInit() {
+
+    var DropdownHTMLElements = document.querySelectorAll('.ms-Dropdown');
+    for (var i = 0; i < DropdownHTMLElements.length; ++i) {
+      let Dropdown = new fabric['Dropdown'](DropdownHTMLElements[i]);
+    }
+
+    function fabricUninitDropDown(selector) {
+      var dropdown = $(selector);
+      $(dropdown).find("select").innerHTML = "<option></option>";
+      $(dropdown).find(".ms-Dropdown-title").remove();
+      $(dropdown).find(".ms-Dropdown-items").remove();
+    }
+  }
 
   /*
    *
