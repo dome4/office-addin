@@ -2,7 +2,8 @@ import { Component, OnInit, ViewChild, ElementRef, AfterViewInit } from '@angula
 import * as go from 'gojs';
 import { RequirementService } from '../services/requirement.service';
 import { Requirement } from '../models/requirement';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
+import 'rxjs';
 
 // office-ui-fabric variable
 declare let fabric: any;
@@ -17,7 +18,8 @@ export class RequirementComponent implements OnInit {
   /*
    * flowchart model
    */
-  model = new go.GraphLinksModel(
+  model: go.Model = new go.GraphLinksModel(
+    
     [
       { key: 1, text: "Alpha", color: "lightblue" },
       { key: 2, text: "Beta", color: "orange" },
@@ -30,7 +32,10 @@ export class RequirementComponent implements OnInit {
       { from: 2, to: 2 },
       { from: 3, to: 4 },
       { from: 4, to: 1 }
-    ]);
+    ]
+    
+    // ToDo: Typisierung macht noch Probleme, Erstellung der Klasse anschauen
+  );
 
   @ViewChild('text')
   private textField: ElementRef;
@@ -46,7 +51,7 @@ export class RequirementComponent implements OnInit {
   /*
    * requirements observable
    */
-  public $requirements: Observable<Requirement[]> = null;
+  public requirements$: Observable<Requirement[]> = null;
 
   /*
    * constructor
@@ -55,7 +60,7 @@ export class RequirementComponent implements OnInit {
 
 
   ngOnInit() {
-    this.$requirements = this.requirementService.getRequirements();
+    this.requirements$ = this.requirementService.getRequirements();
   }
 
   /*
@@ -99,8 +104,34 @@ export class RequirementComponent implements OnInit {
     // who knows what might have changed in the selected node and data?
     this.showDetails(this.node);
 
-    //console.log(this.model.toJson());
-    // ToDo send current model as json to server
+    // create new requirement only if requirement has been currently choosen
+    // else no changes are made
+    if (this.selectedRequirement) {
+
+      let newRequirement = new Requirement();
+      newRequirement._id = this.selectedRequirement._id;
+      newRequirement.name = this.selectedRequirement.name;
+      newRequirement.description = this.selectedRequirement.description;
+      // json model
+      newRequirement.jsonModel = this.model.toJson();
+
+      console.log('changed');
+      console.log(newRequirement);
+
+      // ToDo: request is not send without subscribe-method -> why?
+      this.requirementService.updateRequirement(newRequirement).subscribe(
+        (requirement) => {
+          // ToDo update current requirement
+          // this.requirements$.next([]); -> next() only exists for Subjects
+          // Issue
+        
+        },
+        (error) => {
+          console.log('error while updating requirement due to user changes:');         
+          console.error(error);
+        }
+      );
+    }
   }
 
   /*
@@ -108,8 +139,13 @@ export class RequirementComponent implements OnInit {
    */
   onSelectedRequirement(requirement: Requirement) {
 
-    // ToDo: send gojs model to server if changes were made
+    // set selected requirement
     this.selectedRequirement = requirement;
+
+    // load requirement model
+    this.model = go.Model.fromJson(this.selectedRequirement.jsonModel);
+    // ToDo complete
+
   }
 
 }

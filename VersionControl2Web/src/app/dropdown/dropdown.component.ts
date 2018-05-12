@@ -14,7 +14,7 @@ declare let fabric: any;
 export class DropdownComponent implements OnInit, AfterViewInit {
 
   @Input()
-  $requirements: Observable<Requirement[]>;
+  requirements$: Observable<Requirement[]>;
 
   @Output()
   requirementSelected: EventEmitter<Requirement> = new EventEmitter<Requirement>();
@@ -25,7 +25,7 @@ export class DropdownComponent implements OnInit, AfterViewInit {
   constructor() { }
 
   ngOnInit() {
-    this.$requirements.subscribe(
+    this.requirements$.subscribe(
       (requirements) => {
         this.requirements = requirements;
       }
