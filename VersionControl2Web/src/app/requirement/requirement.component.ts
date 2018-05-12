@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild, ElementRef, AfterViewInit } from '@angula
 import * as go from 'gojs';
 import { RequirementService } from '../services/requirement.service';
 import { Requirement } from '../models/requirement';
+import { Observable } from 'rxjs/Observable';
 
 // office-ui-fabric variable
 declare let fabric: any;
@@ -11,7 +12,7 @@ declare let fabric: any;
   templateUrl: './requirement.component.html',
   styleUrls: ['./requirement.component.css']
 })
-export class RequirementComponent implements OnInit, AfterViewInit{
+export class RequirementComponent implements OnInit {
 
   /*
    * flowchart model
@@ -43,9 +44,9 @@ export class RequirementComponent implements OnInit, AfterViewInit{
   public selectedRequirement: Requirement = null;
 
   /*
-   * all requirements
+   * requirements observable
    */
-  public requirements: Requirement[] = [];
+  public $requirements: Observable<Requirement[]> = null;
 
   /*
    * constructor
@@ -54,28 +55,7 @@ export class RequirementComponent implements OnInit, AfterViewInit{
 
 
   ngOnInit() {
-    // ToDo
-    this.requirementService.getRequirements().subscribe(
-      (requirements) => {
-        this.requirements = requirements;
-        console.log(requirements);
-      }
-    );
-  }
-
-  ngAfterViewInit() {
-
-    var DropdownHTMLElements = document.querySelectorAll('.ms-Dropdown');
-    for (var i = 0; i < DropdownHTMLElements.length; ++i) {
-      let Dropdown = new fabric['Dropdown'](DropdownHTMLElements[i]);
-    }
-
-    function fabricUninitDropDown(selector) {
-      var dropdown = $(selector);
-      $(dropdown).find("select").innerHTML = "<option></option>";
-      $(dropdown).find(".ms-Dropdown-title").remove();
-      $(dropdown).find(".ms-Dropdown-items").remove();
-    }
+    this.$requirements = this.requirementService.getRequirements();
   }
 
   /*
@@ -123,6 +103,15 @@ export class RequirementComponent implements OnInit, AfterViewInit{
     console.log(this.model.toJson());
     console.log('Model Changed');
     // ToDo send current model as json to server
+  }
+
+  /*
+   * change selectedRequirement-variable
+   */
+  onSelectedRequirement(requirement: Requirement) {
+
+    // ToDo: send gojs model to server if changes were made
+    this.selectedRequirement = requirement;
   }
 
 }

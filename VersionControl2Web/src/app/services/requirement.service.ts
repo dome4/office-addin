@@ -15,11 +15,11 @@ export class RequirementService {
   }
 
   getRequirement(requirement: Requirement) {
-    return this.http.get<Requirement>(`${api}/requirement/${requirement.id}`)
+    return this.http.get<Requirement>(`${api}/requirement/${requirement._id}`)
   }
 
   deleteRequirement(requirement: Requirement) {
-    return this.http.delete(`${api}/requirement/${requirement.id}`);
+    return this.http.delete(`${api}/requirement/${requirement._id}`);
   }
 
   addRequirement(requirement: Requirement) {
@@ -27,7 +27,7 @@ export class RequirementService {
   }
 
   updateRequirement(requirement: Requirement) {
-    return this.http.put<Requirement>(`${api}/requirement/${requirement.id}`, requirement);
+    return this.http.put<Requirement>(`${api}/requirement/${requirement._id}`, requirement);
   }
 
 }

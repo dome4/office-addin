@@ -1,15 +1,5 @@
-<div #dropdown class="ms-Dropdown" tabindex="0">
-  <i class="ms-Dropdown-caretDown ms-Icon ms-Icon--ChevronDown"></i>
-  <select class="ms-Dropdown-select" (ngModelChange)="onRequirementSelected($event)">
-    <option selected disabled>Choose an Requirement &amp;hellip;</option>
-    <option *ngFor="let requirement of requirements">{{ requirement.name }}</option>
-    <option>create new requirement</option>
-  </select>
-</div>
+<app-dropdown [$requirements]="$requirements" (requirementSelected)="onSelectedRequirement($event)"></app-dropdown>
 
-<select>
-  <option value="requirement" *ngFor="let requirement of requirements">{{ requirement.name }}</option>
-</select>
 <div>
   <app-requirement-editor [model]="model"
                           (nodeSelected)="showDetails($event)"
@@ -17,8 +7,8 @@
   </app-requirement-editor>
   <form *ngIf="node" #form="ngForm" (ngSubmit)="onCommitDetails()">
     Node Details:
-    <div><label>Key: </label>{{node.key
-    }}
+    <div>
+      <label>Key: </label>{{ node.key }}
     </div>
     <div><label>Text: </label><input [(ngModel)]="data.text" name="text"></div>
     <div><label>Color: </label><input [(ngModel)]="data.color" name="color"></div>
@@ -26,5 +16,5 @@
     <div><label># Links: </label>{{node.linksConnected.count}}</div>
     <button type="submit">Commit Details</button>
     <button (click)="onCancelChanges()">Cancel Changes</button>
-    </form>
-    </div>
+  </form>
+</div>

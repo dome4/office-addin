@@ -1,11 +1,18 @@
 <div #dropdown class="ms-Dropdown" tabindex="0">
-  <label class="ms-Label">Dropdown label</label>
   <i class="ms-Dropdown-caretDown ms-Icon ms-Icon--ChevronDown"></i>
-  <select class="ms-Dropdown-select">
-    <option>Choose a sound&amp;hellip;</option>
-    <option>Dog barking</option>
-    <option>Wind blowing</option>
-    <option>Duck quacking</option>
-    <option>Cow mooing</option>
+  <select
+          (change)="onChange($event)"
+          class="ms-Dropdown-select">
+    <option disabled>Choose a requirement &amp;hellip;</option>
+    <option *ngFor="let requirement of requirements" [value]="requirement">{{ requirement.name }}</option>
+    <option>Create new requirement</option>
   </select>
 </div>
+
+<select
+        #requirement
+        (change)="onChange($event, requirement.value)">
+  <option
+          *ngFor="let requirement of requirements"
+          [value]="requirement._id">{{ requirement.name }}</option>
+</select>
