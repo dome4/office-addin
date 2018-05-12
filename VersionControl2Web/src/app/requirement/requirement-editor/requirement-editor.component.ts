@@ -85,10 +85,4 @@ export class RequirementEditorComponent implements OnInit {
     this.diagram.div = this.diagramRef.nativeElement;
     this.palette.div = this.paletteRef.nativeElement;
   }
-
-  // ToDo
-  onSaveRequirement() {
-
-  }
-
 }

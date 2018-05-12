@@ -9,6 +9,9 @@ import { AfterViewInit } from '@angular/core/src/metadata/lifecycle_hooks';
 })
 export class RequirementComponent {
 
+  /*
+   * flowchart model
+   */
   model = new go.GraphLinksModel(
     [
       { key: 1, text: "Alpha", color: "lightblue" },
@@ -30,6 +33,10 @@ export class RequirementComponent {
   data: any;
   node: go.Node;
 
+  /*
+   *
+   */
+  // ToDo: what exactly does this method?
   showDetails(node: go.Node | null) {
     this.node = node;
     if (node) {
@@ -60,9 +67,17 @@ export class RequirementComponent {
     this.showDetails(this.node);
   }
 
+  /*
+   * method is executed whenever something changes in the model
+   */ 
   onModelChanged(c: go.ChangedEvent) {
     // who knows what might have changed in the selected node and data?
     this.showDetails(this.node);
+
+    console.log('Model Changed');
+    console.log(this.model.toJson());
+    console.log('Model Changed');
+    // ToDo send current model as json to server
   }
 
 }
