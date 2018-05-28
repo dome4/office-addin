@@ -138,8 +138,6 @@
     <Content Include="README.md" />
     <Content Include="src\app\dropdown\dropdown.component.css" />
     <Content Include="src\app\dropdown\dropdown.component.html" />
-    <Content Include="src\app\requirement\requirement-editor\requirement-editor.component.css" />
-    <Content Include="src\app\requirement\requirement-editor\requirement-editor.component.html" />
     <Content Include="src\app\requirement-list\requirement-list.component.css" />
     <Content Include="src\app\requirement-list\requirement-list.component.html" />
     <Content Include="src\app\requirement\requirement.component.css" />
@@ -509,7 +507,6 @@
     <TypeScriptCompile Include="src\app\app.module.ts" />
     <TypeScriptCompile Include="src\app\dropdown\dropdown.component.ts" />
     <TypeScriptCompile Include="src\app\models\requirement.ts" />
-    <TypeScriptCompile Include="src\app\requirement\requirement-editor\requirement-editor.component.ts" />
     <TypeScriptCompile Include="src\app\requirement-list\requirement-list.component.ts" />
     <TypeScriptCompile Include="src\app\requirement\requirement.component.ts" />
     <TypeScriptCompile Include="src\app\services\requirement.service.ts" />
