@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter, AfterViewInit } from '@angular/core';
 import { Requirement } from '../models/requirement';
 import { $ } from 'protractor';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 
 // office-ui-fabric variable
 declare let fabric: any;

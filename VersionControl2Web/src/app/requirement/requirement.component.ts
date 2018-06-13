@@ -1,5 +1,4 @@
 import { Component, OnInit, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
-import * as go from 'gojs';
 import { RequirementService } from '../services/requirement.service';
 import { Requirement } from '../models/requirement';
 import { Observable } from 'rxjs';
