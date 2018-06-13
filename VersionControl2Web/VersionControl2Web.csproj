@@ -131,6 +131,10 @@
     <Content Include="README.md" />
     <Content Include="src\app\dropdown\dropdown.component.css" />
     <Content Include="src\app\dropdown\dropdown.component.html" />
+    <Content Include="src\app\header\header.component.css" />
+    <Content Include="src\app\header\header.component.html" />
+    <Content Include="src\app\not-found\not-found.component.css" />
+    <Content Include="src\app\not-found\not-found.component.html" />
     <Content Include="src\app\requirement-list\requirement-list.component.css" />
     <Content Include="src\app\requirement-list\requirement-list.component.html" />
     <Content Include="src\app\requirement\requirement.component.css" />
@@ -500,7 +504,9 @@
     <TypeScriptCompile Include="src\app\app.component.ts" />
     <TypeScriptCompile Include="src\app\app.module.ts" />
     <TypeScriptCompile Include="src\app\dropdown\dropdown.component.ts" />
+    <TypeScriptCompile Include="src\app\header\header.component.ts" />
     <TypeScriptCompile Include="src\app\models\requirement.ts" />
+    <TypeScriptCompile Include="src\app\not-found\not-found.component.ts" />
     <TypeScriptCompile Include="src\app\requirement-list\requirement-list.component.ts" />
     <TypeScriptCompile Include="src\app\requirement\requirement.component.ts" />
     <TypeScriptCompile Include="src\app\services\requirement.service.ts" />
