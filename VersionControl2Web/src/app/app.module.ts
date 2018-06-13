@@ -8,6 +8,7 @@ import { RequirementService } from './services/requirement.service';
 import { RequirementListComponent } from './requirement-list/requirement-list.component';
 import { RequirementComponent } from './requirement/requirement.component';
 import { FormsModule } from '@angular/forms';
+import { AppRoutingModule } from './app-routing.module';
 
 
 @NgModule({
@@ -20,7 +21,8 @@ import { FormsModule } from '@angular/forms';
   imports: [
     BrowserModule,
     HttpClientModule,
-    FormsModule      
+    FormsModule,
+    AppRoutingModule   
   ],
   providers: [RequirementService],
   bootstrap: [AppComponent]
