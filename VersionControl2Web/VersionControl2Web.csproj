@@ -113,13 +113,6 @@
     <Content Include="bin\roslyn\VBCSCompiler.exe" />
     <Content Include="bin\VersionControl2Web.dll" />
     <Content Include="bin\VersionControl2Web.pdb" />
-    <Content Include="dist\3rdpartylicenses.txt" />
-    <Content Include="dist\favicon.ico" />
-    <Content Include="dist\index.html" />
-    <Content Include="dist\inline.318b50c57b4eba3d437b.bundle.js" />
-    <Content Include="dist\main.e9ddf499fc04b16970a4.bundle.js" />
-    <Content Include="dist\polyfills.b6b2cd0d4c472ac3ac12.bundle.js" />
-    <Content Include="dist\styles.ac89bfdd6de82636b768.bundle.css" />
     <Content Include="e2e\tsconfig.e2e.json" />
     <Content Include="package-lock.json" />
     <Content Include="package.json" />

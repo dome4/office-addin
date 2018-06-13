@@ -9,6 +9,7 @@ import { RequirementListComponent } from './requirement-list/requirement-list.co
 import { RequirementComponent } from './requirement/requirement.component';
 import { FormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
+import { NotFoundComponent } from './not-found/not-found.component';
 
 
 @NgModule({
@@ -16,7 +17,8 @@ import { AppRoutingModule } from './app-routing.module';
     AppComponent,
     DropdownComponent,
     RequirementListComponent,
-    RequirementComponent
+    RequirementComponent,
+    NotFoundComponent
   ],
   imports: [
     BrowserModule,
