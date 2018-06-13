@@ -6,5 +6,5 @@
 export const environment = {
   production: false,
 
-  apiUrl: 'https://version-control-api.azurewebsites.net/api'
+  apiUrl: 'https://3cded3a7.ngrok.io/api'
 };

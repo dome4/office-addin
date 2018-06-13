@@ -1,0 +1,17 @@
+<div class="ms-Grid">
+  <div class="ms-Grid-row">
+    <div class="ms-Grid-col ms-u-sm12">
+      <form (ngSubmit)="onSignin(f)" #f="ngForm">
+        <div class="form-group">
+          <label for="email">Mail</label>
+          <input type="email" id="email" name="email" ngModel class="form-control">
+        </div>
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input type="password" id="password" name="password" ngModel class="form-control">
+        </div>
+        <button class="btn btn-primary" type="submit">Sign In</button>
+      </form>
+    </div>
+  </div>
+</div>
