@@ -8,24 +8,35 @@ if (environment.production) {
   enableProdMode();
 }
 
-//declare const Office: any;
+// global office variable
+declare const Office: any;
 
-//Office.initialize = (reason: any) => {
+/**
+ * bootstrap method
+ * 
+ */
+function launch() {
+  // bootstrap
+  platformBrowserDynamic().bootstrapModule(AppModule)
+    .catch((error: any) => {
+      console.log('Version Control: bootstrap error', error);
+    });
+}
 
-//   console.log('Version Control: initializing office.js...');
+/**
+ * check if the app is started as web app or as office addin
+ * 
+ */
+if (window.hasOwnProperty('Office') && window.hasOwnProperty('Word')) {
 
-//  // bootstrap
-//  platformBrowserDynamic().bootstrapModule(AppModule)
-//    .then((success: any) => {
-//      // console.log('Version Control: bootstrap success', success);
-//    })
-//    .catch((error: any) => {
-//      console.log('Version Control: bootstrap error', error);
-//    });
-//};
+  Office.initialize = (reason: any) => {
 
-// bootstrap
-platformBrowserDynamic().bootstrapModule(AppModule)
-  .catch((error: any) => {
-    console.log('Version Control: bootstrap error', error);
-  });
+    console.log('Version Control: initializing office.js...');
+    launch();
+  };
+
+} else {
+
+  console.log('Version Control: bootstraped as web app');
+  launch();
+}
