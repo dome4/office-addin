@@ -1,14 +1,17 @@
-import { HttpUserEvent, HttpInterceptor, HttpRequest, HttpHandler, HttpSentEvent, HttpHeaderResponse, HttpProgressEvent, HttpResponse } from '@angular/common/http';
+import { HttpUserEvent, HttpInterceptor, HttpRequest, HttpHandler, HttpSentEvent, HttpHeaderResponse, HttpProgressEvent, HttpResponse, HttpErrorResponse } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { AuthService } from './auth.service';
 import { catchError } from 'rxjs/operators';
+import { Router } from '@angular/router';
 
 @Injectable()
 export class TokenInterceptor implements HttpInterceptor {
 
-  constructor(private authService: AuthService) {}
+  constructor(private authService: AuthService,
+    private router: Router) { }
 
+  // ToDo: interface for HttpRequest to filter requests
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpSentEvent | HttpHeaderResponse | HttpProgressEvent | HttpResponse<any> | HttpUserEvent<any>> {
 
     // check if user is authenticated
@@ -19,23 +22,26 @@ export class TokenInterceptor implements HttpInterceptor {
         setHeaders: {
           'x-access-token': this.authService.getToken()
         }
-      });
-      return next.handle(request)
-        .pipe(
-        catchError((error) => {
-
-          //intercept the respons error and displace it to the console
-          console.log("Error Occurred");
-          console.log(error);
-
-          //return the error to the method that called it
-          return throwError(error);
-        }));
-
-    } else {
-      return next.handle(request);
+      });     
     }
 
-  }
+    let handler = next.handle(request)
+      .pipe(
+      catchError((error) => {
 
+        if (error instanceof HttpErrorResponse && error.status === 403) {
+
+            // redirect to the login route
+            this.router.navigate(['/signin']);
+        }
+
+        //intercept the response error and displace it to the console
+        console.log("HTTP Error Occurred");
+
+        //return the error to the method that called it
+        return throwError(error);
+      }));
+
+    return handler;
+  }
 }

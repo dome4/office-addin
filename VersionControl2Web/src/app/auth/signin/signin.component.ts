@@ -21,6 +21,6 @@ export class SigninComponent {
     this.authService.signinUser(email, password);
 
     // ToDo: check if login was successfull
-    this.router.navigate(['/']);
+    //this.router.navigate(['/']);
   }
 }
