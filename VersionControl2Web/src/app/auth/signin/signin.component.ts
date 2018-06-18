@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { AuthService } from '../../services/auth/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-signin',
@@ -9,7 +10,8 @@ import { AuthService } from '../../services/auth/auth.service';
 })
 export class SigninComponent {
 
-  constructor(private authService: AuthService) { }
+  constructor(private authService: AuthService,
+              private router: Router) { }
 
   onSignin(form: NgForm) {
 
@@ -18,7 +20,8 @@ export class SigninComponent {
 
     this.authService.signinUser(email, password);
 
-    // firebase saves token to local storage automatically (Lecture 259)
+    // ToDo: check if login was successfull
+    this.router.navigate(['/']);
 
 
   }

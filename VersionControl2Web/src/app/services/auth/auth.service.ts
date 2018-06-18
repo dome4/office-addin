@@ -26,17 +26,13 @@ export class AuthService {
 
   // ToDo
   /**
-   * method signs the user up
+   * method creates a new user
    * 
    * @param email
    * @param password
    */
   //signupUser(email: string, password: string) {
 
-  //  createUserWithEmailAndPassword(email, password)
-  //    .catch(
-  //    error => console.log(error)
-  //    );
   //}
 
   /**
@@ -56,7 +52,7 @@ export class AuthService {
       (data) => {
 
         // save in local storage
-        this.storageService.store('token', data['token']);
+        this.storageService.store('vc-token', data['token']);
 
         // save in variable
         this.token = data['token'];
@@ -68,29 +64,61 @@ export class AuthService {
       });
   }
 
-  // ToDo
+  /**
+   * logout method
+   * 
+   */
   logout() {
-    //auth().signout();
-    //this.token = null;
+
+    // reset token variable
+    this.token = null;
+
+    // remove local stored token
+    this.storageService.remove('vc-token');
   }
 
-  // ToDo - difference to signin!
-  getToken() {
-
-    // get token and check if token is valid
-    //currentUser.getIdToken()
-    //  .then(
-    //  (token: string) => this.token = token
-    //  );
-
-    //// error handling necessary if token is not valid anymore
-    //return this.token;
+  /**
+   * method requests a new token
+   * 
+   */
+  refreshToken() {
+    // ToDo
   }
 
-  // ToDo
+  /**
+   * method checks if the user is authenticated
+   * 
+   */
   isAuthenticated() {
 
-    return this.token != null;
+    return this.storageService.get('vc-token') != null;
+ 
+  }
+
+  /**
+   * create an auth header for requests
+   * 
+   */
+  getAuthHeader() {
+
+    // check if user is authenticated
+    if (this.isAuthenticated) {
+      // request header
+      let httpOptions = {
+        headers: new HttpHeaders({
+          'x-access-token': this.storageService.get('vc-token')
+        })
+      };
+      console.log(httpOptions);
+
+      return httpOptions;
+
+    } else {
+      return null;
+    }
+
+    
+
   }
 
 }
