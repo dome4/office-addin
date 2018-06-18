@@ -22,8 +22,5 @@ export class SigninComponent {
 
     // ToDo: check if login was successfull
     this.router.navigate(['/']);
-
-
   }
-
 }

@@ -13,38 +13,22 @@ export class RequirementService {
               private authService: AuthService) { }
 
   getRequirements() {
-
-    // request auth header
-    const httpOptions = this.authService.getAuthHeader();
-    return this.http.get<Array<Requirement>>(`${api}/requirements`, httpOptions)
+    return this.http.get<Array<Requirement>>(`${api}/requirements`)
   }
 
   getRequirement(requirement: Requirement) {
-
-    // request auth header
-    const httpOptions = this.authService.getAuthHeader();
-    return this.http.get<Requirement>(`${api}/requirement/${requirement._id}`, httpOptions)
+    return this.http.get<Requirement>(`${api}/requirement/${requirement._id}`)
   }
 
   deleteRequirement(requirement: Requirement) {
-
-    // request auth header
-    const httpOptions = this.authService.getAuthHeader();
-    return this.http.delete(`${api}/requirement/${requirement._id}`, httpOptions);
+    return this.http.delete(`${api}/requirement/${requirement._id}`);
   }
 
   addRequirement(requirement: Requirement) {
-
-    // request auth header
-    const httpOptions = this.authService.getAuthHeader();
-    return this.http.post<Requirement>(`${api}/requirement/`, requirement, httpOptions);
+    return this.http.post<Requirement>(`${api}/requirement/`, requirement);
   }
 
   updateRequirement(requirement: Requirement) {
-
-    // request auth header
-    const httpOptions = this.authService.getAuthHeader();
-    return this.http.put<Requirement>(`${api}/requirement/${requirement._id}`, requirement, httpOptions);
+    return this.http.put<Requirement>(`${api}/requirement/${requirement._id}`, requirement);
   }
-
 }

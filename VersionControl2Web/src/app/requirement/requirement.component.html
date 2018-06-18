@@ -1,4 +1,4 @@
-<app-dropdown [requirements$]="requirements$" (requirementSelected)="onSelectedRequirement($event)"></app-dropdown>
+<app-dropdown [requirements]="requirements" (requirementSelected)="onSelectedRequirement($event)"></app-dropdown>
 
 <div *ngIf="selectedRequirement && selectedRequirement.name">
   <label>Selected Requirement: {{ selectedRequirement.name }}</label>

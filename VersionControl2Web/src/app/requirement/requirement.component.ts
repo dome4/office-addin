@@ -22,7 +22,12 @@ export class RequirementComponent implements OnInit {
   /*
    * requirements observable
    */
-  public requirements$: Observable<Requirement[]> = null;
+  private requirements$: Observable<Requirement[]> = null;
+
+  /*
+   * requirements array
+   */
+  public requirements: Requirement[] = [];
 
   /*
    * constructor
@@ -31,6 +36,15 @@ export class RequirementComponent implements OnInit {
 
   ngOnInit() {
     this.requirements$ = this.requirementService.getRequirements();
+
+    this.requirements$.subscribe(
+      (requirements: Requirement[]) => {
+        this.requirements = requirements;
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
   }
 
   /*
@@ -40,6 +54,8 @@ export class RequirementComponent implements OnInit {
 
     // set selected requirement
     this.selectedRequirement = requirement;
+    console.log('requirement selected');
+    console.log(this.selectedRequirement);
 
   }
 

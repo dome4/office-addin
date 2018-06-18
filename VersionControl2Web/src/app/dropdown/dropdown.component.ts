@@ -11,26 +11,13 @@ declare let fabric: any;
   templateUrl: './dropdown.component.html',
   styleUrls: ['./dropdown.component.css']
 })
-export class DropdownComponent implements OnInit, AfterViewInit {
+export class DropdownComponent implements AfterViewInit {
 
-  @Input()
-  requirements$: Observable<Requirement[]>;
+  @Input() requirements: Requirement[];
 
   @Output()
   requirementSelected: EventEmitter<Requirement> = new EventEmitter<Requirement>();
 
-  requirements: Requirement[] = [];
-
-
-  constructor() { }
-
-  ngOnInit() {
-    this.requirements$.subscribe(
-      (requirements) => {
-        this.requirements = requirements;
-      }
-    );
-  }
 
   ngAfterViewInit() {
 

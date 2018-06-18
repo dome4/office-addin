@@ -89,36 +89,22 @@ export class AuthService {
    * method checks if the user is authenticated
    * 
    */
-  isAuthenticated() {
+  isAuthenticated(): boolean {
 
     return this.storageService.get('vc-token') != null;
  
   }
 
   /**
-   * create an auth header for requests
+   * get the local stored auth token
    * 
    */
-  getAuthHeader() {
+  getToken() {
 
-    // check if user is authenticated
-    if (this.isAuthenticated) {
-      // request header
-      let httpOptions = {
-        headers: new HttpHeaders({
-          'x-access-token': this.storageService.get('vc-token')
-        })
-      };
-      console.log(httpOptions);
-
-      return httpOptions;
-
+    if (this.isAuthenticated()) {
+      return this.storageService.get('vc-token');
     } else {
       return null;
     }
-
-    
-
   }
-
 }

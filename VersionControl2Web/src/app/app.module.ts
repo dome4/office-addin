@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
 import { DropdownComponent } from './dropdown/dropdown.component';
@@ -14,6 +14,7 @@ import { HeaderComponent } from './header/header.component';
 import { SigninComponent } from './auth/signin/signin.component';
 import { AuthService } from './services/auth/auth.service';
 import { LocalStorageService } from './services/local-storage.service';
+import { TokenInterceptor } from './services/auth/token-interceptor.service';
 
 
 @NgModule({
@@ -36,7 +37,12 @@ import { LocalStorageService } from './services/local-storage.service';
     RequirementService,
     AuthService,
     AuthService,
-    LocalStorageService
+    LocalStorageService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: TokenInterceptor,
+      multi: true
+    }
   ],
   bootstrap: [AppComponent]
 })
