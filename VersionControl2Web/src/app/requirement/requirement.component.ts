@@ -3,11 +3,23 @@ import { RequirementService } from '../services/requirement.service';
 import { Requirement } from '../models/requirement';
 import { Observable } from 'rxjs';
 import 'rxjs';
+import { trigger, transition, animate, state, style } from '@angular/animations';
 
 // office-ui-fabric variable
 declare let fabric: any;
 
 @Component({
+  animations: [
+    trigger('nextNode', [
+      state('inactive', style({
+        backgroundColor: 'blue'
+      })),
+      state('active', style({
+        backgroundColor: 'red'
+      })),
+      transition('active <=> inactive', animate(1000))
+      ])
+  ],
   selector: 'app-requirement',
   templateUrl: './requirement.component.html',
   styleUrls: ['./requirement.component.css']
