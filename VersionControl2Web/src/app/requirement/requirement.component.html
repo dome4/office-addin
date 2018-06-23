@@ -1,5 +1,12 @@
-<app-dropdown [requirements]="requirements" (requirementSelected)="onSelectedRequirement($event)"></app-dropdown>
-
-<div *ngIf="selectedRequirement && selectedRequirement.name">
-  <label>Selected Requirement: {{ selectedRequirement.name }}</label>
+<div class="clr-row">
+  <div class="clr-col-12">
+    <app-requirement-dropdown [requirements]="requirements" (requirementSelected)="onSelectedRequirement($event)"></app-requirement-dropdown>
+  </div>
+</div>
+<div class="clr-row">
+  <div class="clr-col-12">
+    <div *ngIf="selectedRequirement && selectedRequirement.name">
+      <label>Selected Requirement: {{ selectedRequirement.name }}</label>
+    </div>
+  </div>
 </div>

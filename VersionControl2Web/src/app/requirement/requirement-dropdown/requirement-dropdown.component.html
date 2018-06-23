@@ -1,0 +1,26 @@
+<clr-dropdown>
+  <button type="button" class="dropdown-toggle btn btn-primary" clrDropdownTrigger>
+    Requirements
+    <clr-icon shape="caret down"></clr-icon>
+  </button>
+  <clr-dropdown-menu clrPosition="bottom-left">
+    <h4 class="dropdown-header">Choose a requirement</h4>
+    <button type="button" clrDropdownItem>First Action</button>
+    <button type="button" disabled clrDropdownItem>Disabled Action</button>
+    <button
+        *ngFor="let requirement of requirements"
+        [value]="requirement._id"
+        (click)="onSelected($event)"
+        type="button"
+        clrDropdownItem >{{ requirement.name }}</button>
+    <button type="button" disabled clrDropdownItem>Create new requirement</button>
+  </clr-dropdown-menu>
+</clr-dropdown>
+
+<!--<select
+        #requirement
+        (change)="onChange($event, requirement.value)">
+  <option
+          *ngFor="let requirement of requirements"
+          [value]="requirement._id">{{ requirement.name }}</option>
+</select>-->

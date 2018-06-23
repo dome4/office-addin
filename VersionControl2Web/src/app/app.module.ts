@@ -5,7 +5,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ClarityModule } from '@clr/angular';
 
 import { AppComponent } from './app.component';
-import { DropdownComponent } from './dropdown/dropdown.component';
 import { RequirementService } from './services/requirement.service';
 import { RequirementListComponent } from './requirement-list/requirement-list.component';
 import { RequirementComponent } from './requirement/requirement.component';
@@ -17,12 +16,13 @@ import { SigninComponent } from './auth/signin/signin.component';
 import { AuthService } from './services/auth/auth.service';
 import { LocalStorageService } from './services/local-storage.service';
 import { TokenInterceptor } from './services/auth/token-interceptor.service';
+import { RequirementDropdownComponent } from './requirement/requirement-dropdown/requirement-dropdown.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    DropdownComponent,
+    RequirementDropdownComponent,
     RequirementListComponent,
     RequirementComponent,
     NotFoundComponent,
