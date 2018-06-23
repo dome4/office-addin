@@ -21,12 +21,13 @@
               "src/favicon.ico"
             ],
             "styles": [
-              "node_modules/office-ui-fabric-js/dist/css/fabric.min.css",
-              "node_modules/office-ui-fabric-js/dist/css/fabric.components.min.css",
+              "node_modules/@clr/icons/clr-icons.min.css",
+              "node_modules/@clr/ui/clr-ui.min.css",
               "src/styles.css"
             ],
             "scripts": [
-              "node_modules/office-ui-fabric-js/dist/js/fabric.min.js"
+              "node_modules/@webcomponents/custom-elements/custom-elements.min.js",
+              "node_modules/@clr/icons/clr-icons.min.js"
             ]
           },
           "configurations": {

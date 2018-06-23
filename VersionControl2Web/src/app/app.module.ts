@@ -1,6 +1,8 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ClarityModule } from '@clr/angular';
 
 import { AppComponent } from './app.component';
 import { DropdownComponent } from './dropdown/dropdown.component';
@@ -29,6 +31,8 @@ import { TokenInterceptor } from './services/auth/token-interceptor.service';
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
+    ClarityModule,
     HttpClientModule,
     FormsModule,
     AppRoutingModule   
