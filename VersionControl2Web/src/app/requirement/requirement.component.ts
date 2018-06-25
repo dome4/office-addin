@@ -6,6 +6,8 @@ import 'rxjs';
 import { trigger, transition, animate, style, animateChild } from '@angular/animations';
 import { FormControl, FormGroup, Validators, FormBuilder, FormArray } from '@angular/forms';
 
+declare let Office: any;
+
 @Component({
   animations: [
     trigger('expandNodeLeft', [
@@ -178,4 +180,12 @@ export class RequirementComponent implements OnInit {
   }
 
   // ToDo: get / set values from requirement in form
+
+
+  // Dialog API Test
+  onOpenDialog() {
+    if (window.hasOwnProperty('Office') && window.hasOwnProperty('Word')) {
+      Office.context.ui.displayDialogAsync('https://github.com/dome4/office-addin-2');
+    }
+  }
 }

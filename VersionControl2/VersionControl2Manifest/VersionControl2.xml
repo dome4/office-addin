@@ -25,7 +25,7 @@
   <SupportUrl DefaultValue="http://www.contoso.com" />
   <!-- Domänen, die beim Navigieren zulässig sind. Wenn Sie z. B. "ShowTaskpane" verwenden und dann ein href-Link auftritt, ist die Navigation nur zulässig, wenn sich die Domäne in dieser Liste befindet. -->
   <AppDomains>
-    <AppDomain>AppDomain1</AppDomain>
+    <AppDomain>https://github.com/dome4/office-addin-2</AppDomain>
     <AppDomain>AppDomain2</AppDomain>
     <AppDomain>AppDomain3</AppDomain>
   </AppDomains>
