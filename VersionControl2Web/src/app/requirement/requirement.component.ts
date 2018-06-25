@@ -5,26 +5,59 @@ import { Observable } from 'rxjs';
 import 'rxjs';
 import { trigger, transition, animate, state, style } from '@angular/animations';
 
-// office-ui-fabric variable
-declare let fabric: any;
-
 @Component({
   animations: [
-    trigger('nextNode', [
-      state('inactive', style({
-        backgroundColor: 'blue'
-      })),
-      state('active', style({
-        backgroundColor: 'red'
-      })),
-      transition('active <=> inactive', animate(1000))
+    trigger('nextRow', [
+      transition('void => *', [
+        style({
+          transform: 'translateY(-100px)',
+          opacity: 0
+        }),
+        animate(800, style({
+          transform: 'translateY(0)',
+          opacity: 1
+        }))
       ])
+    ]),
+    trigger('expandNodeLeft', [
+      transition('void => *', [
+        style({
+          transform: 'translate(100px, -50px)',
+          opacity: 0
+        }),
+        animate(500, style({
+          transform: 'translateY(0)',
+          opacity: 0.5
+        })),
+        animate(1000, style({
+          transform: 'translateX(0)',
+          opacity: 1
+        }))
+
+      ])
+    ]),
+    trigger('expandNodeRight', [
+      transition('void => *', [
+        style({
+          transform: 'translateX(-100px)',
+          opacity: 0
+        }),
+        animate(1000, style({
+          transform: 'translateX(0)',
+          opacity: 1
+        }))
+
+      ])
+    ]),
+
   ],
   selector: 'app-requirement',
   templateUrl: './requirement.component.html',
   styleUrls: ['./requirement.component.css']
 })
 export class RequirementComponent implements OnInit {
+
+  public state: string = 'active';
 
   /*
    * in dropdown selected requirement
@@ -71,4 +104,23 @@ export class RequirementComponent implements OnInit {
 
   }
 
+  onSelected(event) {
+    console.log(event.target);
+  }
+
+  onChangeState() {
+    this.state == 'active' ? this.state = 'inactive' : this.state = 'active';
+  }
 }
+
+//animations: [
+//  trigger('nextNode', [
+//    state('inactive', style({
+//      backgroundColor: 'blue'
+//    })),
+//    state('active', style({
+//      backgroundColor: 'red'
+//    })),
+//    transition('active <=> inactive', animate(1000))
+//  ])
+//],

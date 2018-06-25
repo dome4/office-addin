@@ -14,36 +14,71 @@
 <hr />
 
 <form>
+
+  <button (click)="onChangeState()">Change</button>
   <clr-datagrid class="vc-datagrid">
 
     <clr-dg-row>
-      <clr-dg-cell>
-        <input type="text" name="name" placeholder="System" />
+      <clr-dg-cell
+        (click)="onSelected($event)">
+          <input type="text" placeholder="System" required />      
       </clr-dg-cell>
       <clr-dg-row-detail *clrIfExpanded>
-        still an error with the dropdown
+        Falls Ihr System noch keinen Namen hat, sollten Sie einen definieren und hier einsetzen!
+        Wollen Sie dies nicht, schreiben Sie einfach "Das System" oder wie wir dies weiter unten
+        auch getan haben "Das Bibliothekssystem".
       </clr-dg-row-detail>
     </clr-dg-row>
 
     <clr-dg-row>
-      <clr-dg-cell>MUSS</clr-dg-cell>
-      <clr-dg-cell>SOLLTE</clr-dg-cell>
-      <clr-dg-cell>WIRD</clr-dg-cell>
+      <clr-dg-cell [@expandNodeLeft]="state"
+                   *ngIf="state == 'active'">
+        <button class="btn btn-outline">MUSS</button>
+      </clr-dg-cell>
+      <clr-dg-cell>
+        <button class="btn btn-outline">SOLLTE</button>
+      </clr-dg-cell>
+      <clr-dg-cell [@expandNodeRight]="state"
+                   *ngIf="state == 'active'">
+        <button class="btn btn-outline">WIRD</button>
+      </clr-dg-cell>
+      <clr-dg-row-detail *clrIfExpanded>
+        Legen Sie fest, wie wichtig Ihnen die Anforderung ist.
+      </clr-dg-row-detail>
     </clr-dg-row>
 
     <clr-dg-row>
-      <clr-dg-cell>-</clr-dg-cell>
+      <clr-dg-cell>
+        <button class="btn btn-outline">-</button>
+      </clr-dg-cell>
       <clr-dg-cell>"Akteur" DIE MÖGLICHKEIT BIETEN</clr-dg-cell>
-      <clr-dg-cell>FÄHIG SEIN</clr-dg-cell>
+      <clr-dg-cell>
+        <button class="btn btn-outline">FÄHIG SEIN</button>
+      </clr-dg-cell>
+      <clr-dg-row-detail *clrIfExpanded>
+        Legen Sie die Art der geforderten Funktionalität fest.
+      </clr-dg-row-detail>
     </clr-dg-row>
 
     <clr-dg-row>
-      <clr-dg-cell>"Objekt"</clr-dg-cell>
+      <clr-dg-cell>
+        <input type="text" placeholder="Objekt" />
+      </clr-dg-cell>
+      <clr-dg-row-detail *clrIfExpanded>
+        Identifizieren Sie das Objekt, für das die Funktionalität gefordert wird.
+      </clr-dg-row-detail>
     </clr-dg-row>
 
     <clr-dg-row>
-      <clr-dg-cell>"Prozesswort"</clr-dg-cell>
+      <clr-dg-cell>
+        <input type="text" placeholder="Prozesswort" />
+      </clr-dg-cell>
+      <clr-dg-row-detail *clrIfExpanded>
+        Identifizieren Sie die geforderte Funktionalität.
+      </clr-dg-row-detail>
     </clr-dg-row>
 
   </clr-datagrid>
+
+  <button type="submit" class="btn btn-primary">Save</button>
 </form>
