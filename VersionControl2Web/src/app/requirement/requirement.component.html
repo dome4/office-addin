@@ -30,12 +30,15 @@
       </clr-dg-row-detail>
     </clr-dg-row>
 
-    <clr-dg-row>
+    <clr-dg-row
+                *ngIf="state == 'active'">
       <clr-dg-cell [@expandNodeLeft]="state"
                    *ngIf="state == 'active'">
         <button class="btn btn-outline">MUSS</button>
       </clr-dg-cell>
-      <clr-dg-cell>
+      <clr-dg-cell
+          [@expandNodeMiddle]="state"
+          *ngIf="state == 'active'">
         <button class="btn btn-outline">SOLLTE</button>
       </clr-dg-cell>
       <clr-dg-cell [@expandNodeRight]="state"
@@ -51,7 +54,12 @@
       <clr-dg-cell>
         <button class="btn btn-outline">-</button>
       </clr-dg-cell>
-      <clr-dg-cell>"Akteur" DIE MÖGLICHKEIT BIETEN</clr-dg-cell>
+      <clr-dg-cell>
+        <div class="btn btn-outline">
+          <input type="text" placeholder="Akteur"/>
+          DIE MÖGLICHKEIT BIETEN
+        </div>
+      </clr-dg-cell>
       <clr-dg-cell>
         <button class="btn btn-outline">FÄHIG SEIN</button>
       </clr-dg-cell>
