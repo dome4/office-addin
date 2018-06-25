@@ -17,6 +17,7 @@ import { AuthService } from './services/auth/auth.service';
 import { LocalStorageService } from './services/local-storage.service';
 import { TokenInterceptor } from './services/auth/token-interceptor.service';
 import { RequirementDropdownComponent } from './requirement/requirement-dropdown/requirement-dropdown.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -35,7 +36,8 @@ import { RequirementDropdownComponent } from './requirement/requirement-dropdown
     ClarityModule,
     HttpClientModule,
     FormsModule,
-    AppRoutingModule   
+    AppRoutingModule,
+    ReactiveFormsModule
   ],
   providers: [
     RequirementService,

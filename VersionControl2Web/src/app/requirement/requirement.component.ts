@@ -4,6 +4,7 @@ import { Requirement } from '../models/requirement';
 import { Observable } from 'rxjs';
 import 'rxjs';
 import { trigger, transition, animate, style, animateChild } from '@angular/animations';
+import { FormControl, FormGroup, Validators, FormBuilder, FormArray } from '@angular/forms';
 
 @Component({
   animations: [
@@ -85,10 +86,16 @@ export class RequirementComponent implements OnInit {
    */
   public requirements: Requirement[] = [];
 
+  // reactive form
+  public requirementForm: FormGroup;
+
   /*
    * constructor
    */
-  constructor(private requirementService: RequirementService) {}
+  constructor(private requirementService: RequirementService,
+              private fb: FormBuilder) {
+    this.createEmptyForm();
+  }
 
   ngOnInit() {
     this.requirements$ = this.requirementService.getRequirements();
@@ -113,6 +120,8 @@ export class RequirementComponent implements OnInit {
     console.log('requirement selected');
     console.log(this.selectedRequirement);
 
+    // ToDo: update form
+
   }
 
   onSelected(event) {
@@ -122,4 +131,51 @@ export class RequirementComponent implements OnInit {
   onChangeState() {
     this.state == 'active' ? this.state = 'inactive' : this.state = 'active';
   }
+
+  // reactive form
+  createEmptyForm() {  
+
+    this.requirementForm = this.fb.group({
+      fullName: ['', Validators.required],
+      address: this.fb.group({
+        postalCode: ['', Validators.required],
+        country: ['', Validators.required]
+      }),
+      templateParts: this.fb.array([
+        this.initTemplateParts(),
+      ])
+    });
+  }
+
+  initTemplateParts() {
+    // initialize template parts
+    return this.fb.group({
+      version: [''],
+      value: ['']
+    });
+  }
+
+  submitted = false;
+  onSubmit() {
+    console.log('form submitted');
+  }
+
+  addNewEmployeeAddress() {
+    this.requirementForm.reset();
+    this.submitted = false;
+  }
+
+  addEmptyTemplatePart() {
+    // add address to the list
+    const control = <FormArray>this.requirementForm.controls['templateParts'];
+    control.push(this.initTemplateParts());
+  }
+
+  removeTemplatePart(index: number) {
+    // remove address from the list
+    const control = <FormArray>this.requirementForm.controls['templateParts'];
+    control.removeAt(index);
+  }
+
+  // ToDo: get / set values from requirement in form
 }

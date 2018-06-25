@@ -19,9 +19,8 @@
   <clr-datagrid class="vc-datagrid">
 
     <clr-dg-row>
-      <clr-dg-cell
-        (click)="onSelected($event)">
-          <input type="text" placeholder="System" required />      
+      <clr-dg-cell (click)="onSelected($event)">
+        <input type="text" placeholder="System" required />
       </clr-dg-cell>
       <clr-dg-row-detail *clrIfExpanded>
         Falls Ihr System noch keinen Namen hat, sollten Sie einen definieren und hier einsetzen!
@@ -30,15 +29,13 @@
       </clr-dg-row-detail>
     </clr-dg-row>
 
-    <clr-dg-row
-                *ngIf="state == 'active'">
+    <clr-dg-row *ngIf="state == 'active'">
       <clr-dg-cell [@expandNodeLeft]="state"
                    *ngIf="state == 'active'">
         <button class="btn btn-outline">MUSS</button>
       </clr-dg-cell>
-      <clr-dg-cell
-          [@expandNodeMiddle]="state"
-          *ngIf="state == 'active'">
+      <clr-dg-cell [@expandNodeMiddle]="state"
+                   *ngIf="state == 'active'">
         <button class="btn btn-outline">SOLLTE</button>
       </clr-dg-cell>
       <clr-dg-cell [@expandNodeRight]="state"
@@ -56,7 +53,7 @@
       </clr-dg-cell>
       <clr-dg-cell>
         <div class="btn btn-outline">
-          <input type="text" placeholder="Akteur"/>
+          <input type="text" placeholder="Akteur" />
           DIE MÖGLICHKEIT BIETEN
         </div>
       </clr-dg-cell>
@@ -90,3 +87,164 @@
 
   <button type="submit" class="btn btn-primary">Save</button>
 </form>
+
+<form>
+  <section class="form-block" style="background-color: white; border: 1px solid #ccc; padding: 10px;">
+    <label>Form Inside a Grid</label>
+    <div class="form-group row">
+      <div class="col-lg-2 col-md-12 col-sm-12 col-xs-12">
+        <label for="gForm_1">Input field</label>
+      </div>
+      <div class="col-lg-4 col-md-8 col-sm-10 col-xs-10">
+        <input class="form-control" id="gForm_1" placeholder="Enter value here" size="45" type="text">
+      </div>
+    </div>
+    <div class="form-group row">
+      <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
+        <div class="radio-inline">
+          <input type="radio" name="gridRadios1" id="checkrads_11">
+          <label for="checkrads_11">Radio option 1</label>
+        </div>
+        <div class="radio-inline">
+          <input type="radio" name="gridRadios1" id="checkrads_12" checked>
+          <label for="checkrads_12">Radio option 2 (checked)</label>
+        </div>
+      </div>
+    </div>
+    <button class="btn btn-primary" type="submit">Button</button>
+  </section>
+</form>
+
+<form>
+  <table class="table">
+    <tbody>
+      <tr>
+        <td>
+          <input type="text" placeholder="System" required />
+        </td>
+
+      </tr>
+      <tr>
+        <td>5</td>
+        <td>5</td>
+        <td>101</td>
+      </tr>
+      <tr>
+        <td>10</td>
+        <td>A</td>
+        <td>1010</td>
+      </tr>
+      <tr>
+        <td>15</td>
+        <td>F</td>
+        <td>1111</td>
+      </tr>
+    </tbody>
+  </table>
+</form>
+
+
+<!-- reactve form -->
+<form class="form" [formGroup]="requirementForm" (ngSubmit)="onSubmit()" [hidden]="submitted">
+  <section class="form-block">
+
+    <!-- clarity styled form start -->
+    <label>Add Employee Address</label>
+    <div class="form-group">
+      <label for="empFullName">Full name</label>
+      <label for="empFullName"
+             aria-haspopup="true"
+             role="tooltip"
+             class="tooltip tooltip-validation tooltip-sm"
+             [class.invalid]="requirementForm.get('fullName').invalid
+                    && (requirementForm.get('fullName').dirty || requirementForm.get('fullName').touched)">
+        <input id="empFullName" type="text"
+               formControlName="fullName">
+        <span class="tooltip-content">
+          Name is required.
+        </span>
+      </label>
+    </div>
+    <div formGroupName="address">
+      <div class="form-group">
+        <label for="empPostalCode">Postal code</label>
+        <label for="empPostalCode"
+               aria-haspopup="true"
+               role="tooltip"
+               class="tooltip tooltip-validation tooltip-sm"
+               [class.invalid]="requirementForm.get('address').get('postalCode').invalid
+                        && (requirementForm.get('address').get('postalCode').dirty ||
+                        requirementForm.get('address').get('postalCode').touched)">
+          <input id="empPostalCode" type="text"
+                 formControlName="postalCode">
+          <span class="tooltip-content">
+            Postal code is required.
+          </span>
+        </label>
+      </div>
+      <div class="form-group">
+        <label for="empCountry">Country</label>
+        <label for="empCountry"
+               aria-haspopup="true"
+               role="tooltip"
+               class="tooltip tooltip-validation tooltip-sm"
+               [class.invalid]="requirementForm.get('address').get('country').invalid
+                        && (requirementForm.get('address').get('country').dirty ||
+                        requirementForm.get('address').get('country').touched)">
+          <input id="empCountry" type="text"
+                 formControlName="country">
+          <span class="tooltip-content">
+            Country is required.
+          </span>
+        </label>
+      </div>
+    </div>
+    <!-- clarity styled form start -->
+
+    <!-- form array start-->
+    <div formArrayName="templateParts">
+      <div *ngFor="let part of requirementForm.controls.templateParts.controls; let i=index">
+        <!-- templateParts header, show remove button when more than one part available -->
+        <div>
+          <span>Part {{i + 1}}</span>
+          <span *ngIf="requirementForm.controls.templateParts.controls.length > 1" (click)="removeAddress(i)">
+          </span>
+        </div>
+
+        <!-- Angular assigns array index as group name by default 0, 1, 2, ... -->
+        <div [formGroupName]="i">
+            <!-- version -->
+            <div class="form-group">
+              <label>version</label>
+              <input type="text" formControlName="version">
+              <!--display error message if street is not valid-->
+              <small [hidden]="requirementForm.controls.templateParts.controls[i].controls.version.valid">
+                Street is required
+              </small>
+            </div>
+
+            <!-- value -->
+            <div class="form-group">
+              <label>value</label>
+              <input type="text" formControlName="value">
+            </div>
+
+
+          </div>
+
+        </div>
+    </div>
+    <!-- form array end-->
+
+    <button class="btn btn-primary"
+            type="submit"
+            [disabled]="requirementForm.invalid">
+      Add
+    </button>
+  </section>
+</form>
+
+<div>
+  <button class="btn btn-primary" (click)="addEmptyTemplatePart()">Add Part</button>
+  <!--<button class="btn btn-primary" (click)="removeTemplatePart()">Remove Part</button>-->
+</div>
