@@ -178,4 +178,19 @@ export class RequirementComponent implements OnInit {
   }
 
   // ToDo: get / set values from requirement in form
+
+  onMouseEnter(event: any) {
+    event.target.classList.add('label'); // create labels of text
+
+    //event.target.style.backgroundColor = '#eee';
+    //event.target.style.borderRadius = '8px';
+
+  }
+
+  onMouseLeave(event: any) {
+    event.target.classList.remove('label'); // create labels of text
+
+    //event.target.style.backgroundColor = 'transparent'; 
+    //event.target.style.borderRadius = '0px';
+  }
 }

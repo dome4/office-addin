@@ -90,25 +90,84 @@
 
 <form>
   <section class="form-block" style="background-color: white; border: 1px solid #ccc; padding: 10px;">
-    <label>Form Inside a Grid</label>
+    <label>Different ways of text</label>
+
     <div class="form-group row">
       <div class="col-lg-2 col-md-12 col-sm-12 col-xs-12">
-        <label for="gForm_1">Input field</label>
-      </div>
-      <div class="col-lg-4 col-md-8 col-sm-10 col-xs-10">
-        <input class="form-control" id="gForm_1" placeholder="Enter value here" size="45" type="text">
+        <h4>Blank Text</h4>
+
+        Das Bibliothekssystem muss fähig sein, Ausleihdaten einer anderen Bibliothek zu empfangen.
       </div>
     </div>
     <div class="form-group row">
-      <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
-        <div class="radio-inline">
-          <input type="radio" name="gridRadios1" id="checkrads_11">
-          <label for="checkrads_11">Radio option 1</label>
-        </div>
-        <div class="radio-inline">
-          <input type="radio" name="gridRadios1" id="checkrads_12" checked>
-          <label for="checkrads_12">Radio option 2 (checked)</label>
-        </div>
+      <div class="col-lg-2 col-md-12 col-sm-12 col-xs-12">
+        <h4>Text with Labels</h4>
+
+        <span class="label label-danger clickable">Der Computer </span>
+        <span class="label clickable">muss</span>
+        <span class="label clickable">dem Anwender die Möglichkeit bieten</span>
+        <span class="label clickable">das Dokument</span>
+
+        <clr-dropdown style="margin-top: .25rem; margin-bottom: .25rem;">
+          <span class="label clickable" clrDropdownTrigger>zu speichern.</span>
+          
+          <clr-dropdown-menu clrPosition="bottom-left">
+            <h4 class="dropdown-header">Choose a requirement</h4>
+            <button type="button" clrDropdownItem>First Action</button>
+            <button type="button" disabled clrDropdownItem>Disabled Action</button>
+            <button *ngFor="let requirement of requirements"
+                    [value]="requirement._id"
+                    (click)="onSelected($event)"
+                    type="button"
+                    clrDropdownItem>
+              {{ requirement.name }}
+            </button>
+            <button type="button" disabled clrDropdownItem>Create new requirement</button>
+            <input type="text" name="name" placeholder="Custom Text ..." style="margin-left: 24px; margin-right: 24px;" />
+            <div style="padding: 0px 24px;" (click)="onClick($event)">
+              <p style="margin-top: 0px; float: left;">Das ist</p>
+              <input type="text" name="name" placeholder="Custom Text 2..." />
+            </div>
+          </clr-dropdown-menu>
+        </clr-dropdown>
+
+
+      </div>
+    </div>
+    <div class="form-group row">
+      <div class="col-lg-2 col-md-12 col-sm-12 col-xs-12">
+        <h4>Text with hover Labels</h4>
+
+        <span (mouseenter)="onMouseEnter($event)" (mouseleave)="onMouseLeave($event)" style="transition: all 0.5s ease-in-out; margin-right: 4px; font-size: 13px;">Der Computer </span>
+        <span (mouseenter)="onMouseEnter($event)" (mouseleave)="onMouseLeave($event)" style="transition: all 0.5s ease-in-out; margin-right: 4px; font-size: 13px;">muss</span>
+        <span (mouseenter)="onMouseEnter($event)" (mouseleave)="onMouseLeave($event)" style="transition: all 0.5s ease-in-out; margin-right: 4px; font-size: 13px;">dem Anwender die Möglichkeit bieten</span>
+        <span (mouseenter)="onMouseEnter($event)" (mouseleave)="onMouseLeave($event)" style="transition: all 0.5s ease-in-out; margin-right: 4px; font-size: 13px;">das Dokument</span>
+        <span (mouseenter)="onMouseEnter($event)" (mouseleave)="onMouseLeave($event)" style="transition: all 0.5s ease-in-out; margin-right: 4px; font-size: 13px;">zu speichern.</span>
+      </div>
+    </div>
+    <div class="form-group row">
+      <div class="col-lg-2 col-md-12 col-sm-12 col-xs-12">
+        <clr-dropdown>
+          <input type="text" name="name" placeholder="Please choose ..." clrDropdownTrigger />
+          <clr-dropdown-menu clrPosition="bottom-left">
+            <h4 class="dropdown-header">Choose a requirement</h4>
+            <button type="button" clrDropdownItem>First Action</button>
+            <button type="button" disabled clrDropdownItem>Disabled Action</button>
+            <button *ngFor="let requirement of requirements"
+                    [value]="requirement._id"
+                    (click)="onSelected($event)"
+                    type="button"
+                    clrDropdownItem>
+              {{ requirement.name }}
+            </button>
+            <button type="button" disabled clrDropdownItem>Create new requirement</button>
+            <input type="text" name="name" placeholder="Custom Text ..." style="margin-left: 24px; margin-right: 24px;" />
+            <div style="padding: 0px 24px;" (click)="onClick($event)">
+              <p style="margin-top: 0px; float: left;">Das ist</p>
+              <input type="text" name="name" placeholder="Custom Text 2..." />
+            </div>
+          </clr-dropdown-menu>
+        </clr-dropdown>
       </div>
     </div>
     <button class="btn btn-primary" type="submit">Button</button>
