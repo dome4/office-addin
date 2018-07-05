@@ -6,6 +6,9 @@ import 'rxjs';
 import { trigger, transition, animate, style, animateChild } from '@angular/animations';
 import { FormControl, FormGroup, Validators, FormBuilder, FormArray } from '@angular/forms';
 
+// Office variable
+declare let Office: any;
+
 @Component({
   animations: [
     trigger('expandNodeLeft', [
@@ -192,5 +195,13 @@ export class RequirementComponent implements OnInit {
 
     //event.target.style.backgroundColor = 'transparent'; 
     //event.target.style.borderRadius = '0px';
+  }
+
+  // access office document
+  onAccessDocument() {
+    Office.context.document.bindings.addFromNamedItemAsync('test1', Office.BindingType.Text, (asyncResult) => {
+      console.log(asyncResult);
+    });
+
   }
 }
