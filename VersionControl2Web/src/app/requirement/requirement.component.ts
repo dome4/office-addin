@@ -199,9 +199,49 @@ export class RequirementComponent implements OnInit {
 
   // access office document
   onAccessDocument() {
-    Office.context.document.bindings.addFromNamedItemAsync('test1', Office.BindingType.Text, (asyncResult) => {
-      console.log(asyncResult);
+
+    /*
+     * changes in the rich text field 'input' are submitted to the rich text field 'message' with event handler
+     *
+     */
+
+    // add text binding to message text box
+    Office.context.document.bindings.addFromNamedItemAsync('message', Office.BindingType.Text, { id: 'message'}, (asyncResult) => {
+
+      if (asyncResult.status == Office.AsyncResultStatus.Failed) {
+        console.log('Biding - Action failed. Error: ' + asyncResult.error.message);
+      } else {
+        console.log('Binding - Added new binding with type: ' + asyncResult.value.type + ' and id: ' + asyncResult.value.id);
+      }
     });
 
+    // add event handler to input text field and display text in message text field
+    Office.context.document.bindings.addFromNamedItemAsync('input', Office.BindingType.Text, { id: 'input' }, (asyncResult) => {
+
+      if (asyncResult.status == Office.AsyncResultStatus.Failed) {
+        console.log('Biding - Action failed. Error: ' + asyncResult.error.message);
+      } else {
+        console.log('Binding - Added new binding with type: ' + asyncResult.value.type + ' and id: ' + asyncResult.value.id);
+
+        // add handler
+        Office.select("bindings#input").addHandlerAsync(Office.EventType.BindingDataChanged, (result) => {
+
+          // get data from input and set to message
+          Office.select("bindings#input").getDataAsync({ coercionType: "text" },
+            (inputText) => {
+              if (inputText.status == Office.AsyncResultStatus.Failed) {
+                console.log('Error: ' + inputText.error.message);
+              } else {
+                Office.select("bindings#message").setDataAsync(inputText.value, { coercionType: "text" },
+                  (asyncResult) => {
+                    if (asyncResult.status == Office.AsyncResultStatus.Failed) {
+                      console.log('Error: ' + asyncResult.error.message);
+                    }
+                  });
+              }
+            });
+        });
+      }
+    });
   }
 }
