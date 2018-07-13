@@ -516,6 +516,7 @@
     <TypeScriptCompile Include="src\app\requirement\requirement.component.ts" />
     <TypeScriptCompile Include="src\app\services\auth\token-interceptor.service.ts" />
     <TypeScriptCompile Include="src\app\services\local-storage.service.ts" />
+    <TypeScriptCompile Include="src\app\services\office.service.ts" />
     <TypeScriptCompile Include="src\app\services\requirement.service.ts" />
     <TypeScriptCompile Include="src\environments\environment.prod.ts" />
     <TypeScriptCompile Include="src\environments\environment.ts" />

@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 import 'rxjs';
 import { trigger, transition, animate, style, animateChild } from '@angular/animations';
 import { FormControl, FormGroup, Validators, FormBuilder, FormArray } from '@angular/forms';
+import { OfficeService } from '../services/office.service';
 
 // Office variable
 declare let Office: any;
@@ -96,7 +97,8 @@ export class RequirementComponent implements OnInit {
    * constructor
    */
   constructor(private requirementService: RequirementService,
-              private fb: FormBuilder) {
+              private fb: FormBuilder,
+              private officeService: OfficeService) {
     this.createEmptyForm();
   }
 
@@ -206,14 +208,16 @@ export class RequirementComponent implements OnInit {
      */
 
     // add text binding to message text box
-    Office.context.document.bindings.addFromNamedItemAsync('message', Office.BindingType.Text, { id: 'message'}, (asyncResult) => {
+    //Office.context.document.bindings.addFromNamedItemAsync('message', Office.BindingType.Text, { id: 'message'}, (asyncResult) => {
 
-      if (asyncResult.status == Office.AsyncResultStatus.Failed) {
-        console.log('Biding - Action failed. Error: ' + asyncResult.error.message);
-      } else {
-        console.log('Binding - Added new binding with type: ' + asyncResult.value.type + ' and id: ' + asyncResult.value.id);
-      }
-    });
+    //  if (asyncResult.status == Office.AsyncResultStatus.Failed) {
+    //    console.log('Biding - Action failed. Error: ' + asyncResult.error.message);
+    //  } else {
+    //    console.log('Binding - Added new binding with type: ' + asyncResult.value.type + ' and id: ' + asyncResult.value.id);
+    //  }
+    //});
+
+    this.officeService.addBindingFromNamedItem('message', Office.BindingType.Text, 'message');
 
     // add event handler to input text field and display text in message text field
     Office.context.document.bindings.addFromNamedItemAsync('input', Office.BindingType.Text, { id: 'input' }, (asyncResult) => {

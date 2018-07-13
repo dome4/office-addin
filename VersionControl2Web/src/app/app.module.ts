@@ -18,6 +18,7 @@ import { LocalStorageService } from './services/local-storage.service';
 import { TokenInterceptor } from './services/auth/token-interceptor.service';
 import { RequirementDropdownComponent } from './requirement/requirement-dropdown/requirement-dropdown.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { OfficeService } from './services/office.service';
 
 
 @NgModule({
@@ -48,7 +49,8 @@ import { ReactiveFormsModule } from '@angular/forms';
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptor,
       multi: true
-    }
+    },
+    OfficeService
   ],
   bootstrap: [AppComponent]
 })
