@@ -6,6 +6,7 @@ import 'rxjs';
 import { trigger, transition, animate, style, animateChild } from '@angular/animations';
 import { FormControl, FormGroup, Validators, FormBuilder, FormArray } from '@angular/forms';
 import { OfficeService } from '../services/office.service';
+import { ChangeDetectorRef } from '@angular/core';
 
 // Office variable
 declare let Office: any;
@@ -101,7 +102,8 @@ export class RequirementComponent implements OnInit {
    */
   constructor(private requirementService: RequirementService,
               private fb: FormBuilder,
-              private officeService: OfficeService) {
+              private officeService: OfficeService,
+              private changeDetector: ChangeDetectorRef) {
     this.createEmptyForm();
   }
 
@@ -242,19 +244,43 @@ export class RequirementComponent implements OnInit {
 
     // Get the OOXML for the data at the point of insertion
     // and add a table at the beginning of the selection.
-    Office.context.document.getSelectedDataAsync(
-      Office.CoercionType.Ooxml,
+    //Office.context.document.getSelectedDataAsync(
+    //  Office.CoercionType.Ooxml,
+    //  {
+    //    valueFormat: Office.ValueFormat.Formatted,
+    //    filterType: Office.FilterType.All
+    //  },
+    //  (result) => {
+    //    if (result.status == "succeeded") {
+    //      // Get the OOXML returned from the getSelectedDataAsync call.
+    //      var selectedData = result.value.toString();
+
+    //      // debug
+    //      //this.xmlMessage = selectedData;
+
+    //      //console.log(selectedData);
+    //    } else {
+    //      console.log('Error: ' + result.error.message);
+    //    }
+    //  });
+
+    Office.select("bindings#input").getDataAsync(
       {
+        coercionType: Office.CoercionType.Ooxml,
         valueFormat: Office.ValueFormat.Formatted,
         filterType: Office.FilterType.All
       },
       (result) => {
+
         if (result.status == "succeeded") {
           // Get the OOXML returned from the getSelectedDataAsync call.
           var selectedData = result.value.toString();
 
           // debug
           this.xmlMessage = selectedData;
+
+          // change detector necessary to reload view
+          this.changeDetector.detectChanges();
 
           console.log(selectedData);
         } else {
