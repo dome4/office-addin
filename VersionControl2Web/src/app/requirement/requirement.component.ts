@@ -234,4 +234,21 @@ export class RequirementComponent implements OnInit {
       });
     });
   }
+
+  onInsertExample() {
+
+    // Define some data to set in the document.
+    var booksToRead = "Anabasis by Xenophon; \n" +
+      "Socrates' Apology by Plato; \n" +
+      "The Illiad by Homer.";
+    // Set some data to the document as simple text.
+    Office.context.document.setSelectedDataAsync(
+      booksToRead,
+      { coercionType: Office.CoercionType.Text },
+      (result) => {
+        // Access the results, if necessary.
+
+        console.log(result);
+      });
+  }
 }
