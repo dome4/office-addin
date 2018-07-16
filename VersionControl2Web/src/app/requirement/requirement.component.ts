@@ -73,6 +73,9 @@ declare let Office: any;
 })
 export class RequirementComponent implements OnInit {
 
+  // debug string
+  public xmlMessage: string = '';
+
   public state: string = 'active';
 
   /*
@@ -237,25 +240,26 @@ export class RequirementComponent implements OnInit {
 
   onInsertExample() {
 
-    // Define some HTML data to set in the document,
-    // including header row, text formatting and CSS styles.
-    var booksToRead =
-      "<table style='font-family:Segoe UI'>" +
-      "<thead style='background-color:#283E75;color:white'>" +
-      "<tr><th>Authors</th><th>Books</th></tr>" +
-      "</thead>" +
-      "<tbody>" +
-      "<tr><td>Xenophon</td><td><u>Anabasis</u></td></tr>" +
-      "<tr><td>Plato</td><td><u>Socrates' Apology</u></td></tr>" +
-      "<tr><td>Homer</td><td><u>The Iliad</u></td></tr>" +
-      "</tbody>" +
-      "</table>";
-    // Set some data to the document as a table with styles applied.
-    Office.context.document.setSelectedDataAsync(
-      booksToRead,
-      { coercionType: Office.CoercionType.Html },
-      function (result) {
-        // Access the results, if necessary.
+    // Get the OOXML for the data at the point of insertion
+    // and add a table at the beginning of the selection.
+    Office.context.document.getSelectedDataAsync(
+      Office.CoercionType.Ooxml,
+      {
+        valueFormat: Office.ValueFormat.Formatted,
+        filterType: Office.FilterType.All
+      },
+      (result) => {
+        if (result.status == "succeeded") {
+          // Get the OOXML returned from the getSelectedDataAsync call.
+          var selectedData = result.value.toString();
+
+          // debug
+          this.xmlMessage = selectedData;
+
+          console.log(selectedData);
+        } else {
+          console.log('Error: ' + result.error.message);
+        }
       });
   }
 }
