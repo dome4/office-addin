@@ -237,18 +237,25 @@ export class RequirementComponent implements OnInit {
 
   onInsertExample() {
 
-    // Define some data to set in the document.
-    var booksToRead = "Anabasis by Xenophon; \n" +
-      "Socrates' Apology by Plato; \n" +
-      "The Illiad by Homer.";
-    // Set some data to the document as simple text.
+    // Define some HTML data to set in the document,
+    // including header row, text formatting and CSS styles.
+    var booksToRead =
+      "<table style='font-family:Segoe UI'>" +
+      "<thead style='background-color:#283E75;color:white'>" +
+      "<tr><th>Authors</th><th>Books</th></tr>" +
+      "</thead>" +
+      "<tbody>" +
+      "<tr><td>Xenophon</td><td><u>Anabasis</u></td></tr>" +
+      "<tr><td>Plato</td><td><u>Socrates' Apology</u></td></tr>" +
+      "<tr><td>Homer</td><td><u>The Iliad</u></td></tr>" +
+      "</tbody>" +
+      "</table>";
+    // Set some data to the document as a table with styles applied.
     Office.context.document.setSelectedDataAsync(
       booksToRead,
-      { coercionType: Office.CoercionType.Text },
-      (result) => {
+      { coercionType: Office.CoercionType.Html },
+      function (result) {
         // Access the results, if necessary.
-
-        console.log(result);
       });
   }
 }
