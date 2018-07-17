@@ -244,34 +244,13 @@ export class RequirementComponent implements OnInit {
 
     // Get the OOXML for the data at the point of insertion
     // and add a table at the beginning of the selection.
-    //Office.context.document.getSelectedDataAsync(
-    //  Office.CoercionType.Ooxml,
-    //  {
-    //    valueFormat: Office.ValueFormat.Formatted,
-    //    filterType: Office.FilterType.All
-    //  },
-    //  (result) => {
-    //    if (result.status == "succeeded") {
-    //      // Get the OOXML returned from the getSelectedDataAsync call.
-    //      var selectedData = result.value.toString();
-
-    //      // debug
-    //      //this.xmlMessage = selectedData;
-
-    //      //console.log(selectedData);
-    //    } else {
-    //      console.log('Error: ' + result.error.message);
-    //    }
-    //  });
-
-    Office.select("bindings#input").getDataAsync(
+    Office.context.document.getSelectedDataAsync(
+      Office.CoercionType.Ooxml,
       {
-        coercionType: Office.CoercionType.Ooxml,
         valueFormat: Office.ValueFormat.Formatted,
         filterType: Office.FilterType.All
       },
       (result) => {
-
         if (result.status == "succeeded") {
           // Get the OOXML returned from the getSelectedDataAsync call.
           var selectedData = result.value.toString();
@@ -287,5 +266,59 @@ export class RequirementComponent implements OnInit {
           console.log('Error: ' + result.error.message);
         }
       });
+
+    //Office.select("bindings#input").getDataAsync(
+    //  {
+    //    coercionType: Office.CoercionType.Ooxml,
+    //    valueFormat: Office.ValueFormat.Formatted,
+    //    filterType: Office.FilterType.All
+    //  },
+    //  (result) => {
+
+    //    if (result.status == "succeeded") {
+    //      // Get the OOXML returned from the getSelectedDataAsync call.
+    //      var selectedData = result.value.toString();
+
+    //      // debug
+    //      this.xmlMessage = selectedData;
+
+    //      // change detector necessary to reload view
+    //      this.changeDetector.detectChanges();
+
+    //      console.log(selectedData);
+    //    } else {
+    //      console.log('Error: ' + result.error.message);
+    //    }
+    //  });
+  }
+
+  getWholeDocument() {
+
+    //Office.context.document.getFileAsync(
+    //  Office.FileType.Compressed,
+    //  {
+    //    valueFormat: Office.ValueFormat.Formatted,
+    //    filterType: Office.FilterType.All
+    //  },
+    //  (result) => {
+    //    if (result.status == "succeeded") {
+    //      // Get the OOXML returned from the getSelectedDataAsync call.
+    //      var selectedData = result.value.toString();
+
+    //      // debug
+    //      this.xmlMessage = selectedData;
+
+    //      // change detector necessary to reload view
+    //      this.changeDetector.detectChanges();
+
+    //      console.log(selectedData);
+    //    } else {
+    //      console.log('Error: ' + result.error.message);
+    //    }
+    //  });
+
+    //this.xmlMessage = this.officeService.getDocuemntAsOoxml();
+    this.officeService.getDocuemntAsOoxml();
+
   }
 }
