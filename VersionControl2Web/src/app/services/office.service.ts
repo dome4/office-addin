@@ -36,9 +36,6 @@ export class OfficeService {
 
   getDocuemntAsOoxml() {
 
-    // context
-    var _this = this;
-
     // source: https://dev.office.com/reference/add-ins/shared/document.getfileasync
 
     // methode wird nur einmal aufgerufen, ruft sich danach rekursiv selbst auf
@@ -56,7 +53,7 @@ export class OfficeService {
           if (++slicesReceived == sliceCount) {
             // All slices have been received.
             file.closeAsync();
-            onGotAllSlices(docdataSlices, _this);
+            onGotAllSlices(docdataSlices);
           }
           else {
             // recursive method call
@@ -74,7 +71,7 @@ export class OfficeService {
     // Methode wird nur einmal aufgerufen
     // methode fügt result array zu einem String zusammen
     // ToDo hier weiter machen
-    function onGotAllSlices(docdataSlices, _this) {
+    function onGotAllSlices(docdataSlices) {
       var docdata = [];
       for (var i = 0; i < docdataSlices.length; i++) {
         docdata = docdata.concat(docdataSlices[i]);
@@ -89,23 +86,24 @@ export class OfficeService {
       // you can do something with it, such as print, fax...
 
       console.log(fileContent);
-      // string kommt komuisch zurueck, bytecode?
+      // string kommt komisch zurueck, bytecode?
 
+
+      // set return value to richt text field
+      // debug
       Office.select("bindings#message").setDataAsync(fileContent, { coercionType: "text" },
         (asyncResult) => {
           if (asyncResult.status == Office.AsyncResultStatus.Failed) {
             console.log('Error: ' + asyncResult.error.message);
           }
         });
-
-
+      // debug
 
       // ToDo: fileContent wird noch nicht zurueckgegeben, wird Variable in Array aufgerufen?
     }
 
-
     //function getDocumentAsCompressed() {
-    Office.context.document.getFileAsync(Office.FileType.Compressed, { sliceSize: 4194304 /*4 MB (Maximum)*/ },
+    Office.context.document.getFileAsync(Office.FileType.Compressed, { sliceSize: 65536 /*64 KB*/ },
       (result) => {
         if (result.status == "succeeded") {
           // If the getFileAsync call succeeded, then
