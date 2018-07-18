@@ -24,9 +24,12 @@
     "@clr/angular": "^0.12.1",
     "@clr/icons": "^0.12.1",
     "@clr/ui": "^0.12.1",
+    "@types/jszip": "^3.1.4",
     "@webcomponents/custom-elements": "^1.0.0",
     "core-js": "^2.4.1",
+    "jszip": "^3.1.5",
     "rxjs": "^6.2.1",
+    "stream": "0.0.2",
     "zone.js": "^0.8.26"
   },
   "devDependencies": {
