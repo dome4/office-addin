@@ -292,33 +292,20 @@ export class RequirementComponent implements OnInit {
     //  });
   }
 
+  /**
+   * get the whole document as ooxml object
+   * 
+   */
   getWholeDocument() {
 
-    //Office.context.document.getFileAsync(
-    //  Office.FileType.Compressed,
-    //  {
-    //    valueFormat: Office.ValueFormat.Formatted,
-    //    filterType: Office.FilterType.All
-    //  },
-    //  (result) => {
-    //    if (result.status == "succeeded") {
-    //      // Get the OOXML returned from the getSelectedDataAsync call.
-    //      var selectedData = result.value.toString();
-
-    //      // debug
-    //      this.xmlMessage = selectedData;
-
-    //      // change detector necessary to reload view
-    //      this.changeDetector.detectChanges();
-
-    //      console.log(selectedData);
-    //    } else {
-    //      console.log('Error: ' + result.error.message);
-    //    }
-    //  });
-
-    //this.xmlMessage = this.officeService.getDocuemntAsOoxml();
-    this.officeService.getDocuemntAsOoxml();
+    this.officeService.getDocuemntAsOoxml().then(
+      (onFulfilled: string) => {
+        this.xmlMessage = onFulfilled;
+    },
+      (onRejected) => {
+        console.log(onRejected);
+      }
+    )
 
   }
 }

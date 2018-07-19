@@ -31,7 +31,7 @@ export class OfficeService {
       }
     });
 
-  // ToDo: destroy handler after usage
+    // ToDo: destroy handler after usage
 
   }
 
@@ -43,106 +43,102 @@ export class OfficeService {
 
     // source: https://dev.office.com/reference/add-ins/shared/document.getfileasync
 
-    /**
-     * method gets the file slices
-     * 
-     * @param file
-     * @param nextSlice
-     * @param sliceCount
-     * @param gotAllSlices
-     * @param docdataSlices
-     * @param slicesReceived
-     */
-    function getSliceAsync(file, nextSlice, sliceCount, gotAllSlices, docdataSlices, slicesReceived) {
-      file.getSliceAsync(nextSlice, (sliceResult) => {
-        if (sliceResult.status == "succeeded") {
-          if (!gotAllSlices) {
-            // Failed to get all slices, no need to continue.
-            return;
-          }
+    // promise trying
+    return new Promise((resolve, reject) => {
 
-          // Got one slice, store it in a temporary array.
-          docdataSlices[sliceResult.value.index] = sliceResult.value.data;
-          if (++slicesReceived == sliceCount) {
-            // All slices have been received.
-            file.closeAsync();
-            onGotAllSlices(docdataSlices);
+      /**
+       * entry point
+       * get the whole document as a compressed ooxml file
+       *
+       */
+      Office.context.document.getFileAsync(Office.FileType.Compressed, { sliceSize: 65536 /*64 KB*/ },
+        (result) => {
+          if (result.status == Office.AsyncResultStatus.Succeeded) {
+            // If the getFileAsync call succeeded, then
+            // result.value will return a valid File Object.
+            var myFile = result.value;
+            var sliceCount = myFile.sliceCount;
+            var slicesReceived = 0, gotAllSlices = true, docdataSlices = [];
+
+            // Get the file slices.
+            getSliceAsync(myFile, 0, sliceCount, gotAllSlices, docdataSlices, slicesReceived);
           }
           else {
-            // recursive method call
-            getSliceAsync(file, ++nextSlice, sliceCount, gotAllSlices, docdataSlices, slicesReceived);
+            reject('Error:' + result.error.message);
           }
-        }
-        else {
-          gotAllSlices = false;
-          file.closeAsync();
-          console.log("getSliceAsync Error:", sliceResult.error.message);
-        }
-      });
-    }
+        });
 
-    /**
-     * method is called if all slices were received
-     * @param docdataSlices
-     */
-    function onGotAllSlices(docdataSlices) {
-      var docdata = [];
-      for (var i = 0; i < docdataSlices.length; i++) {
-        docdata = docdata.concat(docdataSlices[i]);
+
+      /**
+       * method gets the file slices
+       * 
+       * @param file
+       * @param nextSlice
+       * @param sliceCount
+       * @param gotAllSlices
+       * @param docdataSlices
+       * @param slicesReceived
+       */
+      let getSliceAsync = (file, nextSlice, sliceCount, gotAllSlices, docdataSlices, slicesReceived) => {
+        file.getSliceAsync(nextSlice, (sliceResult) => {
+          if (sliceResult.status == Office.AsyncResultStatus.Succeeded) {
+            if (!gotAllSlices) {
+              // Failed to get all slices, no need to continue.
+              return;
+            }
+
+            // Got one slice, store it in a temporary array.
+            docdataSlices[sliceResult.value.index] = sliceResult.value.data;
+            if (++slicesReceived == sliceCount) {
+              // All slices have been received.
+              file.closeAsync();
+              onGotAllSlices(docdataSlices);
+            }
+            else {
+              // recursive method call
+              getSliceAsync(file, ++nextSlice, sliceCount, gotAllSlices, docdataSlices, slicesReceived);
+            }
+          }
+          else {
+            gotAllSlices = false;
+            file.closeAsync();
+            reject('getSliceAsync Error:' + sliceResult.error.message);
+          }
+        });
       }
 
-      // JSZip - decode compressed file
-      JSZip.loadAsync(docdata).then((data) => {
+      /**
+       * method is called if all slices were received
+       * @param docdataSlices
+       */
+      let onGotAllSlices = (docdataSlices) => {
+        var docdata = [];
+        for (var i = 0; i < docdataSlices.length; i++) {
+          docdata = docdata.concat(docdataSlices[i]);
+        }
 
-        // search for the document.xml
-        data.forEach((relativePath: string, file: JSZip.JSZipObject) => {
+        // JSZip - decode compressed file
+        JSZip.loadAsync(docdata).then((data) => {
 
-          // Word
-          if (file.name == 'word/document.xml') {
+          // search for the document.xml
+          data.forEach((relativePath: string, file: JSZip.JSZipObject) => {
 
-            // get content of the file as string
-            file.async('text').then((fileContent) => {
+            // Word
+            if (file.name == 'word/document.xml') {
 
-              // do something with the xml-string
+              // get content of the file as string
+              file.async('text').then((fileContent) => {
 
-              // set return value to richt text field
-              // debug
-              Office.select("bindings#message").setDataAsync(fileContent, { coercionType: "text" },
-                (asyncResult) => {
-                  if (asyncResult.status == Office.AsyncResultStatus.Failed) {
-                    console.log('Error: ' + asyncResult.error.message);
-                  }
-                });
-              // debug
+                // do something with the xml-string            
+                // resolve promise
+                resolve(fileContent);
+              });
+            }
 
-            });
-          }
-
-          // ToDo: add if condition for Excel, ...
+            // ToDo: add if condition for Excel, ...
+          });
         });
-      });
-    }
-
-    /**
-     * entry point
-     * get the whole document as a compressed ooxml file
-     *
-     */
-    Office.context.document.getFileAsync(Office.FileType.Compressed, { sliceSize: 65536 /*64 KB*/ },
-      (result) => {
-        if (result.status == "succeeded") {
-          // If the getFileAsync call succeeded, then
-          // result.value will return a valid File Object.
-          var myFile = result.value;
-          var sliceCount = myFile.sliceCount;
-          var slicesReceived = 0, gotAllSlices = true, docdataSlices = [];
-
-          // Get the file slices.
-          getSliceAsync(myFile, 0, sliceCount, gotAllSlices, docdataSlices, slicesReceived);
-        }
-        else {
-          console.log("Error:", result.error.message);
-        }
-      });
+      }
+    });
   }
 }
