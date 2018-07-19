@@ -1,4 +1,5 @@
 import { BehaviorSubject } from "rxjs";
+import * as JSZip from 'jszip';
 
 // Office variable
 declare let Office: any;
@@ -34,21 +35,33 @@ export class OfficeService {
 
   }
 
+  /**
+   * method returns the whole document as ooxml object
+   * 
+   */
   getDocuemntAsOoxml() {
 
     // source: https://dev.office.com/reference/add-ins/shared/document.getfileasync
 
-    // methode wird nur einmal aufgerufen, ruft sich danach rekursiv selbst auf
+    /**
+     * method gets the file slices
+     * 
+     * @param file
+     * @param nextSlice
+     * @param sliceCount
+     * @param gotAllSlices
+     * @param docdataSlices
+     * @param slicesReceived
+     */
     function getSliceAsync(file, nextSlice, sliceCount, gotAllSlices, docdataSlices, slicesReceived) {
       file.getSliceAsync(nextSlice, (sliceResult) => {
         if (sliceResult.status == "succeeded") {
-          if (!gotAllSlices) { // Failed to get all slices, no need to continue.
+          if (!gotAllSlices) {
+            // Failed to get all slices, no need to continue.
             return;
           }
 
           // Got one slice, store it in a temporary array.
-          // (Or you can do something else, such as
-          // send it to a third-party server.)
           docdataSlices[sliceResult.value.index] = sliceResult.value.data;
           if (++slicesReceived == sliceCount) {
             // All slices have been received.
@@ -68,41 +81,53 @@ export class OfficeService {
       });
     }
 
-    // Methode wird nur einmal aufgerufen
-    // methode fügt result array zu einem String zusammen
-    // ToDo hier weiter machen
+    /**
+     * method is called if all slices were received
+     * @param docdataSlices
+     */
     function onGotAllSlices(docdataSlices) {
       var docdata = [];
       for (var i = 0; i < docdataSlices.length; i++) {
         docdata = docdata.concat(docdataSlices[i]);
       }
 
-      var fileContent = new String();
-      for (var j = 0; j < docdata.length; j++) {
-        fileContent += String.fromCharCode(docdata[j]);
-      }
+      // JSZip - decode compressed file
+      JSZip.loadAsync(docdata).then((data) => {
 
-      // Now all the file content is stored in 'fileContent' variable,
-      // you can do something with it, such as print, fax...
+        // search for the document.xml
+        data.forEach((relativePath: string, file: JSZip.JSZipObject) => {
 
-      console.log(fileContent);
-      // string kommt komisch zurueck, bytecode?
+          // Word
+          if (file.name == 'word/document.xml') {
 
+            // get content of the file as string
+            file.async('text').then((fileContent) => {
 
-      // set return value to richt text field
-      // debug
-      Office.select("bindings#message").setDataAsync(fileContent, { coercionType: "text" },
-        (asyncResult) => {
-          if (asyncResult.status == Office.AsyncResultStatus.Failed) {
-            console.log('Error: ' + asyncResult.error.message);
+              // do something with the xml-string
+
+              // set return value to richt text field
+              // debug
+              Office.select("bindings#message").setDataAsync(fileContent, { coercionType: "text" },
+                (asyncResult) => {
+                  if (asyncResult.status == Office.AsyncResultStatus.Failed) {
+                    console.log('Error: ' + asyncResult.error.message);
+                  }
+                });
+              // debug
+
+            });
           }
-        });
-      // debug
 
-      // ToDo: fileContent wird noch nicht zurueckgegeben, wird Variable in Array aufgerufen?
+          // ToDo: add if condition for Excel, ...
+        });
+      });
     }
 
-    //function getDocumentAsCompressed() {
+    /**
+     * entry point
+     * get the whole document as a compressed ooxml file
+     *
+     */
     Office.context.document.getFileAsync(Office.FileType.Compressed, { sliceSize: 65536 /*64 KB*/ },
       (result) => {
         if (result.status == "succeeded") {
@@ -112,8 +137,6 @@ export class OfficeService {
           var sliceCount = myFile.sliceCount;
           var slicesReceived = 0, gotAllSlices = true, docdataSlices = [];
 
-          console.log("File size:" + myFile.size + " #Slices: " + sliceCount);
-
           // Get the file slices.
           getSliceAsync(myFile, 0, sliceCount, gotAllSlices, docdataSlices, slicesReceived);
         }
@@ -121,9 +144,5 @@ export class OfficeService {
           console.log("Error:", result.error.message);
         }
       });
-    //}
-
   }
-
-
 }
