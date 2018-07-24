@@ -7,8 +7,10 @@ import { trigger, transition, animate, style, animateChild } from '@angular/anim
 import { FormControl, FormGroup, Validators, FormBuilder, FormArray } from '@angular/forms';
 import { OfficeService } from '../services/office.service';
 
-// Office variable
+// Office variables
 declare let Office: any;
+declare let Word: any;
+declare let OfficeExtension: any;
 
 @Component({
   animations: [
@@ -72,6 +74,9 @@ declare let Office: any;
   styleUrls: ['./requirement.component.css']
 })
 export class RequirementComponent implements OnInit {
+
+  // debug variable
+  public xmlMessage: string = '';
 
   public state: string = 'active';
 
@@ -247,5 +252,20 @@ export class RequirementComponent implements OnInit {
         });
       }
     });
+  }
+
+  getWholeDocumentAsXml() {
+    this.officeService.getOoxml().then(
+      (onFulfilled: string) => {
+        this.xmlMessage = onFulfilled;
+      },
+      (onRejected) => {
+        console.log(onRejected);
+      }
+    );
+  }
+
+  setWholeDocumentFromXml() {
+    this.officeService.setOoxml(this.xmlMessage);
   }
 }

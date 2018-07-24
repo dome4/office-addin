@@ -1,5 +1,7 @@
-// Office variable
+// Office variables
 declare let Office: any;
+declare let Word: any;
+declare let OfficeExtension: any;
 
 export class OfficeService {
 
@@ -29,5 +31,54 @@ export class OfficeService {
 
   }
 
+  /**
+   * get the xml representation of the whole document
+   * 
+   */
+  getOoxml() {
 
+    return new Promise((resolve, reject) => {
+
+      Word.run((context) => {
+
+        // get ooxml of the whole document
+        var bodyOOXML = context.document.body.getOoxml();
+
+        // Synchronize the document state by executing the queued commands,
+        // and return a promise to indicate task completion.
+        return context.sync().then(() => {
+          resolve(bodyOOXML.value.toString());
+        });
+      })
+        .catch((error) => {
+          reject("Error: " + JSON.stringify(error));
+        });
+    });
+  }
+
+  /**
+   * set whole document to the given xml string
+   * 
+   * @param xml 
+   */
+  setOoxml(xml: string) {
+
+    Word.run((context) => {
+
+      // set content from xml param
+      context.document.body.insertOoxml(xml, 'Replace');
+
+      // Synchronize the document state by executing the queued commands,
+      // and return a promise to indicate task completion.
+      return context.sync().then(() => {
+        //console.log("Body OOXML updated");
+      });
+    })
+      .catch((error) => {
+        console.log("Error: " + JSON.stringify(error));
+        if (error instanceof OfficeExtension.Error) {
+          console.log("Debug info: " + JSON.stringify(error.debugInfo));
+        }
+      });
+  }
 }

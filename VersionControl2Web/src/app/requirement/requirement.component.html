@@ -15,6 +15,18 @@
   <button (click)="onAccessDocument()" class="btn btn-primary">Access Office Document</button>
 </div>
 
+<div class="clr-row">
+  <button (click)="getWholeDocumentAsXml()" class="btn btn-primary">get Whole Document As Xml</button>
+</div>
+
+<div class="clr-row">
+  <button (click)="setWholeDocumentFromXml()" class="btn btn-primary">set Whole Document From Xml</button>
+</div>
+
+<div>
+  <p>{{ xmlMessage }}</p>
+</div>
+
 <hr />
 
 <form>
