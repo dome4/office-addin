@@ -10,6 +10,14 @@
     </w:pPr>
     <w:r>
       <w:rPr>
+        <w:vanish />
+      </w:rPr>
+      <!-- set requirement id -->
+      <w:t>{ "requirement-id": "123456sdf435", "requirement-state": "start" }</w:t>
+      <!-- set requirement id -->
+    </w:r>
+    <w:r>
+      <w:rPr>
         <w:rFonts w:ascii="Arial" w:eastAsia="Arial" w:hAnsi="Arial" w:cs="Arial"/>
         <w:sz w:val="27"/>
       </w:rPr>
@@ -586,6 +594,14 @@
     <w:pPr>
       <w:spacing w:after="220"/>
     </w:pPr>
+    <w:r>
+      <w:rPr>
+        <w:vanish />
+      </w:rPr>
+      <!-- set requirement id -->
+      <w:t>{ "requirement-id": "123456sdf435", "requirement-state": "end" }</w:t>
+      <!-- set requirement id -->
+    </w:r>
     <w:r>
       <w:rPr>
         <w:rFonts w:ascii="Tahoma" w:eastAsia="Tahoma" w:hAnsi="Tahoma" w:cs="Tahoma"/>
