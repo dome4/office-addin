@@ -142,6 +142,9 @@
     <Content Include="src\app\requirement-list\requirement-list.component.html" />
     <Content Include="src\app\requirement\requirement.component.css" />
     <Content Include="src\app\requirement\requirement.component.html" />
+    <Content Include="src\app\xml-templates\specification-sheet.xml">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="src\assets\.gitkeep" />
     <Content Include="src\tsconfig.app.json" />
     <Content Include="src\tsconfig.spec.json" />
