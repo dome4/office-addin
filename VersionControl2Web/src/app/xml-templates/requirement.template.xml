@@ -2,18 +2,19 @@
 <root xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main">
 
   <!-- content start -->
-  <w:p w:rsidR="0095255C" w:rsidRDefault="0095255C" w:rsidP="003D3DCA">
+  <w:p w:rsidR="003C2CC5" w:rsidRDefault="003C2CC5" w:rsidP="00FE63F7">
     <w:pPr>
       <w:pStyle w:val="berschrift2"/>
       <w:spacing w:before="240" w:after="60"/>
       <w:ind w:left="0" w:right="0"/>
     </w:pPr>
+    <w:bookmarkStart w:id="21" w:name="_Hlk519600367"/>
     <w:r>
       <w:rPr>
         <w:vanish />
       </w:rPr>
       <!-- set requirement id -->
-      <w:t>{ "requirement-id": "123456sdf435", "requirement-state": "start" }</w:t>
+      <w:t>{ "requirement-id": "2", "requirement-state": "start" }</w:t>
       <!-- set requirement id -->
     </w:r>
     <w:r>
@@ -28,15 +29,15 @@
     <w:r>
       <w:t xml:space="preserve">       </w:t>
     </w:r>
-    <w:bookmarkStart w:id="29" w:name="_Toc164172957"/>
-    <w:bookmarkEnd w:id="29"/>
+    <w:bookmarkStart w:id="22" w:name="_Toc164172951"/>
+    <w:bookmarkEnd w:id="22"/>
     <w:r>
       <w:rPr>
         <w:rFonts w:ascii="Arial" w:eastAsia="Arial" w:hAnsi="Arial" w:cs="Arial"/>
         <w:sz w:val="27"/>
       </w:rPr>
       <!-- title -->
-      <w:t>Anforderung 2..n</w:t>
+      <w:t>Anforderung 2</w:t>
       <!-- title -->
     </w:r>
     <w:r>
@@ -45,326 +46,404 @@
   </w:p>
   <w:tbl>
     <w:tblPr>
-      <w:tblW w:w="0" w:type="auto"/>
-      <w:tblBorders>
-        <w:insideH w:val="nil"/>
-        <w:insideV w:val="nil"/>
-      </w:tblBorders>
-      <w:tblCellMar>
-        <w:left w:w="0" w:type="dxa"/>
-        <w:right w:w="0" w:type="dxa"/>
-      </w:tblCellMar>
+      <w:tblStyle w:val="Gitternetztabelle1hell"/>
+      <w:tblW w:w="9495" w:type="dxa"/>
+      <w:tblInd w:w="0" w:type="dxa"/>
+      <w:tblLayout w:type="fixed"/>
       <w:tblLook w:val="04A0" w:firstRow="1" w:lastRow="0" w:firstColumn="1" w:lastColumn="0" w:noHBand="0" w:noVBand="1"/>
     </w:tblPr>
     <w:tblGrid>
-      <w:gridCol w:w="1402"/>
-      <w:gridCol w:w="1260"/>
-      <w:gridCol w:w="1697"/>
-      <w:gridCol w:w="2160"/>
-      <w:gridCol w:w="1260"/>
-      <w:gridCol w:w="1222"/>
+      <w:gridCol w:w="2548"/>
+      <w:gridCol w:w="2126"/>
+      <w:gridCol w:w="1843"/>
+      <w:gridCol w:w="2978"/>
     </w:tblGrid>
-    <w:tr w:rsidR="0095255C" w:rsidTr="003D3DCA">
+    <w:tr w:rsidR="003C2CC5" w:rsidTr="00FE63F7">
+      <w:trPr>
+        <w:cnfStyle w:val="100000000000" w:firstRow="1" w:lastRow="0" w:firstColumn="0" w:lastColumn="0" w:oddVBand="0" w:evenVBand="0" w:oddHBand="0" w:evenHBand="0" w:firstRowFirstColumn="0" w:firstRowLastColumn="0" w:lastRowFirstColumn="0" w:lastRowLastColumn="0"/>
+        <w:trHeight w:val="317"/>
+      </w:trPr>
       <w:tc>
         <w:tcPr>
-          <w:tcW w:w="1150" w:type="dxa"/>
+          <w:cnfStyle w:val="001000000000" w:firstRow="0" w:lastRow="0" w:firstColumn="1" w:lastColumn="0" w:oddVBand="0" w:evenVBand="0" w:oddHBand="0" w:evenHBand="0" w:firstRowFirstColumn="0" w:firstRowLastColumn="0" w:lastRowFirstColumn="0" w:lastRowLastColumn="0"/>
+          <w:tcW w:w="2547" w:type="dxa"/>
           <w:tcBorders>
-            <w:top w:val="nil"/>
-            <w:left w:val="nil"/>
-            <w:bottom w:val="nil"/>
-            <w:right w:val="nil"/>
+            <w:top w:val="single" w:sz="4" w:space="0" w:color="999999" w:themeColor="text1" w:themeTint="66"/>
+            <w:left w:val="single" w:sz="4" w:space="0" w:color="999999" w:themeColor="text1" w:themeTint="66"/>
+            <w:bottom w:val="single" w:sz="4" w:space="0" w:color="999999" w:themeColor="text1" w:themeTint="66"/>
+            <w:right w:val="single" w:sz="4" w:space="0" w:color="999999" w:themeColor="text1" w:themeTint="66"/>
           </w:tcBorders>
-          <w:shd w:val="solid" w:color="E0E0E0" w:fill="auto"/>
           <w:hideMark/>
         </w:tcPr>
-        <w:p w:rsidR="0095255C" w:rsidRDefault="0095255C">
+        <w:p w:rsidR="003C2CC5" w:rsidRDefault="003C2CC5">
           <w:pPr>
             <w:spacing w:before="40"/>
+            <w:rPr>
+              <w:rFonts w:ascii="Arial" w:hAnsi="Arial" w:cs="Arial"/>
+            </w:rPr>
           </w:pPr>
           <w:r>
             <w:rPr>
-              <w:rFonts w:ascii="Tahoma" w:eastAsia="Tahoma" w:hAnsi="Tahoma" w:cs="Tahoma"/>
-              <w:b/>
+              <w:rFonts w:ascii="Arial" w:eastAsia="Tahoma" w:hAnsi="Arial" w:cs="Arial"/>
               <w:sz w:val="20"/>
             </w:rPr>
             <w:t>Nr. / ID</w:t>
           </w:r>
           <w:r>
+            <w:rPr>
+              <w:rFonts w:ascii="Arial" w:hAnsi="Arial" w:cs="Arial"/>
+            </w:rPr>
             <w:t xml:space="preserve"> </w:t>
           </w:r>
         </w:p>
       </w:tc>
       <w:tc>
         <w:tcPr>
-          <w:tcW w:w="1260" w:type="dxa"/>
+          <w:tcW w:w="2126" w:type="dxa"/>
           <w:tcBorders>
-            <w:top w:val="nil"/>
-            <w:left w:val="nil"/>
-            <w:bottom w:val="nil"/>
-            <w:right w:val="nil"/>
+            <w:top w:val="single" w:sz="4" w:space="0" w:color="999999" w:themeColor="text1" w:themeTint="66"/>
+            <w:left w:val="single" w:sz="4" w:space="0" w:color="999999" w:themeColor="text1" w:themeTint="66"/>
+            <w:bottom w:val="single" w:sz="4" w:space="0" w:color="999999" w:themeColor="text1" w:themeTint="66"/>
+            <w:right w:val="single" w:sz="4" w:space="0" w:color="999999" w:themeColor="text1" w:themeTint="66"/>
           </w:tcBorders>
           <w:hideMark/>
         </w:tcPr>
-        <w:p w:rsidR="0095255C" w:rsidRDefault="0095255C">
+        <w:p w:rsidR="003C2CC5" w:rsidRDefault="003C2CC5">
+          <w:pPr>
+            <w:spacing w:after="220"/>
+            <w:cnfStyle w:val="100000000000" w:firstRow="1" w:lastRow="0" w:firstColumn="0" w:lastColumn="0" w:oddVBand="0" w:evenVBand="0" w:oddHBand="0" w:evenHBand="0" w:firstRowFirstColumn="0" w:firstRowLastColumn="0" w:lastRowFirstColumn="0" w:lastRowLastColumn="0"/>
+            <w:rPr>
+              <w:rFonts w:ascii="Arial" w:eastAsia="Tahoma" w:hAnsi="Arial" w:cs="Arial"/>
+              <w:sz w:val="20"/>
+            </w:rPr>
+          </w:pPr>
+          <w:sdt>
+            <w:sdtPr>
+              <w:rPr>
+                <w:rFonts w:ascii="Arial" w:eastAsia="Tahoma" w:hAnsi="Arial" w:cs="Arial"/>
+                <w:sz w:val="20"/>
+              </w:rPr>
+              <w:alias w:val="requirement_1_id"/>
+              <w:tag w:val="requirement_1_id"/>
+              <w:id w:val="-1394802603"/>
+              <w:placeholder>
+                <w:docPart w:val="1F124D4053BE47D89262535525CB9897"/>
+              </w:placeholder>
+            </w:sdtPr>
+            <w:sdtContent>
+              <w:r>
+                <w:rPr>
+                  <w:rFonts w:ascii="Arial" w:eastAsia="Tahoma" w:hAnsi="Arial" w:cs="Arial"/>
+                  <w:sz w:val="20"/>
+                  <w:lang w:val="de-DE"/>
+                </w:rPr>
+                <w:t>&lt;ID&gt;</w:t>
+              </w:r>
+              <w:r>
+                <w:rPr>
+                  <w:rFonts w:ascii="Arial" w:eastAsia="Tahoma" w:hAnsi="Arial" w:cs="Arial"/>
+                  <w:sz w:val="20"/>
+                </w:rPr>
+                <w:t>  </w:t>
+              </w:r>
+            </w:sdtContent>
+          </w:sdt>
+          <w:r>
+            <w:rPr>
+              <w:rFonts w:ascii="Arial" w:eastAsia="Tahoma" w:hAnsi="Arial" w:cs="Arial"/>
+              <w:sz w:val="20"/>
+            </w:rPr>
+            <w:t xml:space="preserve">         </w:t>
+          </w:r>
+        </w:p>
+      </w:tc>
+      <w:tc>
+        <w:tcPr>
+          <w:tcW w:w="1843" w:type="dxa"/>
+          <w:tcBorders>
+            <w:top w:val="single" w:sz="4" w:space="0" w:color="999999" w:themeColor="text1" w:themeTint="66"/>
+            <w:left w:val="single" w:sz="4" w:space="0" w:color="999999" w:themeColor="text1" w:themeTint="66"/>
+            <w:bottom w:val="single" w:sz="4" w:space="0" w:color="999999" w:themeColor="text1" w:themeTint="66"/>
+            <w:right w:val="single" w:sz="4" w:space="0" w:color="999999" w:themeColor="text1" w:themeTint="66"/>
+          </w:tcBorders>
+          <w:hideMark/>
+        </w:tcPr>
+        <w:p w:rsidR="003C2CC5" w:rsidRDefault="003C2CC5">
           <w:pPr>
             <w:spacing w:before="40"/>
+            <w:cnfStyle w:val="100000000000" w:firstRow="1" w:lastRow="0" w:firstColumn="0" w:lastColumn="0" w:oddVBand="0" w:evenVBand="0" w:oddHBand="0" w:evenHBand="0" w:firstRowFirstColumn="0" w:firstRowLastColumn="0" w:lastRowFirstColumn="0" w:lastRowLastColumn="0"/>
+            <w:rPr>
+              <w:rFonts w:ascii="Arial" w:hAnsi="Arial" w:cs="Arial"/>
+            </w:rPr>
           </w:pPr>
           <w:r>
             <w:rPr>
-              <w:rFonts w:ascii="Tahoma" w:eastAsia="Tahoma" w:hAnsi="Tahoma" w:cs="Tahoma"/>
+              <w:rFonts w:ascii="Arial" w:eastAsia="Tahoma" w:hAnsi="Arial" w:cs="Arial"/>
               <w:sz w:val="20"/>
+              <w:lang w:val="de-DE"/>
             </w:rPr>
-            <w:t>BSP_07_n</w:t>
+            <w:t>Version</w:t>
           </w:r>
           <w:r>
+            <w:rPr>
+              <w:rFonts w:ascii="Arial" w:hAnsi="Arial" w:cs="Arial"/>
+            </w:rPr>
             <w:t xml:space="preserve"> </w:t>
           </w:r>
         </w:p>
       </w:tc>
       <w:tc>
         <w:tcPr>
-          <w:tcW w:w="0" w:type="auto"/>
+          <w:tcW w:w="2977" w:type="dxa"/>
           <w:tcBorders>
-            <w:top w:val="nil"/>
-            <w:left w:val="nil"/>
-            <w:bottom w:val="nil"/>
-            <w:right w:val="nil"/>
-          </w:tcBorders>
-          <w:shd w:val="solid" w:color="E0E0E0" w:fill="auto"/>
-          <w:hideMark/>
-        </w:tcPr>
-        <w:p w:rsidR="0095255C" w:rsidRDefault="0095255C">
-          <w:pPr>
-            <w:spacing w:before="40"/>
-          </w:pPr>
-          <w:r>
-            <w:rPr>
-              <w:rFonts w:ascii="Tahoma" w:eastAsia="Tahoma" w:hAnsi="Tahoma" w:cs="Tahoma"/>
-              <w:b/>
-              <w:sz w:val="20"/>
-            </w:rPr>
-            <w:t xml:space="preserve">Nichttechnischer </w:t>
-          </w:r>
-          <w:r>
-            <w:rPr>
-              <w:rFonts w:ascii="Tahoma" w:eastAsia="Tahoma" w:hAnsi="Tahoma" w:cs="Tahoma"/>
-              <w:b/>
-              <w:sz w:val="15"/>
-            </w:rPr>
-            <w:t>Titel</w:t>
-          </w:r>
-          <w:r>
-            <w:t xml:space="preserve"> </w:t>
-          </w:r>
-        </w:p>
-      </w:tc>
-      <w:tc>
-        <w:tcPr>
-          <w:tcW w:w="0" w:type="auto"/>
-          <w:gridSpan w:val="3"/>
-          <w:tcBorders>
-            <w:top w:val="nil"/>
-            <w:left w:val="nil"/>
-            <w:bottom w:val="nil"/>
-            <w:right w:val="nil"/>
+            <w:top w:val="single" w:sz="4" w:space="0" w:color="999999" w:themeColor="text1" w:themeTint="66"/>
+            <w:left w:val="single" w:sz="4" w:space="0" w:color="999999" w:themeColor="text1" w:themeTint="66"/>
+            <w:bottom w:val="single" w:sz="4" w:space="0" w:color="999999" w:themeColor="text1" w:themeTint="66"/>
+            <w:right w:val="single" w:sz="4" w:space="0" w:color="999999" w:themeColor="text1" w:themeTint="66"/>
           </w:tcBorders>
           <w:hideMark/>
         </w:tcPr>
-        <w:p w:rsidR="0095255C" w:rsidRDefault="0095255C">
+        <w:p w:rsidR="003C2CC5" w:rsidRDefault="003C2CC5">
           <w:pPr>
             <w:spacing w:before="40"/>
+            <w:cnfStyle w:val="100000000000" w:firstRow="1" w:lastRow="0" w:firstColumn="0" w:lastColumn="0" w:oddVBand="0" w:evenVBand="0" w:oddHBand="0" w:evenHBand="0" w:firstRowFirstColumn="0" w:firstRowLastColumn="0" w:lastRowFirstColumn="0" w:lastRowLastColumn="0"/>
+            <w:rPr>
+              <w:rFonts w:ascii="Arial" w:hAnsi="Arial" w:cs="Arial"/>
+            </w:rPr>
           </w:pPr>
+          <w:sdt>
+            <w:sdtPr>
+              <w:rPr>
+                <w:rFonts w:ascii="Arial" w:eastAsia="Tahoma" w:hAnsi="Arial" w:cs="Arial"/>
+                <w:sz w:val="20"/>
+              </w:rPr>
+              <w:alias w:val="requirement_1_version"/>
+              <w:tag w:val="requirement_1_version"/>
+              <w:id w:val="1561210156"/>
+              <w:placeholder>
+                <w:docPart w:val="E6EEA645379D4434BCE4175FCD863B76"/>
+              </w:placeholder>
+            </w:sdtPr>
+            <w:sdtContent>
+              <w:r>
+                <w:rPr>
+                  <w:rFonts w:ascii="Arial" w:eastAsia="Tahoma" w:hAnsi="Arial" w:cs="Arial"/>
+                  <w:sz w:val="20"/>
+                  <w:lang w:val="de-DE"/>
+                </w:rPr>
+                <w:t>&lt;Version&gt;</w:t>
+              </w:r>
+              <w:r>
+                <w:rPr>
+                  <w:rFonts w:ascii="Arial" w:eastAsia="Tahoma" w:hAnsi="Arial" w:cs="Arial"/>
+                  <w:sz w:val="20"/>
+                </w:rPr>
+                <w:t>  </w:t>
+              </w:r>
+            </w:sdtContent>
+          </w:sdt>
           <w:r>
             <w:rPr>
-              <w:rFonts w:ascii="Tahoma" w:eastAsia="Tahoma" w:hAnsi="Tahoma" w:cs="Tahoma"/>
+              <w:rFonts w:ascii="Arial" w:eastAsia="Tahoma" w:hAnsi="Arial" w:cs="Arial"/>
               <w:sz w:val="20"/>
             </w:rPr>
-            <w:t> </w:t>
-          </w:r>
-          <w:r>
-            <w:t xml:space="preserve"> </w:t>
+            <w:t>        </w:t>
           </w:r>
         </w:p>
       </w:tc>
     </w:tr>
-    <w:tr w:rsidR="0095255C" w:rsidTr="003D3DCA">
+    <w:tr w:rsidR="003C2CC5" w:rsidTr="00FE63F7">
       <w:tc>
         <w:tcPr>
-          <w:tcW w:w="1150" w:type="dxa"/>
+          <w:cnfStyle w:val="001000000000" w:firstRow="0" w:lastRow="0" w:firstColumn="1" w:lastColumn="0" w:oddVBand="0" w:evenVBand="0" w:oddHBand="0" w:evenHBand="0" w:firstRowFirstColumn="0" w:firstRowLastColumn="0" w:lastRowFirstColumn="0" w:lastRowLastColumn="0"/>
+          <w:tcW w:w="2547" w:type="dxa"/>
           <w:tcBorders>
-            <w:top w:val="nil"/>
-            <w:left w:val="nil"/>
-            <w:bottom w:val="nil"/>
-            <w:right w:val="nil"/>
+            <w:top w:val="single" w:sz="4" w:space="0" w:color="999999" w:themeColor="text1" w:themeTint="66"/>
+            <w:left w:val="single" w:sz="4" w:space="0" w:color="999999" w:themeColor="text1" w:themeTint="66"/>
+            <w:bottom w:val="single" w:sz="4" w:space="0" w:color="999999" w:themeColor="text1" w:themeTint="66"/>
+            <w:right w:val="single" w:sz="4" w:space="0" w:color="999999" w:themeColor="text1" w:themeTint="66"/>
           </w:tcBorders>
-          <w:shd w:val="solid" w:color="E0E0E0" w:fill="auto"/>
           <w:hideMark/>
         </w:tcPr>
-        <w:p w:rsidR="0095255C" w:rsidRDefault="0095255C">
+        <w:p w:rsidR="003C2CC5" w:rsidRDefault="003C2CC5">
           <w:pPr>
             <w:spacing w:before="40"/>
+            <w:rPr>
+              <w:rFonts w:ascii="Arial" w:hAnsi="Arial" w:cs="Arial"/>
+            </w:rPr>
           </w:pPr>
           <w:r>
             <w:rPr>
-              <w:rFonts w:ascii="Tahoma" w:eastAsia="Tahoma" w:hAnsi="Tahoma" w:cs="Tahoma"/>
-              <w:b/>
-              <w:sz w:val="20"/>
-              <w:shd w:val="solid" w:color="E0E0E0" w:fill="auto"/>
-            </w:rPr>
-            <w:t>Quelle</w:t>
-          </w:r>
-          <w:r>
-            <w:rPr>
-              <w:rFonts w:ascii="Tahoma" w:eastAsia="Tahoma" w:hAnsi="Tahoma" w:cs="Tahoma"/>
-              <w:b/>
+              <w:rFonts w:ascii="Arial" w:eastAsia="Tahoma" w:hAnsi="Arial" w:cs="Arial"/>
               <w:sz w:val="20"/>
             </w:rPr>
-            <w:t xml:space="preserve">              </w:t>
+            <w:t xml:space="preserve">Nichttechnischer Tittel              </w:t>
           </w:r>
         </w:p>
       </w:tc>
       <w:tc>
         <w:tcPr>
-          <w:tcW w:w="0" w:type="auto"/>
+          <w:tcW w:w="2126" w:type="dxa"/>
           <w:tcBorders>
-            <w:top w:val="nil"/>
-            <w:left w:val="nil"/>
-            <w:bottom w:val="nil"/>
-            <w:right w:val="nil"/>
+            <w:top w:val="single" w:sz="4" w:space="0" w:color="999999" w:themeColor="text1" w:themeTint="66"/>
+            <w:left w:val="single" w:sz="4" w:space="0" w:color="999999" w:themeColor="text1" w:themeTint="66"/>
+            <w:bottom w:val="single" w:sz="4" w:space="0" w:color="999999" w:themeColor="text1" w:themeTint="66"/>
+            <w:right w:val="single" w:sz="4" w:space="0" w:color="999999" w:themeColor="text1" w:themeTint="66"/>
           </w:tcBorders>
           <w:hideMark/>
         </w:tcPr>
-        <w:p w:rsidR="0095255C" w:rsidRDefault="0095255C">
+        <w:p w:rsidR="003C2CC5" w:rsidRDefault="003C2CC5">
           <w:pPr>
             <w:spacing w:before="40"/>
+            <w:cnfStyle w:val="000000000000" w:firstRow="0" w:lastRow="0" w:firstColumn="0" w:lastColumn="0" w:oddVBand="0" w:evenVBand="0" w:oddHBand="0" w:evenHBand="0" w:firstRowFirstColumn="0" w:firstRowLastColumn="0" w:lastRowFirstColumn="0" w:lastRowLastColumn="0"/>
+            <w:rPr>
+              <w:rFonts w:ascii="Arial" w:hAnsi="Arial" w:cs="Arial"/>
+            </w:rPr>
+          </w:pPr>
+          <w:sdt>
+            <w:sdtPr>
+              <w:rPr>
+                <w:rFonts w:ascii="Arial" w:eastAsia="Tahoma" w:hAnsi="Arial" w:cs="Arial"/>
+                <w:sz w:val="20"/>
+              </w:rPr>
+              <w:alias w:val="requirement_1_name"/>
+              <w:tag w:val="requirement_1_name"/>
+              <w:id w:val="-1800447998"/>
+              <w:placeholder>
+                <w:docPart w:val="022BBB41EB32424B927075DA94871523"/>
+              </w:placeholder>
+            </w:sdtPr>
+            <w:sdtContent>
+              <w:r>
+                <w:rPr>
+                  <w:rFonts w:ascii="Arial" w:eastAsia="Tahoma" w:hAnsi="Arial" w:cs="Arial"/>
+                  <w:sz w:val="20"/>
+                  <w:lang w:val="de-DE"/>
+                </w:rPr>
+                <w:t>&lt;Name&gt;</w:t>
+              </w:r>
+              <w:r>
+                <w:rPr>
+                  <w:rFonts w:ascii="Arial" w:eastAsia="Tahoma" w:hAnsi="Arial" w:cs="Arial"/>
+                  <w:sz w:val="20"/>
+                </w:rPr>
+                <w:t>  </w:t>
+              </w:r>
+            </w:sdtContent>
+          </w:sdt>
+          <w:r>
+            <w:rPr>
+              <w:rFonts w:ascii="Arial" w:eastAsia="Tahoma" w:hAnsi="Arial" w:cs="Arial"/>
+              <w:sz w:val="20"/>
+            </w:rPr>
+            <w:t>  </w:t>
+          </w:r>
+        </w:p>
+      </w:tc>
+      <w:tc>
+        <w:tcPr>
+          <w:tcW w:w="1843" w:type="dxa"/>
+          <w:tcBorders>
+            <w:top w:val="single" w:sz="4" w:space="0" w:color="999999" w:themeColor="text1" w:themeTint="66"/>
+            <w:left w:val="single" w:sz="4" w:space="0" w:color="999999" w:themeColor="text1" w:themeTint="66"/>
+            <w:bottom w:val="single" w:sz="4" w:space="0" w:color="999999" w:themeColor="text1" w:themeTint="66"/>
+            <w:right w:val="single" w:sz="4" w:space="0" w:color="999999" w:themeColor="text1" w:themeTint="66"/>
+          </w:tcBorders>
+          <w:hideMark/>
+        </w:tcPr>
+        <w:p w:rsidR="003C2CC5" w:rsidRDefault="003C2CC5">
+          <w:pPr>
+            <w:spacing w:before="40"/>
+            <w:cnfStyle w:val="000000000000" w:firstRow="0" w:lastRow="0" w:firstColumn="0" w:lastColumn="0" w:oddVBand="0" w:evenVBand="0" w:oddHBand="0" w:evenHBand="0" w:firstRowFirstColumn="0" w:firstRowLastColumn="0" w:lastRowFirstColumn="0" w:lastRowLastColumn="0"/>
+            <w:rPr>
+              <w:rFonts w:ascii="Arial" w:hAnsi="Arial" w:cs="Arial"/>
+            </w:rPr>
           </w:pPr>
           <w:r>
             <w:rPr>
-              <w:rFonts w:ascii="Tahoma" w:eastAsia="Tahoma" w:hAnsi="Tahoma" w:cs="Tahoma"/>
+              <w:rFonts w:ascii="Arial" w:eastAsia="Tahoma" w:hAnsi="Arial" w:cs="Arial"/>
+              <w:sz w:val="20"/>
+              <w:lang w:val="de-DE"/>
+            </w:rPr>
+            <w:t>Aufwand</w:t>
+          </w:r>
+          <w:r>
+            <w:rPr>
+              <w:rFonts w:ascii="Arial" w:hAnsi="Arial" w:cs="Arial"/>
+            </w:rPr>
+            <w:t xml:space="preserve"> </w:t>
+          </w:r>
+        </w:p>
+      </w:tc>
+      <w:tc>
+        <w:tcPr>
+          <w:tcW w:w="2977" w:type="dxa"/>
+          <w:tcBorders>
+            <w:top w:val="single" w:sz="4" w:space="0" w:color="999999" w:themeColor="text1" w:themeTint="66"/>
+            <w:left w:val="single" w:sz="4" w:space="0" w:color="999999" w:themeColor="text1" w:themeTint="66"/>
+            <w:bottom w:val="single" w:sz="4" w:space="0" w:color="999999" w:themeColor="text1" w:themeTint="66"/>
+            <w:right w:val="single" w:sz="4" w:space="0" w:color="999999" w:themeColor="text1" w:themeTint="66"/>
+          </w:tcBorders>
+          <w:hideMark/>
+        </w:tcPr>
+        <w:p w:rsidR="003C2CC5" w:rsidRDefault="003C2CC5">
+          <w:pPr>
+            <w:spacing w:before="40"/>
+            <w:cnfStyle w:val="000000000000" w:firstRow="0" w:lastRow="0" w:firstColumn="0" w:lastColumn="0" w:oddVBand="0" w:evenVBand="0" w:oddHBand="0" w:evenHBand="0" w:firstRowFirstColumn="0" w:firstRowLastColumn="0" w:lastRowFirstColumn="0" w:lastRowLastColumn="0"/>
+            <w:rPr>
+              <w:rFonts w:ascii="Arial" w:hAnsi="Arial" w:cs="Arial"/>
+            </w:rPr>
+          </w:pPr>
+          <w:r>
+            <w:rPr>
+              <w:rFonts w:ascii="Arial" w:eastAsia="Tahoma" w:hAnsi="Arial" w:cs="Arial"/>
               <w:sz w:val="20"/>
             </w:rPr>
             <w:t> </w:t>
           </w:r>
-          <w:r>
-            <w:t xml:space="preserve"> </w:t>
-          </w:r>
-        </w:p>
-      </w:tc>
-      <w:tc>
-        <w:tcPr>
-          <w:tcW w:w="1080" w:type="dxa"/>
-          <w:tcBorders>
-            <w:top w:val="nil"/>
-            <w:left w:val="nil"/>
-            <w:bottom w:val="nil"/>
-            <w:right w:val="nil"/>
-          </w:tcBorders>
-          <w:shd w:val="solid" w:color="E0E0E0" w:fill="auto"/>
-          <w:hideMark/>
-        </w:tcPr>
-        <w:p w:rsidR="0095255C" w:rsidRDefault="0095255C">
-          <w:pPr>
-            <w:spacing w:before="40"/>
-          </w:pPr>
-          <w:r>
-            <w:rPr>
-              <w:rFonts w:ascii="Tahoma" w:eastAsia="Tahoma" w:hAnsi="Tahoma" w:cs="Tahoma"/>
-              <w:b/>
-              <w:sz w:val="20"/>
-            </w:rPr>
-            <w:t>Verweise</w:t>
-          </w:r>
-          <w:r>
-            <w:t xml:space="preserve"> </w:t>
-          </w:r>
-        </w:p>
-      </w:tc>
-      <w:tc>
-        <w:tcPr>
-          <w:tcW w:w="2160" w:type="dxa"/>
-          <w:tcBorders>
-            <w:top w:val="nil"/>
-            <w:left w:val="nil"/>
-            <w:bottom w:val="nil"/>
-            <w:right w:val="nil"/>
-          </w:tcBorders>
-          <w:hideMark/>
-        </w:tcPr>
-        <w:p w:rsidR="0095255C" w:rsidRDefault="0095255C">
-          <w:pPr>
-            <w:spacing w:before="40"/>
-          </w:pPr>
+          <w:sdt>
+            <w:sdtPr>
+              <w:rPr>
+                <w:rFonts w:ascii="Arial" w:eastAsia="Tahoma" w:hAnsi="Arial" w:cs="Arial"/>
+                <w:sz w:val="20"/>
+              </w:rPr>
+              <w:alias w:val="requirement_1_duration"/>
+              <w:tag w:val="requirement_1_duration"/>
+              <w:id w:val="-1304768493"/>
+              <w:placeholder>
+                <w:docPart w:val="FC39EACEDB6E460995FDC45D60349DB2"/>
+              </w:placeholder>
+            </w:sdtPr>
+            <w:sdtContent>
+              <w:r>
+                <w:rPr>
+                  <w:rFonts w:ascii="Arial" w:eastAsia="Tahoma" w:hAnsi="Arial" w:cs="Arial"/>
+                  <w:sz w:val="20"/>
+                  <w:lang w:val="de-DE"/>
+                </w:rPr>
+                <w:t>&lt;Aufwand&gt;</w:t>
+              </w:r>
+              <w:r>
+                <w:rPr>
+                  <w:rFonts w:ascii="Arial" w:eastAsia="Tahoma" w:hAnsi="Arial" w:cs="Arial"/>
+                  <w:sz w:val="20"/>
+                </w:rPr>
+                <w:t>  </w:t>
+              </w:r>
+            </w:sdtContent>
+          </w:sdt>
           <w:r>
             <w:rPr>
-              <w:rFonts w:ascii="Tahoma" w:eastAsia="Tahoma" w:hAnsi="Tahoma" w:cs="Tahoma"/>
+              <w:rFonts w:ascii="Arial" w:eastAsia="Tahoma" w:hAnsi="Arial" w:cs="Arial"/>
               <w:sz w:val="20"/>
             </w:rPr>
-            <w:t> </w:t>
-          </w:r>
-          <w:r>
-            <w:t xml:space="preserve"> </w:t>
-          </w:r>
-        </w:p>
-      </w:tc>
-      <w:tc>
-        <w:tcPr>
-          <w:tcW w:w="1260" w:type="dxa"/>
-          <w:tcBorders>
-            <w:top w:val="nil"/>
-            <w:left w:val="nil"/>
-            <w:bottom w:val="nil"/>
-            <w:right w:val="nil"/>
-          </w:tcBorders>
-          <w:shd w:val="solid" w:color="E0E0E0" w:fill="auto"/>
-          <w:hideMark/>
-        </w:tcPr>
-        <w:p w:rsidR="0095255C" w:rsidRDefault="0095255C">
-          <w:pPr>
-            <w:spacing w:before="40"/>
-          </w:pPr>
-          <w:r>
-            <w:rPr>
-              <w:rFonts w:ascii="Tahoma" w:eastAsia="Tahoma" w:hAnsi="Tahoma" w:cs="Tahoma"/>
-              <w:b/>
-              <w:sz w:val="20"/>
-            </w:rPr>
-            <w:t>Priorität</w:t>
-          </w:r>
-          <w:r>
-            <w:t xml:space="preserve"> </w:t>
-          </w:r>
-        </w:p>
-      </w:tc>
-      <w:tc>
-        <w:tcPr>
-          <w:tcW w:w="1222" w:type="dxa"/>
-          <w:tcBorders>
-            <w:top w:val="nil"/>
-            <w:left w:val="nil"/>
-            <w:bottom w:val="nil"/>
-            <w:right w:val="nil"/>
-          </w:tcBorders>
-          <w:hideMark/>
-        </w:tcPr>
-        <w:p w:rsidR="0095255C" w:rsidRDefault="0095255C">
-          <w:pPr>
-            <w:spacing w:before="40"/>
-          </w:pPr>
-          <w:r>
-            <w:rPr>
-              <w:rFonts w:ascii="Tahoma" w:eastAsia="Tahoma" w:hAnsi="Tahoma" w:cs="Tahoma"/>
-              <w:sz w:val="20"/>
-            </w:rPr>
-            <w:t> </w:t>
-          </w:r>
-          <w:r>
-            <w:t xml:space="preserve"> </w:t>
+            <w:t>        </w:t>
           </w:r>
         </w:p>
       </w:tc>
     </w:tr>
   </w:tbl>
-  <w:p w:rsidR="0095255C" w:rsidRDefault="0095255C" w:rsidP="003D3DCA">
+  <w:p w:rsidR="003C2CC5" w:rsidRDefault="003C2CC5" w:rsidP="00FE63F7">
     <w:pPr>
       <w:pStyle w:val="berschrift3"/>
       <w:spacing w:before="240" w:after="60"/>
@@ -381,6 +460,8 @@
     <w:r>
       <w:t xml:space="preserve"> </w:t>
     </w:r>
+    <w:bookmarkStart w:id="23" w:name="_Toc164172952"/>
+    <w:bookmarkEnd w:id="23"/>
     <w:r>
       <w:rPr>
         <w:rFonts w:ascii="Arial" w:eastAsia="Arial" w:hAnsi="Arial" w:cs="Arial"/>
@@ -393,20 +474,25 @@
       <w:t xml:space="preserve"> </w:t>
     </w:r>
   </w:p>
-  <w:p w:rsidR="0095255C" w:rsidRDefault="0095255C" w:rsidP="003D3DCA">
+  <w:p w:rsidR="003C2CC5" w:rsidRDefault="003C2CC5" w:rsidP="00FE63F7">
+    <w:pPr>
+      <w:spacing w:after="220"/>
+      <w:rPr>
+        <w:rFonts w:ascii="Tahoma" w:eastAsia="Tahoma" w:hAnsi="Tahoma" w:cs="Tahoma"/>
+        <w:sz w:val="20"/>
+      </w:rPr>
+    </w:pPr>
     <w:sdt>
       <w:sdtPr>
         <w:rPr>
           <w:rFonts w:ascii="Tahoma" w:eastAsia="Tahoma" w:hAnsi="Tahoma" w:cs="Tahoma"/>
           <w:sz w:val="20"/>
         </w:rPr>
-        <!-- requirement desription id -->
-        <w:alias w:val="requirement_2"/>
-        <w:tag w:val="requirement_2"/>
-        <w:id w:val="-1524937146"/>
-        <!-- requirement desription id -->
+        <w:alias w:val="requirement_1_description "/>
+        <w:tag w:val="requirement_1_description "/>
+        <w:id w:val="-235323408"/>
         <w:placeholder>
-          <w:docPart w:val="DB16219E82DD4C0E87659688726CA0F5"/>
+          <w:docPart w:val="1D3F8E95024149CCA6A0A503AA94586C"/>
         </w:placeholder>
       </w:sdtPr>
       <w:sdtContent>
@@ -416,9 +502,7 @@
             <w:sz w:val="20"/>
             <w:lang w:val="de-DE"/>
           </w:rPr>
-          <!-- requirement desription -->
           <w:t>&lt;Ihr Text&gt;</w:t>
-          <!-- requirement desription -->
         </w:r>
         <w:r>
           <w:rPr>
@@ -434,10 +518,10 @@
         <w:rFonts w:ascii="Tahoma" w:eastAsia="Tahoma" w:hAnsi="Tahoma" w:cs="Tahoma"/>
         <w:sz w:val="20"/>
       </w:rPr>
-      <w:t>   </w:t>
+      <w:t xml:space="preserve">         </w:t>
     </w:r>
   </w:p>
-  <w:p w:rsidR="0095255C" w:rsidRDefault="0095255C" w:rsidP="003D3DCA">
+  <w:p w:rsidR="003C2CC5" w:rsidRDefault="003C2CC5" w:rsidP="00FE63F7">
     <w:pPr>
       <w:pStyle w:val="berschrift3"/>
       <w:spacing w:before="240" w:after="60"/>
@@ -452,8 +536,8 @@
     <w:r>
       <w:t xml:space="preserve"> </w:t>
     </w:r>
-    <w:bookmarkStart w:id="30" w:name="_Toc164172959"/>
-    <w:bookmarkEnd w:id="30"/>
+    <w:bookmarkStart w:id="24" w:name="_Toc164172953"/>
+    <w:bookmarkEnd w:id="24"/>
     <w:r>
       <w:rPr>
         <w:rFonts w:ascii="Arial" w:eastAsia="Arial" w:hAnsi="Arial" w:cs="Arial"/>
@@ -464,7 +548,7 @@
       <w:t xml:space="preserve"> </w:t>
     </w:r>
   </w:p>
-  <w:p w:rsidR="0095255C" w:rsidRDefault="0095255C" w:rsidP="003D3DCA">
+  <w:p w:rsidR="003C2CC5" w:rsidRDefault="003C2CC5" w:rsidP="00FE63F7">
     <w:pPr>
       <w:spacing w:after="220"/>
     </w:pPr>
@@ -479,7 +563,7 @@
       <w:t xml:space="preserve"> </w:t>
     </w:r>
   </w:p>
-  <w:p w:rsidR="0095255C" w:rsidRDefault="0095255C" w:rsidP="003D3DCA">
+  <w:p w:rsidR="003C2CC5" w:rsidRDefault="003C2CC5" w:rsidP="00FE63F7">
     <w:pPr>
       <w:pStyle w:val="berschrift3"/>
       <w:spacing w:before="240" w:after="60"/>
@@ -494,8 +578,8 @@
     <w:r>
       <w:t xml:space="preserve"> </w:t>
     </w:r>
-    <w:bookmarkStart w:id="31" w:name="_Toc164172960"/>
-    <w:bookmarkEnd w:id="31"/>
+    <w:bookmarkStart w:id="25" w:name="_Toc164172954"/>
+    <w:bookmarkEnd w:id="25"/>
     <w:r>
       <w:rPr>
         <w:rFonts w:ascii="Arial" w:eastAsia="Arial" w:hAnsi="Arial" w:cs="Arial"/>
@@ -506,7 +590,7 @@
       <w:t xml:space="preserve"> </w:t>
     </w:r>
   </w:p>
-  <w:p w:rsidR="0095255C" w:rsidRDefault="0095255C" w:rsidP="003D3DCA">
+  <w:p w:rsidR="003C2CC5" w:rsidRDefault="003C2CC5" w:rsidP="00FE63F7">
     <w:pPr>
       <w:spacing w:after="220"/>
     </w:pPr>
@@ -521,7 +605,7 @@
       <w:t xml:space="preserve"> </w:t>
     </w:r>
   </w:p>
-  <w:p w:rsidR="0095255C" w:rsidRDefault="0095255C" w:rsidP="003D3DCA">
+  <w:p w:rsidR="003C2CC5" w:rsidRDefault="003C2CC5" w:rsidP="00FE63F7">
     <w:pPr>
       <w:pStyle w:val="berschrift3"/>
       <w:spacing w:before="240" w:after="60"/>
@@ -536,8 +620,8 @@
     <w:r>
       <w:t xml:space="preserve"> </w:t>
     </w:r>
-    <w:bookmarkStart w:id="32" w:name="_Toc164172961"/>
-    <w:bookmarkEnd w:id="32"/>
+    <w:bookmarkStart w:id="26" w:name="_Toc164172955"/>
+    <w:bookmarkEnd w:id="26"/>
     <w:r>
       <w:rPr>
         <w:rFonts w:ascii="Arial" w:eastAsia="Arial" w:hAnsi="Arial" w:cs="Arial"/>
@@ -548,7 +632,7 @@
       <w:t xml:space="preserve"> </w:t>
     </w:r>
   </w:p>
-  <w:p w:rsidR="0095255C" w:rsidRDefault="0095255C" w:rsidP="003D3DCA">
+  <w:p w:rsidR="003C2CC5" w:rsidRDefault="003C2CC5" w:rsidP="00FE63F7">
     <w:pPr>
       <w:spacing w:after="220"/>
     </w:pPr>
@@ -563,7 +647,7 @@
       <w:t xml:space="preserve"> </w:t>
     </w:r>
   </w:p>
-  <w:p w:rsidR="0095255C" w:rsidRDefault="0095255C" w:rsidP="003D3DCA">
+  <w:p w:rsidR="003C2CC5" w:rsidRDefault="003C2CC5" w:rsidP="00FE63F7">
     <w:pPr>
       <w:pStyle w:val="berschrift3"/>
       <w:spacing w:before="240" w:after="60"/>
@@ -578,8 +662,8 @@
     <w:r>
       <w:t xml:space="preserve"> </w:t>
     </w:r>
-    <w:bookmarkStart w:id="33" w:name="_Toc164172962"/>
-    <w:bookmarkEnd w:id="33"/>
+    <w:bookmarkStart w:id="27" w:name="_Toc164172956"/>
+    <w:bookmarkEnd w:id="27"/>
     <w:r>
       <w:rPr>
         <w:rFonts w:ascii="Arial" w:eastAsia="Arial" w:hAnsi="Arial" w:cs="Arial"/>
@@ -590,7 +674,7 @@
       <w:t xml:space="preserve"> </w:t>
     </w:r>
   </w:p>
-  <w:p w:rsidR="0095255C" w:rsidRDefault="0095255C" w:rsidP="003D3DCA">
+  <w:p w:rsidR="003C2CC5" w:rsidRDefault="003C2CC5" w:rsidP="00FE63F7">
     <w:pPr>
       <w:spacing w:after="220"/>
     </w:pPr>
@@ -599,7 +683,7 @@
         <w:vanish />
       </w:rPr>
       <!-- set requirement id -->
-      <w:t>{ "requirement-id": "123456sdf435", "requirement-state": "end" }</w:t>
+      <w:t>{ "requirement-id": "2", "requirement-state": "end" }</w:t>
       <!-- set requirement id -->
     </w:r>
     <w:r>
