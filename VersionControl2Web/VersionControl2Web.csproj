@@ -143,7 +143,6 @@
     <Content Include="src\app\requirement\requirement.component.css" />
     <Content Include="src\app\requirement\requirement.component.html" />
     <Content Include="src\app\xml-templates\requirement.template.xml" />
-    <Content Include="src\app\xml-templates\rich-text.template.xml" />
     <Content Include="src\app\xml-templates\specification-sheet.template.xml">
       <SubType>Designer</SubType>
     </Content>
