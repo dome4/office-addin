@@ -1,7 +1,7 @@
-import { Component, OnInit, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
 import { RequirementService } from '../services/requirement.service';
 import { Requirement } from '../models/requirement';
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import 'rxjs';
 import { trigger, transition, animate, style, animateChild } from '@angular/animations';
 import { FormControl, FormGroup, Validators, FormBuilder, FormArray } from '@angular/forms';
@@ -73,7 +73,7 @@ declare let OfficeExtension: any;
   templateUrl: './requirement.component.html',
   styleUrls: ['./requirement.component.css']
 })
-export class RequirementComponent implements OnInit {
+export class RequirementComponent implements OnInit, OnDestroy {
 
   // debug variable
   public xmlMessage: string = '';
@@ -98,26 +98,37 @@ export class RequirementComponent implements OnInit {
   // reactive form
   public requirementForm: FormGroup;
 
+  // subscriptions
+  private subscriptions: Subscription[] = [];
+
   /*
    * constructor
    */
   constructor(private requirementService: RequirementService,
-              private fb: FormBuilder,
-              private officeService: OfficeService) {
+    private fb: FormBuilder,
+    private officeService: OfficeService) {
     this.createEmptyForm();
   }
 
   ngOnInit() {
     this.requirements$ = this.requirementService.getRequirements();
 
-    this.requirements$.subscribe(
-      (requirements: Requirement[]) => {
-        this.requirements = requirements;
-      },
-      (error) => {
-        console.log(error);
-      }
+    this.subscriptions.push(
+      this.requirements$.subscribe(
+        (requirements: Requirement[]) => {
+          this.requirements = requirements;
+        },
+        (error) => {
+          console.log(error);
+        }
+      )
     );
+  }
+
+  ngOnDestroy() {
+
+    // unsubscribe all subscriptions
+    this.subscriptions.forEach(sub => sub.unsubscribe());
   }
 
   /*
@@ -143,7 +154,7 @@ export class RequirementComponent implements OnInit {
   }
 
   // reactive form
-  createEmptyForm() {  
+  createEmptyForm() {
 
     this.requirementForm = this.fb.group({
       fullName: ['', Validators.required],
@@ -285,9 +296,11 @@ export class RequirementComponent implements OnInit {
     };
 
 
-    this.officeService.getRequirementTemplate(params).subscribe((result: string) => {
-      this.xmlMessage = result;
-      console.log(result);
-    });
+    this.subscriptions.push(
+      this.officeService.getRequirementTemplate(params).subscribe((result: string) => {
+        this.xmlMessage = result;
+        console.log(result);
+      })
+    );
   }
 }
