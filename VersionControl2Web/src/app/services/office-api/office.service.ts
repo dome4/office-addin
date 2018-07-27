@@ -1,9 +1,15 @@
+import { Injectable } from "@angular/core";
+import { OoxmlParser } from "./ooxml-parser.service";
+
 // Office variables
 declare let Office: any;
 declare let Word: any;
 declare let OfficeExtension: any;
 
+@Injectable()
 export class OfficeService {
+
+  constructor(private xmlParser: OoxmlParser) { }
 
   /**
    * Adds a binding to a named item in the document
@@ -27,7 +33,7 @@ export class OfficeService {
       }
     });
 
-  // ToDo: destroy handler after usage
+    // ToDo: destroy handler after usage
 
   }
 
@@ -80,5 +86,37 @@ export class OfficeService {
           console.log("Debug info: " + JSON.stringify(error.debugInfo));
         }
       });
+  }
+
+  getRequirementTemplate(params: string[]) {
+
+    return new Promise((resolve, reject) => {
+      var text, parser, xmlDoc;
+
+      var view = {
+        title: "Joe",
+        calc: function () {
+          return 2 + 4;
+        }
+      };
+
+      this.xmlParser.loadTemplate('requirement.template', { name: 'Test' })
+        .subscribe(console.log);
+
+      text = "<bookstore><book>" +
+        "<title>Everyday Italian</title>" +
+        "<author>Giada De Laurentiis</author>" +
+        "<year>2005</year>" +
+        "</book></bookstore>";
+
+      xmlDoc = this.xmlParser.getXML(text)
+      console.log(xmlDoc);
+
+      //document.getElementById("demo").innerHTML =
+      //xmlDoc.getElementsByTagName("title")[0].childNodes[0].nodeValue;
+
+      resolve(this.xmlParser.getString(xmlDoc));
+
+    });
   }
 }

@@ -5,7 +5,7 @@ import { Observable } from 'rxjs';
 import 'rxjs';
 import { trigger, transition, animate, style, animateChild } from '@angular/animations';
 import { FormControl, FormGroup, Validators, FormBuilder, FormArray } from '@angular/forms';
-import { OfficeService } from '../services/office.service';
+import { OfficeService } from '../services/office-api/office.service';
 
 // Office variables
 declare let Office: any;
@@ -267,5 +267,12 @@ export class RequirementComponent implements OnInit {
 
   setWholeDocumentFromXml() {
     this.officeService.setOoxml(this.xmlMessage);
+  }
+
+  getRequirementTemplate() {
+    this.officeService.getRequirementTemplate([]).then((result: string) => {
+      this.xmlMessage = result;
+      console.log(result);
+    });
   }
 }
