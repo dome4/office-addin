@@ -98,6 +98,24 @@ export class OfficeService {
 
     return this.xmlParser.loadTemplate('requirement.template', params);
 
+  }
 
+  insertNextRequirement() {
+
+    let currentXml;
+    this.getOoxml().then(
+      (onFulfilled: string) => {
+        currentXml = onFulfilled;
+      },
+      (onRejected) => {
+        console.log(onRejected);
+      })
+      .then((result) => {
+
+        // ToDo insert requirement
+
+      })
+      // set changes to xml
+      //.then(() => this.setOoxml(currentXml));
   }
 }
