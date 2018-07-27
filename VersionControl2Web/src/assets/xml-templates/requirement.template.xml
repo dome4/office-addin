@@ -14,7 +14,7 @@
         <w:vanish />
       </w:rPr>
       <!-- set requirement id -->
-      <w:t>{ "requirement-id": "2", "requirement-state": "start" }</w:t>
+      <w:t>{ "requirement-id": "{{ requirement.id }}", "requirement-state": "start" }</w:t>
       <!-- set requirement id -->
     </w:r>
     <w:r>
@@ -23,7 +23,7 @@
         <w:sz w:val="27"/>
       </w:rPr>
       <!-- title number -->
-      <w:t>3.2</w:t>
+      <w:t>3.{{ counter }}</w:t>
       <!-- title number -->
     </w:r>
     <w:r>
@@ -37,7 +37,7 @@
         <w:sz w:val="27"/>
       </w:rPr>
       <!-- title -->
-      <w:t>Anforderung 2</w:t>
+      <w:t>Anforderung {{ counter }}</w:t>
       <!-- title -->
     </w:r>
     <w:r>
@@ -123,8 +123,8 @@
                 <w:rFonts w:ascii="Arial" w:eastAsia="Tahoma" w:hAnsi="Arial" w:cs="Arial"/>
                 <w:sz w:val="20"/>
               </w:rPr>
-              <w:alias w:val="requirement_2_id"/>
-              <w:tag w:val="requirement_2_id"/>
+              <w:alias w:val="requirement_{{ requirement.id }}_id"/>
+              <w:tag w:val="requirement_{{ requirement.id }}_id"/>
               <w:id w:val="-1394802603"/>
               <w:placeholder>
                 <w:docPart w:val="1F124D4053BE47D89262535525CB9897"/>
@@ -137,7 +137,7 @@
                   <w:sz w:val="20"/>
                   <w:lang w:val="de-DE"/>
                 </w:rPr>
-                <w:t>&lt;ID&gt;</w:t>
+                <w:t>{{ requirement.id }}</w:t>
               </w:r>
               <w:r>
                 <w:rPr>
@@ -217,8 +217,8 @@
                 <w:rFonts w:ascii="Arial" w:eastAsia="Tahoma" w:hAnsi="Arial" w:cs="Arial"/>
                 <w:sz w:val="20"/>
               </w:rPr>
-              <w:alias w:val="requirement_2_version"/>
-              <w:tag w:val="requirement_2_version"/>
+              <w:alias w:val="requirement_{{ requirement.id }}_version"/>
+              <w:tag w:val="requirement_{{ requirement.id }}_version"/>
               <w:id w:val="1561210156"/>
               <w:placeholder>
                 <w:docPart w:val="E6EEA645379D4434BCE4175FCD863B76"/>
@@ -231,7 +231,7 @@
                   <w:sz w:val="20"/>
                   <w:lang w:val="de-DE"/>
                 </w:rPr>
-                <w:t>&lt;Version&gt;</w:t>
+                <w:t>{{ requirement.version }}</w:t>
               </w:r>
               <w:r>
                 <w:rPr>
@@ -306,8 +306,8 @@
                 <w:rFonts w:ascii="Arial" w:eastAsia="Tahoma" w:hAnsi="Arial" w:cs="Arial"/>
                 <w:sz w:val="20"/>
               </w:rPr>
-              <w:alias w:val="requirement_2_name"/>
-              <w:tag w:val="requirement_2_name"/>
+              <w:alias w:val="requirement_{{ requirement.id }}_name"/>
+              <w:tag w:val="requirement_{{ requirement.id }}_name"/>
               <w:id w:val="-1800447998"/>
               <w:placeholder>
                 <w:docPart w:val="022BBB41EB32424B927075DA94871523"/>
@@ -320,7 +320,7 @@
                   <w:sz w:val="20"/>
                   <w:lang w:val="de-DE"/>
                 </w:rPr>
-                <w:t>&lt;Name&gt;</w:t>
+                <w:t>{{ requirement.name }}</w:t>
               </w:r>
               <w:r>
                 <w:rPr>
@@ -407,8 +407,8 @@
                 <w:rFonts w:ascii="Arial" w:eastAsia="Tahoma" w:hAnsi="Arial" w:cs="Arial"/>
                 <w:sz w:val="20"/>
               </w:rPr>
-              <w:alias w:val="requirement_2_duration"/>
-              <w:tag w:val="requirement_2_duration"/>
+              <w:alias w:val="requirement_{{ requirement.id }}_duration"/>
+              <w:tag w:val="requirement_{{ requirement.id }}_duration"/>
               <w:id w:val="-1304768493"/>
               <w:placeholder>
                 <w:docPart w:val="FC39EACEDB6E460995FDC45D60349DB2"/>
@@ -421,7 +421,7 @@
                   <w:sz w:val="20"/>
                   <w:lang w:val="de-DE"/>
                 </w:rPr>
-                <w:t>&lt;Aufwand&gt;</w:t>
+                <w:t>{{ requirement.duration }} h</w:t>
               </w:r>
               <w:r>
                 <w:rPr>
@@ -454,7 +454,7 @@
         <w:rFonts w:ascii="Arial" w:eastAsia="Arial" w:hAnsi="Arial" w:cs="Arial"/>
       </w:rPr>
       <!-- subtitle 1 number-->
-      <w:t>3.2.1</w:t>
+      <w:t>3.{{ counter }}.1</w:t>
       <!-- subtitle 1 number-->
     </w:r>
     <w:r>
@@ -488,8 +488,8 @@
           <w:rFonts w:ascii="Tahoma" w:eastAsia="Tahoma" w:hAnsi="Tahoma" w:cs="Tahoma"/>
           <w:sz w:val="20"/>
         </w:rPr>
-        <w:alias w:val="requirement_2_description "/>
-        <w:tag w:val="requirement_2_description "/>
+        <w:alias w:val="requirement_{{ requirement.id }}_description "/>
+        <w:tag w:val="requirement_{{ requirement.id }}_description "/>
         <w:id w:val="-235323408"/>
         <w:placeholder>
           <w:docPart w:val="1D3F8E95024149CCA6A0A503AA94586C"/>
@@ -502,7 +502,7 @@
             <w:sz w:val="20"/>
             <w:lang w:val="de-DE"/>
           </w:rPr>
-          <w:t>&lt;Ihr Text&gt;</w:t>
+          <w:t>{{ requirement.description }}</w:t>
         </w:r>
         <w:r>
           <w:rPr>
@@ -531,7 +531,7 @@
       <w:rPr>
         <w:rFonts w:ascii="Arial" w:eastAsia="Arial" w:hAnsi="Arial" w:cs="Arial"/>
       </w:rPr>
-      <w:t>3.2.2</w:t>
+      <w:t>3.{{ counter }}.2</w:t>
     </w:r>
     <w:r>
       <w:t xml:space="preserve"> </w:t>
@@ -573,7 +573,7 @@
       <w:rPr>
         <w:rFonts w:ascii="Arial" w:eastAsia="Arial" w:hAnsi="Arial" w:cs="Arial"/>
       </w:rPr>
-      <w:t>3.2.3</w:t>
+      <w:t>3.{{ counter }}.3</w:t>
     </w:r>
     <w:r>
       <w:t xml:space="preserve"> </w:t>
@@ -615,7 +615,7 @@
       <w:rPr>
         <w:rFonts w:ascii="Arial" w:eastAsia="Arial" w:hAnsi="Arial" w:cs="Arial"/>
       </w:rPr>
-      <w:t>3.2.4</w:t>
+      <w:t>3.{{ counter }}.4</w:t>
     </w:r>
     <w:r>
       <w:t xml:space="preserve"> </w:t>
@@ -657,7 +657,7 @@
       <w:rPr>
         <w:rFonts w:ascii="Arial" w:eastAsia="Arial" w:hAnsi="Arial" w:cs="Arial"/>
       </w:rPr>
-      <w:t>3.2.5</w:t>
+      <w:t>3.{{ counter }}.5</w:t>
     </w:r>
     <w:r>
       <w:t xml:space="preserve"> </w:t>
@@ -683,7 +683,7 @@
         <w:vanish />
       </w:rPr>
       <!-- set requirement id -->
-      <w:t>{ "requirement-id": "2", "requirement-state": "end" }</w:t>
+      <w:t>{ "requirement-id": "{{ requirement.id }}", "requirement-state": "end" }</w:t>
       <!-- set requirement id -->
     </w:r>
     <w:r>

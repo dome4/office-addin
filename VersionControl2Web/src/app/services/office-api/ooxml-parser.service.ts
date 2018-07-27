@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { map, catchError } from 'rxjs/operators';
 import { Observable } from 'rxjs';
+import * as Mustache from 'mustache';
 
 @Injectable()
 export class OoxmlParser {
@@ -26,8 +27,17 @@ export class OoxmlParser {
     return new XMLSerializer().serializeToString(doc);
   }
 
-  loadTemplate(template_name: string, data: object): Observable<string> {
+  /**
+   * loads template with the given name and replaces the given values in the template
+   * 
+   * @param template_name
+   * @param params
+   */
+  loadTemplate(template_name: string, params: object): Observable<string> {
 
     return this.httpClient.get(`assets/xml-templates/${template_name}.xml`, { responseType: 'text' })
+      .pipe(
+      map(x => Mustache.render(x, params))
+      )
   }
 }

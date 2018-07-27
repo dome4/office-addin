@@ -270,7 +270,22 @@ export class RequirementComponent implements OnInit {
   }
 
   getRequirementTemplate() {
-    this.officeService.getRequirementTemplate([]).then((result: string) => {
+
+    let params = {
+      counter: '2',
+      requirement: {
+        id: '123456789',
+        version: '1.0',
+        name: 'die zweite Anforderung',
+        duration: '6',
+        description: 'Das System muss Anforderungen abbilden können.'
+
+      }
+
+    };
+
+
+    this.officeService.getRequirementTemplate(params).subscribe((result: string) => {
       this.xmlMessage = result;
       console.log(result);
     });

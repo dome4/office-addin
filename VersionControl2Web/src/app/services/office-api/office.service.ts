@@ -1,5 +1,6 @@
-import { Injectable } from "@angular/core";
-import { OoxmlParser } from "./ooxml-parser.service";
+import { Injectable } from '@angular/core';
+import { OoxmlParser } from './ooxml-parser.service';
+import { Observable } from 'rxjs';
 
 // Office variables
 declare let Office: any;
@@ -88,35 +89,15 @@ export class OfficeService {
       });
   }
 
-  getRequirementTemplate(params: string[]) {
+  /**
+   * loads the requirement template and replaces the given values
+   * 
+   * @param params
+   */
+  getRequirementTemplate(params: object): Observable<string> {
 
-    return new Promise((resolve, reject) => {
-      var text, parser, xmlDoc;
+    return this.xmlParser.loadTemplate('requirement.template', params);
 
-      var view = {
-        title: "Joe",
-        calc: function () {
-          return 2 + 4;
-        }
-      };
 
-      this.xmlParser.loadTemplate('requirement.template', { name: 'Test' })
-        .subscribe(console.log);
-
-      text = "<bookstore><book>" +
-        "<title>Everyday Italian</title>" +
-        "<author>Giada De Laurentiis</author>" +
-        "<year>2005</year>" +
-        "</book></bookstore>";
-
-      xmlDoc = this.xmlParser.getXML(text)
-      console.log(xmlDoc);
-
-      //document.getElementById("demo").innerHTML =
-      //xmlDoc.getElementsByTagName("title")[0].childNodes[0].nodeValue;
-
-      resolve(this.xmlParser.getString(xmlDoc));
-
-    });
   }
 }
