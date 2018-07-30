@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { OoxmlParser } from './ooxml-parser.service';
-import { Observable } from 'rxjs';
+import { Observable, from, concat } from 'rxjs';
 
 // Office variables
 declare let Office: any;
@@ -44,23 +44,26 @@ export class OfficeService {
    */
   getOoxml() {
 
-    return new Promise((resolve, reject) => {
+    // ToDo: convert to observable
+    return from(
+      new Promise((resolve, reject) => {
 
-      Word.run((context) => {
+        Word.run((context) => {
 
-        // get ooxml of the whole document
-        var bodyOOXML = context.document.body.getOoxml();
+          // get ooxml of the whole document
+          var bodyOOXML = context.document.body.getOoxml();
 
-        // Synchronize the document state by executing the queued commands,
-        // and return a promise to indicate task completion.
-        return context.sync().then(() => {
-          resolve(bodyOOXML.value.toString());
-        });
+          // Synchronize the document state by executing the queued commands,
+          // and return a promise to indicate task completion.
+          return context.sync().then(() => {
+            resolve(bodyOOXML.value.toString());
+          });
+        })
+          .catch((error) => {
+            reject("Error: " + JSON.stringify(error));
+          });
       })
-        .catch((error) => {
-          reject("Error: " + JSON.stringify(error));
-        });
-    });
+    );
   }
 
   /**
@@ -100,22 +103,40 @@ export class OfficeService {
 
   }
 
-  insertNextRequirement() {
+  insertNextRequirement(params: object) {
 
-    let currentXml;
-    this.getOoxml().then(
-      (onFulfilled: string) => {
-        currentXml = onFulfilled;
-      },
-      (onRejected) => {
-        console.log(onRejected);
-      })
-      .then((result) => {
+    // parall request
+    // get template
+    // get ooxml
 
-        // ToDo insert requirement
+    // insertNextRequirement both requests have to be finished
 
-      })
-      // set changes to xml
-      //.then(() => this.setOoxml(currentXml));
+    // setOOxml at the end
+
+    concat(
+      this.getOoxml(),
+      this.getRequirementTemplate(params)
+
+    )
+      .subscribe(console.log); // ToDo check output
+
+
+    //let currentXml;
+
+    //return this.getOoxml().subscribe(
+    //  (xml: string) => {
+    //    currentXml = xml;
+    //  },
+    //  (error) => {
+    //    console.log(error);
+    //  })
+    //  .then((result) => {
+    //    // ToDo insert requirement
+    //    return this.xmlParser.insertNextRequirement(currentXml);
+
+    //  })
+
+    // ToDo: set changes to xml
+    //.then(() => this.setOoxml(currentXml));
   }
 }

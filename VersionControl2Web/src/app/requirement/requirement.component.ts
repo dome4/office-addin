@@ -266,13 +266,15 @@ export class RequirementComponent implements OnInit, OnDestroy {
   }
 
   getWholeDocumentAsXml() {
-    this.officeService.getOoxml().then(
-      (onFulfilled: string) => {
-        this.xmlMessage = onFulfilled;
-      },
-      (onRejected) => {
-        console.log(onRejected);
-      }
+
+    this.subscriptions.push(
+      this.officeService.getOoxml().subscribe(
+        (xml: string) => {
+          this.xmlMessage = xml;
+        },
+        (error) => {
+          console.log(error);
+        })
     );
   }
 
@@ -282,6 +284,7 @@ export class RequirementComponent implements OnInit, OnDestroy {
 
   getRequirementTemplate() {
 
+    // example params
     let params = {
       counter: '2',
       requirement: {
@@ -302,5 +305,26 @@ export class RequirementComponent implements OnInit, OnDestroy {
         console.log(result);
       })
     );
+  }
+
+  insertNextRequirement() {
+
+    // example params
+    let params = {
+      counter: '2',
+      requirement: {
+        id: '123456789',
+        version: '1.0',
+        name: 'die zweite Anforderung',
+        duration: '6',
+        description: 'Das System muss Anforderungen abbilden können.'
+      }
+    };
+
+    this.officeService.insertNextRequirement(params)
+      //.then((result: string) => {
+      //  this.xmlMessage = result;
+      //})
+    // ToDo insertNextRequirement needs an observable return type to subscribe
   }
 }

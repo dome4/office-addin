@@ -3,6 +3,9 @@ import { HttpClient } from '@angular/common/http';
 import { map, catchError } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import * as Mustache from 'mustache';
+import { environment } from '../../../environments/environment';
+
+const api = environment.apiUrl;
 
 @Injectable()
 export class OoxmlParser {
@@ -38,32 +41,18 @@ export class OoxmlParser {
     return this.httpClient.get(`assets/xml-templates/${template_name}.xml`, { responseType: 'text' })
       .pipe(
       map(x => Mustache.render(x, params))
-      )
+      );
   }
 
-  getLastRequirementNode(xml: string) {
+  /**
+   * calls the api to insert a new requirement at the end of the current requirement list
+   * 
+   * @param xml
+   */
+  insertNextRequirement(xml: string, requirementTemplate: string): Observable<string> {
 
-    // find fitting node
-    let xmlDoc: XMLDocument = new DOMParser().parseFromString(xml, 'text/xml');
-
-    // get last w:p of a requirement    
-    let findReqEnd = (x: Element) => (
-      x.childNodes[0].nodeValue.replace(/\s/g, '').includes('{"requirement-id":')
-      && x.childNodes[0].nodeValue.replace(/\s/g, '').includes('"end"}')
-    );
-
-    // w:p node is two nodes above
-    let findParagraphParent = (x: Element) => x.parentNode.parentNode.nodeName.replace(/\s/g, '') === 'w:p'
-
-
-    let nodes = Array.from(xmlDoc.getElementsByTagName('w:t'))
-      .filter(node => findReqEnd(node))
-      .filter(node => findParagraphParent(node))
-
-    console.log(nodes);
-
-    // ToDo: array with references on the last node of a xml file -> are these references able to change the xml doc?
-
+    // ToDo handle response
+    return this.httpClient.post(`${api}/requirement/`, requirementTemplate, { responseType: 'text' });
 
   }
 }
