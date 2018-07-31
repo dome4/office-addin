@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams, HttpParameterCodec } from "@angular/common/http";
 import { map, catchError } from 'rxjs/operators';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import * as Mustache from 'mustache';
 import { environment } from '../../../environments/environment';
 
@@ -40,7 +40,8 @@ export class OoxmlParser {
 
     return this.httpClient.get(`assets/xml-templates/${template_name}.xml`, { responseType: 'text' })
       .pipe(
-      map(x => Mustache.render(x, params))
+      map(x => Mustache.render(x, params)),
+      catchError(error => of(`error occurred while loading template: ${error}`))
       );
   }
 
@@ -49,10 +50,48 @@ export class OoxmlParser {
    * 
    * @param xml
    */
-  insertNextRequirement(xml: string, requirementTemplate: string): Observable<string> {
+  insertNextRequirement(xml: string, requirementTemplate: string): Observable<string> {    
 
-    // ToDo handle response
-    return this.httpClient.post(`${api}/requirement/`, requirementTemplate, { responseType: 'text' });
+    // request body and use custom encoder to prevent + in xml from beeing encoded
+    const body = new HttpParams({ encoder: new CustomEncoder() })
+      .set('xmlDocument', xml)
+      .set('requiremenTemplate', requirementTemplate);
 
+    // request header
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'content-type': 'application/x-www-form-urlencoded'
+      }),
+      responseType: 'text' as 'text' // ToDo: fix issue https://github.com/angular/angular/issues/18586
+    };
+
+    // send request to api
+    return this.httpClient.post(`${api}/office/insert-new-requirement`, body, httpOptions)
+      .pipe(
+      catchError(error => of(`error occurred while inserting new requirement: ${error}`))
+      );
+
+  }
+}
+
+/**
+ * custom encoder from https://github.com/angular/angular/issues/18261
+ *
+ */
+class CustomEncoder implements HttpParameterCodec {
+  encodeKey(key: string): string {
+    return encodeURIComponent(key);
+  }
+
+  encodeValue(value: string): string {
+    return encodeURIComponent(value);
+  }
+
+  decodeKey(key: string): string {
+    return decodeURIComponent(key);
+  }
+
+  decodeValue(value: string): string {
+    return decodeURIComponent(value);
   }
 }

@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { OoxmlParser } from './ooxml-parser.service';
-import { Observable, from, concat } from 'rxjs';
+import { Observable, from, Subscription, merge, of, forkJoin } from 'rxjs';
+import { switchMap, map } from 'rxjs/operators';
 
 // Office variables
 declare let Office: any;
@@ -103,7 +104,12 @@ export class OfficeService {
 
   }
 
-  insertNextRequirement(params: object) {
+  /**
+   * insert the next requirement with the given params in the current xml document
+   * 
+   * @param params requirement params
+   */
+  insertNextRequirement(params: object): void {
 
     // parall request
     // get template
@@ -113,30 +119,126 @@ export class OfficeService {
 
     // setOOxml at the end
 
-    concat(
-      this.getOoxml(),
+    //// ToDo: unsubscribe is missing -> only works one time
+    this.getOoxml().subscribe((xmlDoc: string) => {
+      this.getRequirementTemplate(params).subscribe((reqTemplate: string) => {
+        this.xmlParser.insertNextRequirement(xmlDoc, reqTemplate).subscribe(
+          (newXmlString: string) => {
+
+          // set updated xml
+          this.setOoxml(newXmlString);
+          },
+          (error) => {
+            console.log(error);
+          });
+      });
+    });
+
+
+    let xmlDocument: string;
+    let requirementTemplate: string;
+
+    let requestInputs$ = forkJoin(
+      this.getOoxml()
+      //  .pipe(
+      //  map(
+      //    result => {
+      //      return {
+      //        type: 'xmlDocument',
+      //        data: result
+      //      };
+      //    })
+      //)
+      ,
       this.getRequirementTemplate(params)
-
+      //  .pipe(
+      //  map(
+      //    result => {
+      //      return {
+      //        type: 'requirementTemplate',
+      //        data: result
+      //      };
+      //    })
+      //)
     )
-      .subscribe(console.log); // ToDo check output
+    /*
+    .subscribe(
+    (result: { type: string, data: string }) => {
+      if (result.type === 'xmlDocument') {
+        xmlDocument = result.data;
+      } else if (result.type === 'requirementTemplate') {
+        requirementTemplate = result.data;
+      } else {
+        throw new Error('Error occurred while requesting data');
+      }
 
+      // debug
+      this.xmlPrepared$.next(result.data);
+    },
+    (error) => {
+      console.log(error);
+    }
+  );
+  */
 
-    //let currentXml;
+    //requestInputs$.pipe(
+    //  switchMap(
+    //    (result: { type: string, data: string }) => {
+    //      if (result.type === 'xmlDocument') {
+    //        xmlDocument = result.data;
+    //      } else if (result.type === 'requirementTemplate') {
+    //        requirementTemplate = result.data;
+    //      } else {
+    //        throw new Error('Error occurred while requesting data');
+    //      }
 
-    //return this.getOoxml().subscribe(
-    //  (xml: string) => {
-    //    currentXml = xml;
+    //      if (xmlDocument && requirementTemplate) {
+    //        return this.xmlParser.insertNextRequirement(xmlDocument, requirementTemplate);
+    //      } else {
+
+    //        // first inner emit with only one result xml string emits flag
+    //        return of('first emit');
+    //      }
+    //    }
+    //  )
+    //)
+    //  .subscribe(
+    //  (newXMLString: string) => {
+    //    if (newXMLString !== 'first emit') {
+    //      this.xmlPrepared$.next(newXMLString)
+
+    //      //this.setOoxml(newXMLString)
+    //    }
     //  },
     //  (error) => {
     //    console.log(error);
-    //  })
-    //  .then((result) => {
-    //    // ToDo insert requirement
-    //    return this.xmlParser.insertNextRequirement(currentXml);
+    //  });
 
+    //requestInputs$.pipe(
+    //  switchMap((result: string[]) => {
+    //    return this.xmlParser.insertNextRequirement(result[0], result[1]);
     //  })
+    //)
+    //  .subscribe(
+    //  (newXMLString: string) => {
+    //    this.xmlPrepared$.next(newXMLString)
 
-    // ToDo: set changes to xml
-    //.then(() => this.setOoxml(currentXml));
+    //    this.setOoxml(newXMLString)
+    //  },
+    //  (error) => {
+    //    console.log(error);
+    //  });
+
+
+    //concat(
+    //  mergesObs,
+    //  this.xmlParser.insertNextRequirement(xmlDoc, reqTemplate)
+    //)
+
+
+    // ToDo handle subscription -> post request
+    // ToDo check block on errors
+    // ToDo add error handling
+
   }
 }
