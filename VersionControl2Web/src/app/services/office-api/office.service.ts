@@ -111,134 +111,65 @@ export class OfficeService {
    */
   insertNextRequirement(params: object): void {
 
-    // parall request
-    // get template
-    // get ooxml
-
-    // insertNextRequirement both requests have to be finished
-
-    // setOOxml at the end
-
-    //// ToDo: unsubscribe is missing -> only works one time
-    this.getOoxml().subscribe((xmlDoc: string) => {
-      this.getRequirementTemplate(params).subscribe((reqTemplate: string) => {
-        this.xmlParser.insertNextRequirement(xmlDoc, reqTemplate).subscribe(
-          (newXmlString: string) => {
-
-          // set updated xml
-          this.setOoxml(newXmlString);
-          },
-          (error) => {
-            console.log(error);
-          });
-      });
-    });
-
-
+    // temp variables
     let xmlDocument: string;
     let requirementTemplate: string;
 
-    let requestInputs$ = forkJoin(
+    // merge first two observables
+    let requestInputs$ = merge(
       this.getOoxml()
-      //  .pipe(
-      //  map(
-      //    result => {
-      //      return {
-      //        type: 'xmlDocument',
-      //        data: result
-      //      };
-      //    })
-      //)
+        .pipe(
+        map(
+          result => {
+            return {
+              type: 'xmlDocument',
+              data: result
+            };
+          })
+        )
       ,
       this.getRequirementTemplate(params)
-      //  .pipe(
-      //  map(
-      //    result => {
-      //      return {
-      //        type: 'requirementTemplate',
-      //        data: result
-      //      };
-      //    })
-      //)
+        .pipe(
+        map(
+          result => {
+            return {
+              type: 'requirementTemplate',
+              data: result
+            };
+          })
+        )
+    );
+
+    requestInputs$.pipe(
+      switchMap(
+        (result: { type: string, data: string }) => {
+          if (result.type === 'xmlDocument') {
+            xmlDocument = result.data;
+          } else if (result.type === 'requirementTemplate') {
+            requirementTemplate = result.data;
+          } else {
+            throw new Error('Error occurred while requesting data');
+          }
+
+          if (xmlDocument && requirementTemplate) {
+            return this.xmlParser.insertNextRequirement(xmlDocument, requirementTemplate);
+          } else {
+
+            // first inner emit with only one result xml string emits flag
+            return of('first emit');
+          }
+        }
+      )
     )
-    /*
-    .subscribe(
-    (result: { type: string, data: string }) => {
-      if (result.type === 'xmlDocument') {
-        xmlDocument = result.data;
-      } else if (result.type === 'requirementTemplate') {
-        requirementTemplate = result.data;
-      } else {
-        throw new Error('Error occurred while requesting data');
-      }
+      .subscribe(
+      (newXMLString: string) => {
+        if (newXMLString !== 'first emit') {
 
-      // debug
-      this.xmlPrepared$.next(result.data);
-    },
-    (error) => {
-      console.log(error);
-    }
-  );
-  */
-
-    //requestInputs$.pipe(
-    //  switchMap(
-    //    (result: { type: string, data: string }) => {
-    //      if (result.type === 'xmlDocument') {
-    //        xmlDocument = result.data;
-    //      } else if (result.type === 'requirementTemplate') {
-    //        requirementTemplate = result.data;
-    //      } else {
-    //        throw new Error('Error occurred while requesting data');
-    //      }
-
-    //      if (xmlDocument && requirementTemplate) {
-    //        return this.xmlParser.insertNextRequirement(xmlDocument, requirementTemplate);
-    //      } else {
-
-    //        // first inner emit with only one result xml string emits flag
-    //        return of('first emit');
-    //      }
-    //    }
-    //  )
-    //)
-    //  .subscribe(
-    //  (newXMLString: string) => {
-    //    if (newXMLString !== 'first emit') {
-    //      this.xmlPrepared$.next(newXMLString)
-
-    //      //this.setOoxml(newXMLString)
-    //    }
-    //  },
-    //  (error) => {
-    //    console.log(error);
-    //  });
-
-    //requestInputs$.pipe(
-    //  switchMap((result: string[]) => {
-    //    return this.xmlParser.insertNextRequirement(result[0], result[1]);
-    //  })
-    //)
-    //  .subscribe(
-    //  (newXMLString: string) => {
-    //    this.xmlPrepared$.next(newXMLString)
-
-    //    this.setOoxml(newXMLString)
-    //  },
-    //  (error) => {
-    //    console.log(error);
-    //  });
-
-
-    //concat(
-    //  mergesObs,
-    //  this.xmlParser.insertNextRequirement(xmlDoc, reqTemplate)
-    //)
-
-
-    // ToDo handle subscription -> post request
-    // ToDo check block on errors
-    // ToDo add error handling
-
+          this.setOoxml(newXMLString)
+        }
+      },
+      (error) => {
+        console.log(error);
+      });
   }
 }
