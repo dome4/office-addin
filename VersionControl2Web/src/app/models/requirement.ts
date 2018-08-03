@@ -1,8 +1,10 @@
+import { RequirementTemplatePart } from "./requirement-template-part";
+
 export class Requirement {
   _id: string;
   name: string;
   description: string;
-  jsonModel: string;
+  descriptionParts: RequirementTemplatePart[];
 
   /*
    * find requirement by id
