@@ -20,6 +20,7 @@ import { RequirementDropdownComponent } from './requirement/requirement-dropdown
 import { ReactiveFormsModule } from '@angular/forms';
 import { OfficeService } from './services/office-api/office.service';
 import { OoxmlParser } from './services/office-api/ooxml-parser.service';
+import { XmlDebugComponent } from './xml-debug/xml-debug.component';
 
 
 @NgModule({
@@ -30,7 +31,8 @@ import { OoxmlParser } from './services/office-api/ooxml-parser.service';
     RequirementComponent,
     NotFoundComponent,
     HeaderComponent,
-    SigninComponent
+    SigninComponent,
+    XmlDebugComponent
   ],
   imports: [
     BrowserModule,

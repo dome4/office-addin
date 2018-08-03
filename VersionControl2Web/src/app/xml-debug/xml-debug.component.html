@@ -1,0 +1,23 @@
+<div class="clr-row">
+  <button (click)="onAccessDocument()" class="btn btn-primary">Access Office Document</button>
+</div>
+
+<div class="clr-row">
+  <button (click)="getWholeDocumentAsXml()" class="btn btn-primary">get Whole Document As Xml</button>
+</div>
+
+<div class="clr-row">
+  <button (click)="setWholeDocumentFromXml()" class="btn btn-primary">set Whole Document From Xml</button>
+</div>
+
+<div class="clr-row">
+  <button (click)="getRequirementTemplate()" class="btn btn-primary">get Requirement Template</button>
+</div>
+
+<div class="clr-row">
+  <button (click)="insertNextRequirement()" class="btn btn-primary">insert Next Requirement</button>
+</div>
+
+<div>
+  <textarea [(ngModel)]="xmlMessage"></textarea>
+</div>

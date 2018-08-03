@@ -11,29 +11,7 @@
   </div>
 </div>
 
-<div class="clr-row">
-  <button (click)="onAccessDocument()" class="btn btn-primary">Access Office Document</button>
-</div>
-
-<div class="clr-row">
-  <button (click)="getWholeDocumentAsXml()" class="btn btn-primary">get Whole Document As Xml</button>
-</div>
-
-<div class="clr-row">
-  <button (click)="setWholeDocumentFromXml()" class="btn btn-primary">set Whole Document From Xml</button>
-</div>
-
-<div class="clr-row">
-  <button (click)="getRequirementTemplate()" class="btn btn-primary">get Requirement Template</button>
-</div>
-
-<div class="clr-row">
-  <button (click)="insertNextRequirement()" class="btn btn-primary">insert Next Requirement</button>
-</div>
-
-<div>
-  <textarea [(ngModel)]="xmlMessage"></textarea>
-</div>
+<app-xml-debug></app-xml-debug>
 
 <hr />
 
@@ -134,7 +112,7 @@
 
         <clr-dropdown style="margin-top: .25rem; margin-bottom: .25rem;">
           <span class="label clickable" clrDropdownTrigger>zu speichern.</span>
-          
+
           <clr-dropdown-menu clrPosition="bottom-left">
             <h4 class="dropdown-header">Choose a requirement</h4>
             <button type="button" clrDropdownItem>First Action</button>
@@ -283,7 +261,6 @@
       </div>
     </div>
     <!-- clarity styled form start -->
-
     <!-- form array start-->
     <div formArrayName="templateParts">
       <div *ngFor="let part of requirementForm.controls.templateParts.controls; let i=index">
@@ -296,26 +273,26 @@
 
         <!-- Angular assigns array index as group name by default 0, 1, 2, ... -->
         <div [formGroupName]="i">
-            <!-- version -->
-            <div class="form-group">
-              <label>version</label>
-              <input type="text" formControlName="version">
-              <!--display error message if street is not valid-->
-              <small [hidden]="requirementForm.controls.templateParts.controls[i].controls.version.valid">
-                Street is required
-              </small>
-            </div>
-
-            <!-- value -->
-            <div class="form-group">
-              <label>value</label>
-              <input type="text" formControlName="value">
-            </div>
-
-
+          <!-- version -->
+          <div class="form-group">
+            <label>version</label>
+            <input type="text" formControlName="version">
+            <!--display error message if street is not valid-->
+            <small [hidden]="requirementForm.controls.templateParts.controls[i].controls.version.valid">
+              Street is required
+            </small>
           </div>
 
+          <!-- value -->
+          <div class="form-group">
+            <label>value</label>
+            <input type="text" formControlName="value">
+          </div>
+
+
         </div>
+
+      </div>
     </div>
     <!-- form array end-->
 
