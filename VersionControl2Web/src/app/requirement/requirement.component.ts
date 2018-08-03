@@ -1,13 +1,12 @@
 import { Component, OnInit, OnDestroy, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
 import { RequirementService } from '../services/requirement.service';
 import { Requirement } from '../models/requirement';
-import { Observable, Subscription } from 'rxjs';
+import { Observable, Subscription, Observer, BehaviorSubject } from 'rxjs';
 import 'rxjs';
 import { trigger, transition, animate, style, animateChild } from '@angular/animations';
 import { FormControl, FormGroup, Validators, FormBuilder, FormArray } from '@angular/forms';
 import { OfficeService } from '../services/office-api/office.service';
 import { RequirementTemplatePart } from '../models/requirement-template-part';
-import { renderTemplate } from '@angular/core/src/render3/instructions';
 
 // js variable
 //declare var document: any;
@@ -130,8 +129,10 @@ export class RequirementComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild('requirementContainer') requirementContainer: ElementRef;
 
   // description template -> ToDo !important! Datentyp muss noch in Backend angelegt werden
-  // ToDo validation Funktion schreiben -> hilft auch beim Aufbau des Anforderung
+  // ToDo validation Funktion schreiben -> hilft auch beim Aufbau der Anforderung
   private descriptionTemplate = {
+    _id: '32534',
+    version: 1.0,
     name: 'FunktionsMASTER ohne Bedingung',
     template: [
       {
@@ -184,6 +185,9 @@ export class RequirementComponent implements OnInit, AfterViewInit, OnDestroy {
     ]
   }
 
+  // variable shows if current requirement template is valid
+  public requirementTemplateIsValid: boolean;
+
   /*
    * constructor
    */
@@ -204,6 +208,13 @@ export class RequirementComponent implements OnInit, AfterViewInit, OnDestroy {
         (error) => {
           console.log(error);
         }
+      )
+    );
+
+    // subscribe to requirement template validator
+    this.subscriptions.push(
+      this.requirementService.requirementTemplateIsValid$.subscribe(
+        (validation: boolean) => this.requirementTemplateIsValid = validation
       )
     );
   }

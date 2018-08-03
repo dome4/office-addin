@@ -18,7 +18,7 @@
 <label>Type your Requirement in here:</label>
 <br />
 <div #requirementContainer id="1234TEST90df" style="display:inline;">
-  
+
 
   <br />
 
@@ -30,6 +30,13 @@
   <input class="requirement-part" id="1234TEST90df_system" type="text" placeholder="Systemname">
 </div>
 
+<clr-alert *ngIf="!requirementTemplateIsValid" [clrAlertType]="'alert-warning'">
+  <div class="alert-item">
+    <span class="alert-text">
+      Requirement is not valid!
+    </span>
+  </div>
+</clr-alert>
 
 <hr />
 
