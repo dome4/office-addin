@@ -1,10 +1,12 @@
 import { RequirementTemplatePart } from "./requirement-template-part";
+import { RequirementDescriptionTemplate } from "./requirement-description-template";
 
 export class Requirement {
   _id: string;
   name: string;
   description: string;
   descriptionParts: RequirementTemplatePart[];
+  descriptionTemplate: RequirementDescriptionTemplate;
 
   /*
    * find requirement by id

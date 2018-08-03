@@ -7,6 +7,7 @@ import { trigger, transition, animate, style, animateChild } from '@angular/anim
 import { FormControl, FormGroup, Validators, FormBuilder, FormArray } from '@angular/forms';
 import { OfficeService } from '../services/office-api/office.service';
 import { RequirementTemplatePart } from '../models/requirement-template-part';
+import { RequirementDescriptionTemplate } from '../models/requirement-description-template';
 
 // js variable
 //declare var document: any;
@@ -128,9 +129,8 @@ export class RequirementComponent implements OnInit, AfterViewInit, OnDestroy {
   // requirement container
   @ViewChild('requirementContainer') requirementContainer: ElementRef;
 
-  // description template -> ToDo !important! Datentyp muss noch in Backend angelegt werden
   // ToDo validation Funktion schreiben -> hilft auch beim Aufbau der Anforderung
-  private descriptionTemplate = {
+  private descriptionTemplate: RequirementDescriptionTemplate = {
     _id: '32534',
     version: 1.0,
     name: 'FunktionsMASTER ohne Bedingung',
@@ -401,6 +401,9 @@ export class RequirementComponent implements OnInit, AfterViewInit, OnDestroy {
     // set requirement template parts
     this.requirementTemplateParts = this.selectedRequirement.descriptionParts;
 
+    // set description template
+    this.descriptionTemplate = this.selectedRequirement.descriptionTemplate;
+
     // re-render template parts of current selected requirement
     this.renderTemplateParts();
 
@@ -482,11 +485,11 @@ export class RequirementComponent implements OnInit, AfterViewInit, OnDestroy {
     //event.target.style.borderRadius = '0px';
   }
 
-   /**
-   *
-   * render template parts of selecte requirement
-   *
-   */
+  /**
+  *
+  * render template parts of selecte requirement
+  *
+  */
   renderTemplateParts() {
 
     // delete content of current requirement-container
