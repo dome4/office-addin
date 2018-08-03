@@ -579,4 +579,12 @@ export class RequirementComponent implements OnInit, AfterViewInit, OnDestroy {
     this.requirementContainer.nativeElement.appendChild(newPart);
 
   }
+
+  /**
+   * method should be executed everytime the requirement changes
+   * */
+  onRequirementChanged() {
+
+    this.requirementService.validateRequirementTemplate(this.requirementTemplateParts, this.descriptionTemplate);
+  }
 }

@@ -43,6 +43,9 @@ export class RequirementService {
    */
   validateRequirementTemplate(requirementTemplateParts: RequirementTemplatePart[], descriptionTemplate: any): void {
 
+    // debug log
+    console.log('requirement validation started');
+
     // check all requirement template parts with the description template
     for (let i = 0; i < requirementTemplateParts.length; i++) {
 

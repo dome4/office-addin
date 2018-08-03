@@ -18,10 +18,7 @@
 <label>Type your Requirement in here:</label>
 <br />
 <div #requirementContainer id="1234TEST90df" style="display:inline;">
-
-
   <br />
-
   <select>
     <option>Der</option>
     <option>Die</option>
@@ -29,6 +26,11 @@
   </select>
   <input class="requirement-part" id="1234TEST90df_system" type="text" placeholder="Systemname">
 </div>
+
+<div class="clr-row">
+  <button (click)="onRequirementChanged()" class="btn btn-primary">Validate Requirement</button>
+</div>
+
 
 <clr-alert *ngIf="!requirementTemplateIsValid" [clrAlertType]="'alert-warning'">
   <div class="alert-item">
