@@ -7,6 +7,7 @@ import { trigger, transition, animate, style, animateChild } from '@angular/anim
 import { FormControl, FormGroup, Validators, FormBuilder, FormArray } from '@angular/forms';
 import { OfficeService } from '../services/office-api/office.service';
 import { RequirementTemplatePart } from '../models/requirement-template-part';
+import { renderTemplate } from '@angular/core/src/render3/instructions';
 
 // js variable
 //declare var document: any;
@@ -112,7 +113,7 @@ export class RequirementComponent implements OnInit, AfterViewInit, OnDestroy {
       next: "5b18f71e9b25ea1be43327e3",
       version: 1,
       value: "Zweiter Schablonen-Knoten",
-      type: "dropdown",
+      type: "text",
       head: false
     },
     {
@@ -120,10 +121,68 @@ export class RequirementComponent implements OnInit, AfterViewInit, OnDestroy {
       next: "5b18f71e9b25ea1be43327e4",
       version: 1,
       value: "Dritter Schablonen-Knoten",
-      type: "fill in",
+      type: "input",
       head: false
     }
   ];
+
+  // requirement container
+  @ViewChild('requirementContainer') requirementContainer: ElementRef;
+
+  // description template -> ToDo !important! Datentyp muss noch in Backend angelegt werden
+  // ToDo validation Funktion schreiben -> hilft auch beim Aufbau des Anforderung
+  private descriptionTemplate = {
+    name: 'FunktionsMASTER ohne Bedingung',
+    template: [
+      {
+        type: 'input',
+        value: '<System>'
+      },
+      {
+        type: 'dropdown',
+        value: [
+          'MUSS',
+          'SOLLTE',
+          'WIRD'
+        ]
+      },
+      {
+        type: 'table',
+        value: [
+          [
+            {
+              type: 'text',
+              value: '-'
+            }
+          ],
+          [
+            {
+              type: 'input',
+              value: '<Akteur>'
+            },
+            {
+              type: 'text',
+              value: 'die Möglichkeit bieten'
+            }
+          ],
+          [
+            {
+              type: 'text',
+              value: 'fähig sein'
+            }
+          ]
+        ]
+      },
+      {
+        type: 'input',
+        value: '<Objekt>'
+      },
+      {
+        type: 'input',
+        value: '<Prozesswort>'
+      }
+    ]
+  }
 
   /*
    * constructor
@@ -155,6 +214,11 @@ export class RequirementComponent implements OnInit, AfterViewInit, OnDestroy {
    *
    */
   ngAfterViewInit() {
+
+    // render template parts of current selected requirement
+    this.renderTemplateParts();
+
+
 
     // das hier ist mein requirement template, die requirement template part types sind die eleemtTypes
     const ReqElementTypes = {
@@ -216,7 +280,7 @@ export class RequirementComponent implements OnInit, AfterViewInit, OnDestroy {
       },
     }
 
-    let reqElements = document.getElementsByClassName('reqelement')
+    let reqElements = document.getElementsByClassName('requirement-part')
 
     /**
      * Function: onfocus listener for elements of the class '.reqelement'
@@ -263,7 +327,7 @@ export class RequirementComponent implements OnInit, AfterViewInit, OnDestroy {
 
         // add next requirement part
         if (item.getAttribute('addedNext') === null) {
-          addNextReqElements(requirementId, requirementPart, parentId);
+          //addNextReqElements(requirementId, requirementPart, parentId);
           item.setAttribute('addedNext', 'added'); // flag to debug if next element was added
         }
 
@@ -282,6 +346,8 @@ export class RequirementComponent implements OnInit, AfterViewInit, OnDestroy {
      * @param {json-ReqElement} reqelement
      * @param {string} parentID
      */
+
+    /*
     let addNextReqElements = (requirementId, requirementPart, parentId) => {
       for (let i = 0; i < requirementPart.next.length; i++) { // loop due to next is an array with the following input types
         var nextId = requirementId + '_' + requirementPart.next[i]; // id is requirement id + type
@@ -298,83 +364,7 @@ export class RequirementComponent implements OnInit, AfterViewInit, OnDestroy {
 
     }
 
-    /**
-     * Function: getNewReqElement
-     * 
-     * adds a new ReqElement to the DOM
-     * 
-     * @param {string} reqID
-     * @param {string} reqelement_Type
-     * @param {string} parentID
-     */
-    let getNewReqElement = (requirementId: string, reqelement_Type: string, parentId: string) => {
-
-      // get requirement part properties from array
-      var requirementPart = ReqElementTypes[reqelement_Type]; // input type with attributes
-
-      // create new element to insert
-      var newElement = null;
-
-      // handle element type -> ToDo add id and added attributes
-      switch (requirementPart.elementType) {
-        case 'select':
-          newElement = document.createElement('select');
-
-          // create select options
-          for (var i = 0; i < requirementPart.options.length; i++) {
-            var option = document.createElement('option');
-            option.setAttribute('value', requirementPart.options[i]);
-            option.innerHTML = requirementPart.options[i];
-            newElement.appendChild(option);
-          }
-          break;
-        case 'text':
-          newElement = document.createElement('div');
-          newElement.innerHTML = requirementPart.value;
-          break;
-        case 'input':
-          newElement = document.createElement('input');
-          newElement.placeholder = requirementPart.placeholder;
-          break;
-        case 'table':
-          // ToDo inspect
-          newElement = document.createElement('table');
-          newElement.setAttribute('style', 'display:inline;'); // ToDo check if necessary
-
-          // add children elements
-          for (var i = 0; i < requirementPart.children.length; i++) {
-
-            var childReqElementType = requirementPart.children[i];
-
-            // create new child element -> parent of it is current element
-            var newChildElement = getNewReqElement(requirementId, childReqElementType, requirementId);
-            var newRow = document.createElement('tr');
-            var newCell1 = document.createElement('td');
-            var newCell2 = document.createElement('td');
-            newCell1.setAttribute('align', 'center');
-            newCell1.appendChild(newChildElement);
-
-            // add new button
-            // ToDo check what this method does
-            //newCell2.appendChild(getNewButton(requirementId, childReqElementType, parentId));
-
-
-            newRow.appendChild(newCell1);
-            newRow.appendChild(newCell2);
-            newElement.appendChild(newRow);
-          }
-          break;
-        default:
-          window.alert('fct: addNewReqElement: chosen type not implemented: ' + requirementPart.elementType);
-      }
-
-      // set id and classname
-      newElement.id = requirementId + '_' + reqelement_Type;
-      newElement.className = 'reqelement';
-
-      return newElement;
-
-    }
+    */
 
   }
   /*
@@ -399,6 +389,9 @@ export class RequirementComponent implements OnInit, AfterViewInit, OnDestroy {
 
     // set requirement template parts
     this.requirementTemplateParts = this.selectedRequirement.descriptionParts;
+
+    // re-render template parts of current selected requirement
+    this.renderTemplateParts();
 
     console.log('requirement selected');
     console.log(this.selectedRequirement);
@@ -476,5 +469,103 @@ export class RequirementComponent implements OnInit, AfterViewInit, OnDestroy {
 
     //event.target.style.backgroundColor = 'transparent'; 
     //event.target.style.borderRadius = '0px';
+  }
+
+   /**
+   *
+   * render template parts of selecte requirement
+   *
+   */
+  renderTemplateParts() {
+
+    // delete content of current requirement-container
+    this.requirementContainer.nativeElement.innerHTML = '';
+
+    // create new template parts and add them to the DOM
+    // ToDo: validation that the parts are in the correct order -> validate with next-property
+    this.requirementTemplateParts.forEach(part => {
+      this.createNewRequirementTemplatePart(part)
+    });
+
+  }
+
+  /**
+   * creates new element and appends it as the last child of the requirement container to the DOM
+   * 
+   * @param templatePart requirement template part
+   */
+  createNewRequirementTemplatePart(templatePart: RequirementTemplatePart) {
+    //let getNewReqElement = (requirementId: string, reqelement_Type: string, parentId: string) => {
+
+    // create new element to insert
+    let newPart = null;
+
+    // handle element type -> ToDo add id and added attributes
+    switch (templatePart.type) {
+      case 'dropdown':
+        newPart = document.createElement('select');
+
+        // create select options
+        for (var i = 0; i < templatePart.value.length; i++) {
+          var option = document.createElement('option');
+          option.setAttribute('value', templatePart.value[i]);
+          option.innerHTML = templatePart.value[i];
+          newPart.appendChild(option);
+        }
+        break;
+      case 'text':
+        newPart = document.createElement('div');
+        newPart.innerHTML = templatePart.value;
+        newPart.setAttribute('style', 'display:inline;');
+        break;
+      case 'input':
+        newPart = document.createElement('input');
+        newPart.placeholder = templatePart.value; // ToDo placeholder has to be definied in the description template
+        break;
+
+
+      // ToDo make datatype table
+      /*
+      case 'table':
+        // ToDo inspect
+        newPart = document.createElement('table');
+        newPart.setAttribute('style', 'display:inline;'); // ToDo check if necessary
+  
+        // add children elements
+        for (var i = 0; i < requirementPart.children.length; i++) {
+  
+          var childReqElementType = requirementPart.children[i];
+  
+          // create new child element -> parent of it is current element
+          var newChildElement = getNewReqElement(requirementId, childReqElementType, requirementId);
+          var newRow = document.createElement('tr');
+          var newCell1 = document.createElement('td');
+          var newCell2 = document.createElement('td');
+          newCell1.setAttribute('align', 'center');
+          newCell1.appendChild(newChildElement);
+  
+          // add new button
+          // ToDo check what this method does
+          //newCell2.appendChild(getNewButton(requirementId, childReqElementType, parentId));
+  
+  
+          newRow.appendChild(newCell1);
+          newRow.appendChild(newCell2);
+          newPart.appendChild(newRow);
+        }
+        break;
+        */
+
+      default:
+        window.alert('fct: addNewReqElement: chosen type not implemented: ' + templatePart.type);
+    }
+
+    // set id and classname
+    newPart.id = templatePart._id + '_' + templatePart.type;
+    newPart.className = 'requirement-part';
+
+    // add new created element as the last child of the requirement container to the DOM
+    this.requirementContainer.nativeElement.appendChild(newPart);
+
   }
 }
