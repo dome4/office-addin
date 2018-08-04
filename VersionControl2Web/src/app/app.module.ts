@@ -21,6 +21,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { OfficeService } from './services/office-api/office.service';
 import { OoxmlParser } from './services/office-api/ooxml-parser.service';
 import { XmlDebugComponent } from './xml-debug/xml-debug.component';
+import { FormDebugComponent } from './form-debug/form-debug.component';
 
 
 @NgModule({
@@ -32,7 +33,8 @@ import { XmlDebugComponent } from './xml-debug/xml-debug.component';
     NotFoundComponent,
     HeaderComponent,
     SigninComponent,
-    XmlDebugComponent
+    XmlDebugComponent,
+    FormDebugComponent
   ],
   imports: [
     BrowserModule,

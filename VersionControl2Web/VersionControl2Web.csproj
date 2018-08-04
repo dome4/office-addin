@@ -129,11 +129,14 @@
     <None Include="bin\VersionControl2Web.dll.config" />
     <None Include="packages.config" />
     <Content Include="README.md" />
+    <TypeScriptCompile Include="src\app\form-debug\form-debug.component.ts" />
     <TypeScriptCompile Include="src\app\models\requirement-description-template.ts" />
     <TypeScriptCompile Include="src\app\models\requirement-template-part.ts" />
     <TypeScriptCompile Include="src\app\services\auth\auth-guard.service.ts" />
     <Content Include="src\app\auth\signin\signin.component.css" />
     <Content Include="src\app\auth\signin\signin.component.html" />
+    <Content Include="src\app\form-debug\form-debug.component.css" />
+    <Content Include="src\app\form-debug\form-debug.component.html" />
     <Content Include="src\app\requirement\requirement-dropdown\requirement-dropdown.component.css" />
     <Content Include="src\app\requirement\requirement-dropdown\requirement-dropdown.component.html" />
     <Content Include="src\app\header\header.component.css" />
