@@ -1,11 +1,7 @@
 import { Component, OnInit, OnDestroy, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
 import { RequirementService } from '../services/requirement.service';
 import { Requirement } from '../models/requirement';
-import { Observable, Subscription, Observer, BehaviorSubject } from 'rxjs';
-import 'rxjs';
-import { trigger, transition, animate, style, animateChild } from '@angular/animations';
-import { FormControl, FormGroup, Validators, FormBuilder, FormArray } from '@angular/forms';
-import { OfficeService } from '../services/office-api/office.service';
+import { Subscription } from 'rxjs';
 import { RequirementTemplatePart } from '../models/requirement-template-part';
 import { RequirementDescriptionTemplate } from '../models/requirement-description-template';
 
@@ -13,69 +9,11 @@ import { RequirementDescriptionTemplate } from '../models/requirement-descriptio
 //declare var document: any;
 
 @Component({
-  animations: [
-    trigger('expandNodeLeft', [
-      transition('void => *', [
-        style({
-          transform: 'translateX(100px)',
-          opacity: 0
-        }),
-        animate(1000, style({
-          transform: 'translateX(0)',
-          opacity: 1
-        }))
-      ]),
-      transition('* => void', [
-        style({
-          transform: 'translateX(0)',
-          opacity: 1
-        }),
-        animate(1000, style({
-          transform: 'translateX(100px)',
-          opacity: 0
-        }))
-      ])
-    ]),
-    trigger('expandNodeRight', [
-      transition('void => *', [
-        style({
-          transform: 'translateX(-100px)',
-          opacity: 0
-        }),
-        animate(1000, style({
-          transform: 'translateX(0)',
-          opacity: 1
-        }))
-      ]),
-      transition('* => void', [
-        style({
-          transform: 'translateX(0)',
-          opacity: 1
-        }),
-        animate(1000, style({
-          transform: 'translateX(-100px)',
-          opacity: 0
-        }))
-      ])
-    ]),
-    trigger('expandNodeMiddle', [
-      transition('void => *', [
-        style({ opacity: 0 }),
-        animate(1000, style({ opacity: 1 }))
-      ]),
-      transition('* => void', [
-        style({ opacity: 1 }),
-        animate(1000, style({ opacity: 0 }))
-      ])
-    ])
-  ],
   selector: 'app-requirement',
   templateUrl: './requirement.component.html',
   styleUrls: ['./requirement.component.css']
 })
 export class RequirementComponent implements OnInit, AfterViewInit, OnDestroy {
-
-  public state: string = 'active';
 
   /*
    * in dropdown selected requirement
@@ -83,107 +21,21 @@ export class RequirementComponent implements OnInit, AfterViewInit, OnDestroy {
   public selectedRequirement: Requirement = null;
 
   /*
-   * requirements observable
-   */
-  private requirements$: Observable<Requirement[]> = null;
-
-  /*
    * requirements array
    */
   public requirements: Requirement[] = [];
-
-  // reactive form
-  public requirementForm: FormGroup;
 
   // subscriptions
   private subscriptions: Subscription[] = [];
 
   // requirement template parts of the current selected requirement
-  private requirementTemplateParts: RequirementTemplatePart[] = [
-    {
-      _id: "5b18f71e9b25ea1be43327e3",
-      next: null,
-      version: 1.2,
-      value: "Erster Schablonen-Knoten",
-      type: "dropdown",
-      head: true
-    },
-    {
-      _id: "5b18f71e9b25ea1be43327e4",
-      next: "5b18f71e9b25ea1be43327e3",
-      version: 1,
-      value: "Zweiter Schablonen-Knoten",
-      type: "text",
-      head: false
-    },
-    {
-      _id: "5b18f71e9b25ea1be43327e5",
-      next: "5b18f71e9b25ea1be43327e4",
-      version: 1,
-      value: "Dritter Schablonen-Knoten",
-      type: "input",
-      head: false
-    }
-  ];
+  private requirementTemplateParts: RequirementTemplatePart[] = [];
 
   // requirement container
   @ViewChild('requirementContainer') requirementContainer: ElementRef;
 
   // ToDo validation Funktion schreiben -> hilft auch beim Aufbau der Anforderung
-  private descriptionTemplate: RequirementDescriptionTemplate = {
-    _id: '32534',
-    version: 1.0,
-    name: 'FunktionsMASTER ohne Bedingung',
-    template: [
-      {
-        type: 'input',
-        value: '<System>'
-      },
-      {
-        type: 'dropdown',
-        value: [
-          'MUSS',
-          'SOLLTE',
-          'WIRD'
-        ]
-      },
-      {
-        type: 'table',
-        value: [
-          [
-            {
-              type: 'text',
-              value: '-'
-            }
-          ],
-          [
-            {
-              type: 'input',
-              value: '<Akteur>'
-            },
-            {
-              type: 'text',
-              value: 'die Möglichkeit bieten'
-            }
-          ],
-          [
-            {
-              type: 'text',
-              value: 'fähig sein'
-            }
-          ]
-        ]
-      },
-      {
-        type: 'input',
-        value: '<Objekt>'
-      },
-      {
-        type: 'input',
-        value: '<Prozesswort>'
-      }
-    ]
-  }
+  private descriptionTemplate: RequirementDescriptionTemplate = null;
 
   // variable shows if current requirement template is valid
   public requirementTemplateIsValid: boolean;
@@ -191,17 +43,13 @@ export class RequirementComponent implements OnInit, AfterViewInit, OnDestroy {
   /*
    * constructor
    */
-  constructor(private requirementService: RequirementService,
-    private fb: FormBuilder,
-    private officeService: OfficeService) {
-    this.createEmptyForm();
-  }
+  constructor(private requirementService: RequirementService) {}
 
   ngOnInit() {
-    this.requirements$ = this.requirementService.getRequirements();
 
+    // subscribe to requirements
     this.subscriptions.push(
-      this.requirements$.subscribe(
+      this.requirementService.getRequirements().subscribe(
         (requirements: Requirement[]) => {
           this.requirements = requirements;
         },
@@ -415,76 +263,6 @@ export class RequirementComponent implements OnInit, AfterViewInit, OnDestroy {
 
     // ToDo: update form
 
-  }
-
-  onSelected(event) {
-    console.log(event.target);
-  }
-
-  onChangeState() {
-    this.state == 'active' ? this.state = 'inactive' : this.state = 'active';
-  }
-
-  // reactive form
-  createEmptyForm() {
-
-    this.requirementForm = this.fb.group({
-      fullName: ['', Validators.required],
-      address: this.fb.group({
-        postalCode: ['', Validators.required],
-        country: ['', Validators.required]
-      }),
-      templateParts: this.fb.array([
-        this.initTemplateParts(),
-      ])
-    });
-  }
-
-  initTemplateParts() {
-    // initialize template parts
-    return this.fb.group({
-      version: [''],
-      value: ['']
-    });
-  }
-
-  submitted = false;
-  onSubmit() {
-    console.log('form submitted');
-  }
-
-  addNewEmployeeAddress() {
-    this.requirementForm.reset();
-    this.submitted = false;
-  }
-
-  addEmptyTemplatePart() {
-    // add address to the list
-    const control = <FormArray>this.requirementForm.controls['templateParts'];
-    control.push(this.initTemplateParts());
-  }
-
-  removeTemplatePart(index: number) {
-    // remove address from the list
-    const control = <FormArray>this.requirementForm.controls['templateParts'];
-    control.removeAt(index);
-  }
-
-  // ToDo: get / set values from requirement in form
-
-  onMouseEnter(event: any) {
-    event.target.classList.add('label'); // create labels of text
-
-    //event.target.style.backgroundColor = '#eee';
-    //event.target.style.borderRadius = '8px';
-
-  }
-
-  onMouseLeave(event: any) {
-    event.target.classList.remove('label'); // create labels of text
-
-    //event.target.style.backgroundColor = 'transparent'; 
-    //event.target.style.borderRadius = '0px';
   }
 
   /**
