@@ -46,13 +46,20 @@ export class RequirementService {
     // debug log
     console.log('requirement validation started');
 
+    // variables
+    let descriptionTemplatePart;
+    let requirementTemplatePart;
+
     // check all requirement template parts with the description template
     for (let i = 0; i < requirementTemplateParts.length; i++) {
 
+      // temp variable for loop
+      descriptionTemplatePart = JSON.parse(descriptionTemplate.template[i]);
+      requirementTemplatePart = requirementTemplateParts[i];
 
       // only validate the order of dirrent element types
       // ToDo: also validate the values of the different elements
-      if (requirementTemplateParts[i].type === descriptionTemplate.template[i].type) {
+      if (requirementTemplatePart.type === descriptionTemplatePart.type) {
 
         // valid
         this.requirementTemplateIsValid$.next(true);
@@ -61,6 +68,10 @@ export class RequirementService {
         // not valid
         this.requirementTemplateIsValid$.next(false);
       }
+
+      // reset variables
+      descriptionTemplatePart = null;
+      requirementTemplatePart = null;
     }
   }
 }
