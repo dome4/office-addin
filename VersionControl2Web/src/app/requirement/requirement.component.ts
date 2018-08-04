@@ -407,9 +407,11 @@ export class RequirementComponent implements OnInit, AfterViewInit, OnDestroy {
     // re-render template parts of current selected requirement
     this.renderTemplateParts();
 
+    // debug
     console.log('requirement selected');
     console.log(this.selectedRequirement);
     console.log(this.requirementTemplateParts);
+    // debug
 
     // ToDo: update form
 
@@ -498,13 +500,16 @@ export class RequirementComponent implements OnInit, AfterViewInit, OnDestroy {
     // create new template parts and add them to the DOM
     // ToDo: validation that the parts are in the correct order -> validate with next-property
     this.requirementTemplateParts.forEach(part => {
-      this.createNewRequirementTemplatePart(part)
+      let newPart = this.createNewRequirementTemplatePart(part);
+
+      // add new created element as the last child of the requirement container to the DOM
+      this.requirementContainer.nativeElement.appendChild(newPart);
     });
 
   }
 
   /**
-   * creates new element and appends it as the last child of the requirement container to the DOM
+   * creates new element
    * 
    * @param templatePart requirement template part
    */
@@ -539,48 +544,70 @@ export class RequirementComponent implements OnInit, AfterViewInit, OnDestroy {
 
 
       // ToDo make datatype table
-      /*
       case 'table':
-        // ToDo inspect
-        newPart = document.createElement('table');
-        newPart.setAttribute('style', 'display:inline;'); // ToDo check if necessary
-  
-        // add children elements
-        for (var i = 0; i < requirementPart.children.length; i++) {
-  
-          var childReqElementType = requirementPart.children[i];
-  
-          // create new child element -> parent of it is current element
-          var newChildElement = getNewReqElement(requirementId, childReqElementType, requirementId);
-          var newRow = document.createElement('tr');
-          var newCell1 = document.createElement('td');
-          var newCell2 = document.createElement('td');
-          newCell1.setAttribute('align', 'center');
-          newCell1.appendChild(newChildElement);
-  
-          // add new button
-          // ToDo check what this method does
-          //newCell2.appendChild(getNewButton(requirementId, childReqElementType, parentId));
-  
-  
-          newRow.appendChild(newCell1);
-          newRow.appendChild(newCell2);
-          newPart.appendChild(newRow);
-        }
+
+        newPart = this.tableHandler(templatePart, newPart);
+
         break;
-        */
 
       default:
-        window.alert('fct: addNewReqElement: chosen type not implemented: ' + templatePart.type);
+        console.log('createNewRequirementTemplatePart: chosen type not implemented: ' + templatePart.type);
     }
 
     // set id and classname
     newPart.id = templatePart._id + '_' + templatePart.type;
     newPart.className = 'requirement-part';
 
-    // add new created element as the last child of the requirement container to the DOM
-    this.requirementContainer.nativeElement.appendChild(newPart);
+    return newPart;
 
+  }
+
+  /**
+   *
+   * 
+   * @param templatePart
+   * @param newPart
+   */
+  tableHandler(templatePart: RequirementTemplatePart, newPart: any) {
+
+    // create new dom node
+    newPart = document.createElement('table');
+    newPart.setAttribute('style', 'display:inline;'); // ToDo check if necessary
+
+
+    // add children elements
+    for (var i = 0; i < templatePart.value.length; i++) {
+
+      // get one object of the array -> type { type: '', value: '' }
+      var tableChildElement = JSON.parse(templatePart.value[i])
+
+      // create new child element
+      // ToDo handle errors if array is not valid
+      var newChildElement = this.createNewRequirementTemplatePart(tableChildElement);
+
+      // create new row
+      var newRow = document.createElement('tr');
+
+      // value cell
+      var newCell1 = document.createElement('td');
+      newCell1.setAttribute('align', 'center');
+
+      // append new created child element
+      newCell1.appendChild(newChildElement);
+
+      // button cell
+      var newCell2 = document.createElement('td');
+      // add new button
+      // ToDo check what this method does
+      //newCell2.appendChild(getNewButton(requirementId, childReqElementType, parentId));
+
+      // append new created elements
+      newRow.appendChild(newCell1);
+      newRow.appendChild(newCell2);
+      newPart.appendChild(newRow);
+    }
+
+    return newPart;
   }
 
   /**
