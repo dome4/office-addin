@@ -147,11 +147,16 @@ export class RequirementComponent implements OnInit, OnDestroy {
       case 'dropdown':
         newPart = document.createElement('select');
 
-        // create select options
-        for (var i = 0; i < templatePart.value.length; i++) {
+        // create all select options
+        for (var i = 0; i < templatePart.descriptionTemplateValue.length; i++) {
           var option = document.createElement('option');
           option.setAttribute('value', templatePart.value[i]);
-          option.innerHTML = templatePart.value[i];
+          option.innerHTML = templatePart.descriptionTemplateValue[i];
+
+          // set active option
+          if (templatePart.descriptionTemplateValue[i].toString() === templatePart.value.toString()) {
+            option.selected = true;
+          }
           newPart.appendChild(option);
         }
 
@@ -167,7 +172,8 @@ export class RequirementComponent implements OnInit, OnDestroy {
 
       case 'input':
         newPart = document.createElement('input');
-        newPart.placeholder = templatePart.value; // ToDo placeholder has to be definied in the description template
+        newPart.placeholder = templatePart.descriptionTemplateValue;
+        newPart.value = templatePart.value;
 
         // event listener
         newPart.addEventListener('change', this.onRequirementPartChanged)
@@ -207,10 +213,10 @@ export class RequirementComponent implements OnInit, OnDestroy {
 
 
     // add children elements
-    for (let i = 0; i < templatePart.value.length; i++) {
+    for (let i = 0; i < templatePart.descriptionTemplateValue.length; i++) {
 
       // local variable
-      let tableChildElement = templatePart.value[i];
+      let tableChildElement = templatePart.descriptionTemplateValue[i];
 
       // create new child element
       // ToDo handle errors if array is not valid
@@ -218,6 +224,33 @@ export class RequirementComponent implements OnInit, OnDestroy {
 
       // create new row
       let newRow = document.createElement('tr');
+
+      // if types and values are equal -> select the option
+      let descriptionTemplatePart = this.createObject(templatePart.descriptionTemplateValue[i]);
+      let requirementTemplatePart = this.createObject(templatePart.value.toString());
+
+      console.log(descriptionTemplatePart.type)
+      console.log(requirementTemplatePart.type)
+
+      if (
+        descriptionTemplatePart.type !== 'wrapper' &&
+        descriptionTemplatePart.type === requirementTemplatePart.type &&
+        descriptionTemplatePart.value === requirementTemplatePart.value
+      ) {
+        newRow.setAttribute('selected', 'true');
+        newRow.style.backgroundColor = 'red';
+      }
+      else if (descriptionTemplatePart.type === 'wrapper') {
+
+        // requirement part type is wrapper
+        console.log('wrapper element not checked in detail');
+
+        // ToDo write validator for datatype wrapper
+        newRow.setAttribute('selected', 'true');
+        newRow.style.backgroundColor = 'red';
+      } else {
+        console.log('something went wrong')
+      }
 
       // event listener
       newRow.addEventListener('click', this.onRequirementPartChanged)
