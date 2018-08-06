@@ -138,7 +138,7 @@ export class RequirementComponent implements OnInit, AfterViewInit, OnDestroy {
         'next': [],
       },
     }
-    
+
     let reqElements = document.getElementsByClassName('requirement-part')
 
     /**
@@ -363,7 +363,7 @@ export class RequirementComponent implements OnInit, AfterViewInit, OnDestroy {
     for (var i = 0; i < templatePart.value.length; i++) {
 
       // get one object of the array -> type { type: '', value: '' }
-      var tableChildElement = JSON.parse(templatePart.value[i])
+      var tableChildElement = JSON.parse(templatePart.value[i]);
 
       // create new child element
       // ToDo handle errors if array is not valid
@@ -405,13 +405,36 @@ export class RequirementComponent implements OnInit, AfterViewInit, OnDestroy {
     // create new dom node
     newPart = document.createElement('div');
     newPart.style.display = 'inline';
-    
 
     // add children elements
     for (var i = 0; i < templatePart.value.length; i++) {
+      
+      var tableChildElement = null;
 
-      // get a object of the array -> type { type: '', value: '' }
-      var tableChildElement = JSON.parse(templatePart.value[i]);
+      /*
+       * check if the value is already parsed
+       */
+      if (
+        templatePart.value[i] !== undefined &&
+        templatePart.value[i] !== null &&
+        templatePart.value[i].constructor == String
+      ) {
+
+        // String check
+        tableChildElement = JSON.parse(templatePart.value[i]);
+
+      } else if (
+        templatePart.value[i] !== undefined &&
+        templatePart.value[i] !== null &&
+        templatePart.value[i].constructor == Object      
+      ) {
+
+        // object check
+        tableChildElement = templatePart.value[i];
+
+      } else {
+        console.log('parsing error');
+      }
 
       // create new child element
       // ToDo handle errors if array is not valid
