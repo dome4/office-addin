@@ -43,7 +43,7 @@ export class RequirementComponent implements OnInit, AfterViewInit, OnDestroy {
   /*
    * constructor
    */
-  constructor(private requirementService: RequirementService) {}
+  constructor(private requirementService: RequirementService) { }
 
   ngOnInit() {
 
@@ -313,6 +313,9 @@ export class RequirementComponent implements OnInit, AfterViewInit, OnDestroy {
           option.innerHTML = templatePart.value[i];
           newPart.appendChild(option);
         }
+
+        // event listener
+        newPart.addEventListener('change', this.onRequirementPartChanged)
         break;
 
       case 'text':
@@ -324,6 +327,9 @@ export class RequirementComponent implements OnInit, AfterViewInit, OnDestroy {
       case 'input':
         newPart = document.createElement('input');
         newPart.placeholder = templatePart.value; // ToDo placeholder has to be definied in the description template
+
+        // event listener
+        newPart.addEventListener('change', this.onRequirementPartChanged)
         break;
 
       case 'table':
@@ -372,6 +378,9 @@ export class RequirementComponent implements OnInit, AfterViewInit, OnDestroy {
       // create new row
       var newRow = document.createElement('tr');
 
+      // event listener
+      newRow.addEventListener('click', this.onRequirementPartChanged)
+
       // value cell
       var newCell1 = document.createElement('td');
       newCell1.setAttribute('align', 'center');
@@ -408,7 +417,7 @@ export class RequirementComponent implements OnInit, AfterViewInit, OnDestroy {
 
     // add children elements
     for (var i = 0; i < templatePart.value.length; i++) {
-      
+
       var tableChildElement = null;
 
       /*
@@ -426,7 +435,7 @@ export class RequirementComponent implements OnInit, AfterViewInit, OnDestroy {
       } else if (
         templatePart.value[i] !== undefined &&
         templatePart.value[i] !== null &&
-        templatePart.value[i].constructor == Object      
+        templatePart.value[i].constructor == Object
       ) {
 
         // object check
@@ -447,6 +456,14 @@ export class RequirementComponent implements OnInit, AfterViewInit, OnDestroy {
 
     return newPart;
 
+  }
+
+  onRequirementPartChanged() {
+
+    // debug
+    console.log(event);
+
+    // ToDo: write function
   }
 
   /**
