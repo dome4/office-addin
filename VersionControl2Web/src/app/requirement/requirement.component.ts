@@ -94,8 +94,8 @@ export class RequirementComponent implements OnInit, OnDestroy {
     // set container id
     this.requirementContainer.nativeElement.setAttribute('id', this.selectedRequirement._id);
 
-    // render selected discription template
-    this.renderDescriptionTemplate();
+    // render selected requirement template
+    this.renderRequirementTemplate();
 
 
     // debug
@@ -110,26 +110,22 @@ export class RequirementComponent implements OnInit, OnDestroy {
 
   /**
   *
-  * render template parts of selecte requirement
+  * render requirement template
   *
   */
-  renderDescriptionTemplate() {
+  renderRequirementTemplate() {
 
     // delete content of current requirement-container
-    // ToDo: fix issue -> native elemement is set if a requirement is set twice
     this.requirementContainer.nativeElement.innerHTML = '';
 
     // create new DOM elements for the description template
-    this.descriptionTemplate.template
-      .forEach(element => {
+    this.requirementTemplateParts
+      .forEach((element: RequirementTemplatePart) => {
 
-        let newPart = this.createNewDescriptionTemplatePart(element);
+        let newPart = this.createNewRequirementTemplatePart(element);
 
         // add new created element as the last child of the requirement container to the DOM
         this.requirementContainer.nativeElement.appendChild(newPart);
-
-        // save element ref
-        element.elementRef = newPart;
       });
   }
 
@@ -138,8 +134,10 @@ export class RequirementComponent implements OnInit, OnDestroy {
    * 
    * @param templatePart requirement template part
    */
-  createNewDescriptionTemplatePart(templatePart: RequirementDescriptionTemplatePart) {
-    //let getNewReqElement = (requirementId: string, reqelement_Type: string, parentId: string) => {
+  createNewRequirementTemplatePart(templatePart: RequirementTemplatePart) {
+
+    // prevent type errors
+    templatePart = this.createObject(templatePart);
 
     // create new element to insert
     let newPart = null;
@@ -201,7 +199,7 @@ export class RequirementComponent implements OnInit, OnDestroy {
    * @param templatePart
    * @param newPart
    */
-  tableHandler(templatePart: RequirementDescriptionTemplatePart, newPart: any) {
+  tableHandler(templatePart: RequirementTemplatePart, newPart: any) {
 
     // create new dom node
     newPart = document.createElement('table');
@@ -216,7 +214,7 @@ export class RequirementComponent implements OnInit, OnDestroy {
 
       // create new child element
       // ToDo handle errors if array is not valid
-      let newChildElement = this.createNewDescriptionTemplatePart(tableChildElement);
+      let newChildElement = this.createNewRequirementTemplatePart(tableChildElement);
 
       // create new row
       let newRow = document.createElement('tr');
@@ -252,7 +250,7 @@ export class RequirementComponent implements OnInit, OnDestroy {
    * @param templatePart
    * @param newPart
    */
-  wrapperHandler(templatePart: RequirementDescriptionTemplatePart, newPart: any) {
+  wrapperHandler(templatePart: RequirementTemplatePart, newPart: any) {
 
     // create new dom node
     newPart = document.createElement('div');
@@ -265,7 +263,7 @@ export class RequirementComponent implements OnInit, OnDestroy {
 
       // create new child element
       // ToDo handle errors if array is not valid
-      var newChildElement = this.createNewDescriptionTemplatePart(tableChildElement);
+      var newChildElement = this.createNewRequirementTemplatePart(tableChildElement);
 
       // append new elements to wrapper
       newPart.appendChild(newChildElement);
@@ -324,7 +322,5 @@ export class RequirementComponent implements OnInit, OnDestroy {
     } else {
       throw new Error('parsing error');
     }
-
-
   }
 }
