@@ -4,7 +4,8 @@ import { Requirement } from '../models/requirement';
 import { environment } from '../../environments/environment';
 import { AuthService } from './auth/auth.service';
 import { RequirementTemplatePart } from '../models/requirement-template-part';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 const api = environment.apiUrl;
 
@@ -18,7 +19,9 @@ export class RequirementService {
     private authService: AuthService) { }
 
   getRequirements() {
-    return this.http.get<Array<Requirement>>(`${api}/requirements`)
+    return this.http.get<Array<Requirement>>(`${api}/requirements`).pipe(
+      map(this.mapDescriptionTemplateWithRequirementParts)
+    )
   }
 
   getRequirement(requirement: Requirement) {
@@ -73,5 +76,32 @@ export class RequirementService {
       descriptionTemplatePart = null;
       requirementTemplatePart = null;
     }
+  }
+
+  /**
+   * map description template with requirement template parts
+   * 
+   * @param requirements
+   */
+  mapDescriptionTemplateWithRequirementParts(requirements: Requirement[]) {
+
+    requirements.forEach((requirement: Requirement) => {
+
+      requirement.descriptionParts.forEach((part, i) => {
+
+        // cast template string array to object array
+        requirement.descriptionTemplate.template[i] = JSON.parse(requirement.descriptionTemplate.template[i].toString());
+
+        // check datatypes and set value
+        if (part.type === requirement.descriptionTemplate.template[i].type) {
+          part.descriptionTemplateValue = requirement.descriptionTemplate.template[i].value;
+
+        } else {
+          throw new Error('requirement map error');
+        }
+      });
+    });
+
+    return requirements;
   }
 }

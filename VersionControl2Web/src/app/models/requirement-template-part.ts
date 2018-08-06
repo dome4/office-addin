@@ -6,4 +6,5 @@ export class RequirementTemplatePart {
   value: any;
   type: string;
   head: boolean;
+  descriptionTemplateValue: any;
 }

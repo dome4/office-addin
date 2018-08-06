@@ -88,17 +88,15 @@ export class RequirementComponent implements OnInit, OnDestroy {
     // set description template
     this.descriptionTemplate = this.selectedRequirement.descriptionTemplate;
 
+    // update description template to be a list of objects
+    this.descriptionTemplate.template = this.descriptionTemplate.template.map(element => this.createObject(element));
+
     // set container id
     this.requirementContainer.nativeElement.setAttribute('id', this.selectedRequirement._id);
 
     // render selected discription template
     this.renderDescriptionTemplate();
 
-    // set values of requirementTemplateParts-Array as active
-    /*
-     * ToDo: map description template and requirement part values
-     * and set selected values as active
-     */
 
     // debug
     console.log('requirement selected');
@@ -123,13 +121,15 @@ export class RequirementComponent implements OnInit, OnDestroy {
 
     // create new DOM elements for the description template
     this.descriptionTemplate.template
-      .map(element => this.createObject(element))
       .forEach(element => {
 
         let newPart = this.createNewDescriptionTemplatePart(element);
 
         // add new created element as the last child of the requirement container to the DOM
         this.requirementContainer.nativeElement.appendChild(newPart);
+
+        // save element ref
+        element.elementRef = newPart;
       });
   }
 
