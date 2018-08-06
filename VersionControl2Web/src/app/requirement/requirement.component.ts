@@ -138,7 +138,7 @@ export class RequirementComponent implements OnInit, AfterViewInit, OnDestroy {
         'next': [],
       },
     }
-
+    
     let reqElements = document.getElementsByClassName('requirement-part')
 
     /**
@@ -147,6 +147,7 @@ export class RequirementComponent implements OnInit, AfterViewInit, OnDestroy {
      * adds next ReqElements to the parent if it not already exist
      * 
      */
+    /*
     Array.from(reqElements).forEach(item => {
       item.addEventListener('focus', () => {
 
@@ -168,11 +169,9 @@ export class RequirementComponent implements OnInit, AfterViewInit, OnDestroy {
         let requirementPart = ReqElementTypes[requirementType];
 
 
-        /*
-
-        !! ToDo: parent can also be a container !! -> e.g. '<Akteur> die Moeglichkeit bieten' -> two sub inputs
+        // !! ToDo: parent can also be a container !! -> e.g. '<Akteur> die Moeglichkeit bieten' -> two sub inputs
 	      // does not work if element is in table yet
-        */
+
 
         // get parent ID
         var parentId = item.parentElement.getAttribute('id');
@@ -194,6 +193,7 @@ export class RequirementComponent implements OnInit, AfterViewInit, OnDestroy {
 
       })
     })
+    */
 
 
     /**
@@ -252,6 +252,9 @@ export class RequirementComponent implements OnInit, AfterViewInit, OnDestroy {
     // set description template
     this.descriptionTemplate = this.selectedRequirement.descriptionTemplate;
 
+    // set container id
+    this.requirementContainer.nativeElement.setAttribute('id', this.selectedRequirement._id);
+
     // re-render template parts of current selected requirement
     this.renderTemplateParts();
 
@@ -273,6 +276,7 @@ export class RequirementComponent implements OnInit, AfterViewInit, OnDestroy {
   renderTemplateParts() {
 
     // delete content of current requirement-container
+    // ToDo: fix issue -> native elemement is set if a requirement is set twice
     this.requirementContainer.nativeElement.innerHTML = '';
 
     // create new template parts and add them to the DOM
@@ -310,22 +314,24 @@ export class RequirementComponent implements OnInit, AfterViewInit, OnDestroy {
           newPart.appendChild(option);
         }
         break;
+
       case 'text':
         newPart = document.createElement('div');
         newPart.innerHTML = templatePart.value;
         newPart.setAttribute('style', 'display:inline;');
         break;
+
       case 'input':
         newPart = document.createElement('input');
         newPart.placeholder = templatePart.value; // ToDo placeholder has to be definied in the description template
         break;
 
-
-      // ToDo make datatype table
       case 'table':
-
         newPart = this.tableHandler(templatePart, newPart);
+        break;
 
+      case 'wrapper':
+        newPart = this.wrapperHandler(templatePart, newPart);
         break;
 
       default:
@@ -334,14 +340,14 @@ export class RequirementComponent implements OnInit, AfterViewInit, OnDestroy {
 
     // set id and classname
     newPart.id = templatePart._id + '_' + templatePart.type;
-    newPart.className = 'requirement-part';
+    newPart.classList.add('requirement-part')
 
     return newPart;
 
   }
 
   /**
-   *
+   * create table and its sub elements
    * 
    * @param templatePart
    * @param newPart
@@ -389,8 +395,41 @@ export class RequirementComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   /**
+   * create the wrapper div and its sub elements
+   * 
+   * @param templatePart
+   * @param newPart
+   */
+  wrapperHandler(templatePart: RequirementTemplatePart, newPart: any) {
+
+    // create new dom node
+    newPart = document.createElement('div');
+    newPart.style.display = 'inline';
+    
+
+    // add children elements
+    for (var i = 0; i < templatePart.value.length; i++) {
+
+      // get a object of the array -> type { type: '', value: '' }
+      var tableChildElement = JSON.parse(templatePart.value[i]);
+
+      // create new child element
+      // ToDo handle errors if array is not valid
+      var newChildElement = this.createNewRequirementTemplatePart(tableChildElement);
+
+      // append new elements to wrapper
+      newPart.appendChild(newChildElement);
+
+    }
+
+    return newPart;
+
+  }
+
+  /**
    * method should be executed everytime the requirement changes
-   * */
+   *
+   */
   onRequirementChanged() {
 
     this.requirementService.validateRequirementTemplate(this.requirementTemplateParts, this.descriptionTemplate);

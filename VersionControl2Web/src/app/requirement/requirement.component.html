@@ -15,27 +15,26 @@
 
 <hr />
 
-<label>Type your Requirement in here:</label>
-<br />
-<div #requirementContainer id="1234TEST90df" style="display:inline;">
+<div *ngIf="selectedRequirement">
+  <label>Type your Requirement in here:</label>
   <br />
-  <select>
-    <option>Der</option>
-    <option>Die</option>
-    <option>Das</option>
-  </select>
-  <input class="requirement-part" id="1234TEST90df_system" type="text" placeholder="Systemname">
 </div>
+<div #requirementContainer style="display:inline;"></div>
 
-<div class="clr-row">
+<div class="clr-row" *ngIf="selectedRequirement">
   <button (click)="onRequirementChanged()" class="btn btn-primary">Validate Requirement</button>
 </div>
 
+<div *ngIf="selectedRequirement">
+  <clr-alert *ngIf="!requirementTemplateIsValid" [clrAlertType]="'alert-warning'">
+    <div class="alert-item">
+      <span class="alert-text">
+        Requirement is not valid!
+      </span>
+    </div>
+  </clr-alert>
+</div>
 
-<clr-alert *ngIf="!requirementTemplateIsValid" [clrAlertType]="'alert-warning'">
-  <div class="alert-item">
-    <span class="alert-text">
-      Requirement is not valid!
-    </span>
-  </div>
-</clr-alert>
+<div *ngIf="!selectedRequirement">
+  <label>Choose a requirement</label>
+</div>
