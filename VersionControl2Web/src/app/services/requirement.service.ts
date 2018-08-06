@@ -57,7 +57,7 @@ export class RequirementService {
     for (let i = 0; i < requirementTemplateParts.length; i++) {
 
       // temp variable for loop
-      descriptionTemplatePart = JSON.parse(descriptionTemplate.template[i]);
+      descriptionTemplatePart = this.createObject(descriptionTemplate.template[i]);
       requirementTemplatePart = requirementTemplateParts[i];
 
       // only validate the order of dirrent element types
@@ -103,5 +103,38 @@ export class RequirementService {
     });
 
     return requirements;
+  }
+
+  /**
+   * check if the given param is already an object or a JSON-string and return a object
+   * 
+   * @param element object or JSON-string of an object
+   */
+  createObject(element: any) {
+
+    /*
+     * check if the value is already parsed
+     */
+    if (
+      element !== undefined &&
+      element !== null &&
+      element.constructor == String
+    ) {
+
+      // String check
+      return JSON.parse(element);
+
+    } else if (
+      element !== undefined &&
+      element !== null &&
+      element.constructor == Object
+    ) {
+
+      // object check
+      return element;
+
+    } else {
+      throw new Error('parsing error');
+    }
   }
 }

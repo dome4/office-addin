@@ -89,14 +89,13 @@ export class RequirementComponent implements OnInit, OnDestroy {
     this.descriptionTemplate = this.selectedRequirement.descriptionTemplate;
 
     // update description template to be a list of objects
-    this.descriptionTemplate.template = this.descriptionTemplate.template.map(element => this.createObject(element));
+    this.descriptionTemplate.template = this.descriptionTemplate.template.map(element => this.requirementService.createObject(element));
 
     // set container id
     this.requirementContainer.nativeElement.setAttribute('id', this.selectedRequirement._id);
 
     // render selected requirement template
     this.renderRequirementTemplate();
-
 
     // debug
     console.log('requirement selected');
@@ -137,7 +136,7 @@ export class RequirementComponent implements OnInit, OnDestroy {
   createNewRequirementTemplatePart(templatePart: RequirementTemplatePart) {
 
     // prevent type errors
-    templatePart = this.createObject(templatePart);
+    templatePart = this.requirementService.createObject(templatePart);
 
     // create new element to insert
     let newPart = null;
@@ -226,8 +225,8 @@ export class RequirementComponent implements OnInit, OnDestroy {
       let newRow = document.createElement('tr');
 
       // if types and values are equal -> select the option
-      let descriptionTemplatePart = this.createObject(templatePart.descriptionTemplateValue[i]);
-      let requirementTemplatePart = this.createObject(templatePart.value.toString());
+      let descriptionTemplatePart = this.requirementService.createObject(templatePart.descriptionTemplateValue[i]);
+      let requirementTemplatePart = this.requirementService.createObject(templatePart.value.toString());
 
       console.log(descriptionTemplatePart.type)
       console.log(requirementTemplatePart.type)
@@ -322,38 +321,5 @@ export class RequirementComponent implements OnInit, OnDestroy {
   onRequirementChanged() {
 
     this.requirementService.validateRequirementTemplate(this.requirementTemplateParts, this.descriptionTemplate);
-  }
-
-  /**
-   * check if the given param is already an object or a JSON-string and return a object
-   * 
-   * @param element object or JSON-string of an object
-   */
-  createObject(element: any) {
-
-    /*
-     * check if the value is already parsed
-     */
-    if (
-      element !== undefined &&
-      element !== null &&
-      element.constructor == String
-    ) {
-
-      // String check
-      return JSON.parse(element);
-
-    } else if (
-      element !== undefined &&
-      element !== null &&
-      element.constructor == Object
-    ) {
-
-      // object check
-      return element;
-
-    } else {
-      throw new Error('parsing error');
-    }
   }
 }
