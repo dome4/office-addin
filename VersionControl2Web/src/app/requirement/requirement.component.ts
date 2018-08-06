@@ -228,9 +228,6 @@ export class RequirementComponent implements OnInit, OnDestroy {
       let descriptionTemplatePart = this.requirementService.createObject(templatePart.descriptionTemplateValue[i]);
       let requirementTemplatePart = this.requirementService.createObject(templatePart.value.toString());
 
-      console.log(descriptionTemplatePart.type)
-      console.log(requirementTemplatePart.type)
-
       if (
         descriptionTemplatePart.type !== 'wrapper' &&
         descriptionTemplatePart.type === requirementTemplatePart.type &&
@@ -247,8 +244,6 @@ export class RequirementComponent implements OnInit, OnDestroy {
         // ToDo write validator for datatype wrapper
         newRow.setAttribute('selected', 'true');
         newRow.style.backgroundColor = 'red';
-      } else {
-        console.log('something went wrong')
       }
 
       // event listener
