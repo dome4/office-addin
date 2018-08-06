@@ -1,9 +1,10 @@
-import { Component, OnInit, OnDestroy, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild, ElementRef } from '@angular/core';
 import { RequirementService } from '../services/requirement.service';
 import { Requirement } from '../models/requirement';
 import { Subscription } from 'rxjs';
 import { RequirementTemplatePart } from '../models/requirement-template-part';
-import { RequirementDescriptionTemplate } from '../models/requirement-description-template';
+import { RequirementDescriptionTemplate } from '../models/requirement-description-template/requirement-description-template';
+import { RequirementDescriptionTemplatePart } from '../models/requirement-description-template/requirement-description-template-part';
 
 // js variable
 //declare var document: any;
@@ -13,7 +14,7 @@ import { RequirementDescriptionTemplate } from '../models/requirement-descriptio
   templateUrl: './requirement.component.html',
   styleUrls: ['./requirement.component.css']
 })
-export class RequirementComponent implements OnInit, AfterViewInit, OnDestroy {
+export class RequirementComponent implements OnInit, OnDestroy {
 
   /*
    * in dropdown selected requirement
@@ -67,171 +68,6 @@ export class RequirementComponent implements OnInit, AfterViewInit, OnDestroy {
     );
   }
 
-  /*
-   *
-   * js debug area - start
-   *
-   */
-  ngAfterViewInit() {
-
-    // render template parts of current selected requirement
-    this.renderTemplateParts();
-
-
-
-    // das hier ist mein requirement template, die requirement template part types sind die eleemtTypes
-    const ReqElementTypes = {
-      'system': {
-        'elementType': 'input',
-        'value': '',
-        'placeholder': 'Systemname',
-        'options': [],
-        'children': [],
-        'next': ['priority'], // ist das so clever, wenn in next nur der Typ des Feldes steht? !!!!!!!!!!!!!!! vor allem muss das nicht immer so sein
-      },
-      'priority': {
-        'elementType': 'select',
-        'value': '',
-        'placeholder': '',
-        'options': ['muss', 'soll', 'kann'],
-        'children': [],
-        'next': ['table_f_o_b'],
-      },
-      'table_f_o_b': {
-        'elementType': 'table',
-        'value': '',
-        'placeholder': '',
-        'options': [],
-        'children': ['empty', 'actor', 'ability'],
-        'next': [], // table has no following elements, its children have them
-      },
-      'empty': {
-        'elementType': 'text',
-        'value': '--',
-        'placeholder': '',
-        'options': [],
-        'children': [],
-        'next': ['object'],
-      },
-      'actor': {
-        'elementType': 'input',
-        'value': '',
-        'placeholder': 'Akteur',
-        'options': [],
-        'children': [],
-        'next': ['object'],
-      },
-      'ability': {
-        'elementType': 'text',
-        'value': 'faehig sein',
-        'placeholder': '',
-        'options': [],
-        'children': [],
-        'next': ['object'],
-      },
-      'object': {
-        'elementType': 'input',
-        'value': '',
-        'placeholder': 'Objekt',
-        'options': [],
-        'children': [],
-        'next': [],
-      },
-    }
-
-    let reqElements = document.getElementsByClassName('requirement-part')
-
-    /**
-     * Function: onfocus listener for elements of the class '.reqelement'
-     * 
-     * adds next ReqElements to the parent if it not already exist
-     * 
-     */
-    /*
-    Array.from(reqElements).forEach(item => {
-      item.addEventListener('focus', () => {
-
-        // requirement attributes
-        let requirementId: string = '';
-        let requirementType: string = '';
-
-        // id attribute is requirement id + '_' + requirement type
-        let idString = item.getAttribute('id');
-
-        // handle string
-        let idStringArray: Array<string> = idString.split('_');
-        if (idStringArray.length > 1) {
-          requirementId = idStringArray[0]; // requirement id
-          requirementType = idStringArray[1]; // type of the input field -> see types above
-        }
-
-        //console.log('fct: .reqelement-listener: selected: ' + selectedID + ' ,ReqElementType with requirementID: ' + selectedReqID)
-        let requirementPart = ReqElementTypes[requirementType];
-
-
-        // !! ToDo: parent can also be a container !! -> e.g. '<Akteur> die Moeglichkeit bieten' -> two sub inputs
-	      // does not work if element is in table yet
-
-
-        // get parent ID
-        var parentId = item.parentElement.getAttribute('id');
-        // should be the same as reqID 
-        // container has only the id of the requirement not the element type
-
-        // debug flag
-        console.log('debug area');
-        console.log(item.parentElement);
-        console.log('debug area');
-
-        // add next requirement part
-        if (item.getAttribute('addedNext') === null) {
-          //addNextReqElements(requirementId, requirementPart, parentId);
-          item.setAttribute('addedNext', 'added'); // flag to debug if next element was added
-        }
-
-
-
-      })
-    })
-    */
-
-
-    /**
-     * Function: addNextReqElements
-     * 
-     * adds all next ReqElements of reqelement
-     * 
-     * @param {string} reqID
-     * @param {json-ReqElement} reqelement
-     * @param {string} parentID
-     */
-
-    /*
-    let addNextReqElements = (requirementId, requirementPart, parentId) => {
-      for (let i = 0; i < requirementPart.next.length; i++) { // loop due to next is an array with the following input types
-        var nextId = requirementId + '_' + requirementPart.next[i]; // id is requirement id + type
-        if (document.getElementById(nextId) == null) { // if following input does not exist yet
-          //console.log('fct: addNextReqElements: adding a new reqelement using addNewReqElement with following nextElementname: ' + reqelement.next[i]);
-          var newElement = getNewReqElement(requirementId, requirementPart.next[i], parentId);
-          var parent = document.getElementById(parentId);
-
-          console.log(parent); // ToDo fix parent error
-
-          parent.appendChild(newElement); // line causes TypeError - parent is null
-        }
-      }
-
-    }
-
-    */
-
-  }
-  /*
-   *
-   * js debug area - end
-   *
-   */
-
   ngOnDestroy() {
 
     // unsubscribe all subscriptions
@@ -255,8 +91,14 @@ export class RequirementComponent implements OnInit, AfterViewInit, OnDestroy {
     // set container id
     this.requirementContainer.nativeElement.setAttribute('id', this.selectedRequirement._id);
 
-    // re-render template parts of current selected requirement
-    this.renderTemplateParts();
+    // render selected discription template
+    this.renderDescriptionTemplate();
+
+    // set values of requirementTemplateParts-Array as active
+    /*
+     * ToDo: map description template and requirement part values
+     * and set selected values as active
+     */
 
     // debug
     console.log('requirement selected');
@@ -273,21 +115,22 @@ export class RequirementComponent implements OnInit, AfterViewInit, OnDestroy {
   * render template parts of selecte requirement
   *
   */
-  renderTemplateParts() {
+  renderDescriptionTemplate() {
 
     // delete content of current requirement-container
     // ToDo: fix issue -> native elemement is set if a requirement is set twice
     this.requirementContainer.nativeElement.innerHTML = '';
 
-    // create new template parts and add them to the DOM
-    // ToDo: validation that the parts are in the correct order -> validate with next-property
-    this.requirementTemplateParts.forEach(part => {
-      let newPart = this.createNewRequirementTemplatePart(part);
+    // create new DOM elements for the description template
+    this.descriptionTemplate.template
+      .map(element => this.createObject(element))
+      .forEach(element => {
 
-      // add new created element as the last child of the requirement container to the DOM
-      this.requirementContainer.nativeElement.appendChild(newPart);
-    });
+        let newPart = this.createNewDescriptionTemplatePart(element);
 
+        // add new created element as the last child of the requirement container to the DOM
+        this.requirementContainer.nativeElement.appendChild(newPart);
+      });
   }
 
   /**
@@ -295,7 +138,7 @@ export class RequirementComponent implements OnInit, AfterViewInit, OnDestroy {
    * 
    * @param templatePart requirement template part
    */
-  createNewRequirementTemplatePart(templatePart: RequirementTemplatePart) {
+  createNewDescriptionTemplatePart(templatePart: RequirementDescriptionTemplatePart) {
     //let getNewReqElement = (requirementId: string, reqelement_Type: string, parentId: string) => {
 
     // create new element to insert
@@ -345,7 +188,7 @@ export class RequirementComponent implements OnInit, AfterViewInit, OnDestroy {
     }
 
     // set id and classname
-    newPart.id = templatePart._id + '_' + templatePart.type;
+    newPart.id = this.selectedRequirement._id + '_' + templatePart.type;
     newPart.classList.add('requirement-part')
 
     return newPart;
@@ -358,7 +201,7 @@ export class RequirementComponent implements OnInit, AfterViewInit, OnDestroy {
    * @param templatePart
    * @param newPart
    */
-  tableHandler(templatePart: RequirementTemplatePart, newPart: any) {
+  tableHandler(templatePart: RequirementDescriptionTemplatePart, newPart: any) {
 
     // create new dom node
     newPart = document.createElement('table');
@@ -366,30 +209,30 @@ export class RequirementComponent implements OnInit, AfterViewInit, OnDestroy {
 
 
     // add children elements
-    for (var i = 0; i < templatePart.value.length; i++) {
+    for (let i = 0; i < templatePart.value.length; i++) {
 
-      // get one object of the array -> type { type: '', value: '' }
-      var tableChildElement = JSON.parse(templatePart.value[i]);
+      // local variable
+      let tableChildElement = templatePart.value[i];
 
       // create new child element
       // ToDo handle errors if array is not valid
-      var newChildElement = this.createNewRequirementTemplatePart(tableChildElement);
+      let newChildElement = this.createNewDescriptionTemplatePart(tableChildElement);
 
       // create new row
-      var newRow = document.createElement('tr');
+      let newRow = document.createElement('tr');
 
       // event listener
       newRow.addEventListener('click', this.onRequirementPartChanged)
 
       // value cell
-      var newCell1 = document.createElement('td');
+      let newCell1 = document.createElement('td');
       newCell1.setAttribute('align', 'center');
 
       // append new created child element
       newCell1.appendChild(newChildElement);
 
       // button cell
-      var newCell2 = document.createElement('td');
+      let newCell2 = document.createElement('td');
       // add new button
       // ToDo check what this method does
       //newCell2.appendChild(getNewButton(requirementId, childReqElementType, parentId));
@@ -409,7 +252,7 @@ export class RequirementComponent implements OnInit, AfterViewInit, OnDestroy {
    * @param templatePart
    * @param newPart
    */
-  wrapperHandler(templatePart: RequirementTemplatePart, newPart: any) {
+  wrapperHandler(templatePart: RequirementDescriptionTemplatePart, newPart: any) {
 
     // create new dom node
     newPart = document.createElement('div');
@@ -418,36 +261,11 @@ export class RequirementComponent implements OnInit, AfterViewInit, OnDestroy {
     // add children elements
     for (var i = 0; i < templatePart.value.length; i++) {
 
-      var tableChildElement = null;
-
-      /*
-       * check if the value is already parsed
-       */
-      if (
-        templatePart.value[i] !== undefined &&
-        templatePart.value[i] !== null &&
-        templatePart.value[i].constructor == String
-      ) {
-
-        // String check
-        tableChildElement = JSON.parse(templatePart.value[i]);
-
-      } else if (
-        templatePart.value[i] !== undefined &&
-        templatePart.value[i] !== null &&
-        templatePart.value[i].constructor == Object
-      ) {
-
-        // object check
-        tableChildElement = templatePart.value[i];
-
-      } else {
-        console.log('parsing error');
-      }
+      var tableChildElement = templatePart.value[i];
 
       // create new child element
       // ToDo handle errors if array is not valid
-      var newChildElement = this.createNewRequirementTemplatePart(tableChildElement);
+      var newChildElement = this.createNewDescriptionTemplatePart(tableChildElement);
 
       // append new elements to wrapper
       newPart.appendChild(newChildElement);
@@ -473,5 +291,40 @@ export class RequirementComponent implements OnInit, AfterViewInit, OnDestroy {
   onRequirementChanged() {
 
     this.requirementService.validateRequirementTemplate(this.requirementTemplateParts, this.descriptionTemplate);
+  }
+
+  /**
+   * check if the given param is already an object or a JSON-string and return a object
+   * 
+   * @param element object or JSON-string of an object
+   */
+  createObject(element: any) {
+
+    /*
+     * check if the value is already parsed
+     */
+    if (
+      element !== undefined &&
+      element !== null &&
+      element.constructor == String
+    ) {
+
+      // String check
+      return JSON.parse(element);
+
+    } else if (
+      element !== undefined &&
+      element !== null &&
+      element.constructor == Object
+    ) {
+
+      // object check
+      return element;
+
+    } else {
+      throw new Error('parsing error');
+    }
+
+
   }
 }

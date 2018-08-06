@@ -1,5 +1,5 @@
-import { RequirementTemplatePart } from "./requirement-template-part";
-import { RequirementDescriptionTemplate } from "./requirement-description-template";
+import { RequirementTemplatePart } from './requirement-template-part';
+import { RequirementDescriptionTemplate } from './requirement-description-template/requirement-description-template';
 
 export class Requirement {
   _id: string;

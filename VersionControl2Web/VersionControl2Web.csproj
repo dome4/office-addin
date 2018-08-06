@@ -129,7 +129,8 @@
     <None Include="bin\VersionControl2Web.dll.config" />
     <None Include="packages.config" />
     <Content Include="README.md" />
-    <TypeScriptCompile Include="src\app\models\requirement-description-template.ts" />
+    <TypeScriptCompile Include="src\app\models\requirement-description-template\requirement-description-template-part.ts" />
+    <TypeScriptCompile Include="src\app\models\requirement-description-template\requirement-description-template.ts" />
     <TypeScriptCompile Include="src\app\models\requirement-template-part.ts" />
     <TypeScriptCompile Include="src\app\services\auth\auth-guard.service.ts" />
     <Content Include="src\app\auth\signin\signin.component.css" />
