@@ -1,3 +1,6 @@
 .vc-datagrid clr-dg-cell {
   text-align: center;
 }
+/*
+ * style for dynamically added table is definied globally
+ */

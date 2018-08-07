@@ -75,7 +75,7 @@ export class RequirementService {
     } catch (error) {
 
       // log error
-      console.log(error);
+      console.log(`validation error: ${error}`);
 
       // not valid
       this.requirementTemplateIsValid$.next(false);

@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild, ElementRef, Renderer2 } from '@angular/core';
 import { RequirementService } from '../services/requirement.service';
 import { Requirement } from '../models/requirement';
 import { Subscription } from 'rxjs';
@@ -8,6 +8,7 @@ import { RequirementDescriptionTemplatePart } from '../models/requirement-descri
 
 // js variable
 //declare var document: any;
+// ToDo replace document with Renderer2
 
 @Component({
   selector: 'app-requirement',
@@ -44,7 +45,10 @@ export class RequirementComponent implements OnInit, OnDestroy {
   /*
    * constructor
    */
-  constructor(private requirementService: RequirementService) { }
+  constructor(
+    private requirementService: RequirementService,
+    private renderer: Renderer2
+  ) { }
 
   ngOnInit() {
 
@@ -197,6 +201,7 @@ export class RequirementComponent implements OnInit, OnDestroy {
     newPart.id = this.selectedRequirement._id + '_' + templatePart.type;
     newPart.classList.add('requirement-part')
 
+
     return newPart;
 
   }
@@ -226,6 +231,7 @@ export class RequirementComponent implements OnInit, OnDestroy {
 
       // create new row
       let newRow = document.createElement('tr');
+      this.renderer.addClass(newRow, 'vc-req-table');
 
       // if types and values are equal -> select the option
       let descriptionTemplatePart = this.requirementService.createObject(templatePart.descriptionTemplateValue[i]);
@@ -236,8 +242,7 @@ export class RequirementComponent implements OnInit, OnDestroy {
         descriptionTemplatePart.type === requirementTemplatePart.type &&
         descriptionTemplatePart.value === requirementTemplatePart.value
       ) {
-        newRow.setAttribute('selected', 'true');
-        newRow.style.backgroundColor = 'red';
+        newRow.classList.add('active');
       }
       else if (descriptionTemplatePart.type === 'wrapper') {
 
@@ -245,8 +250,7 @@ export class RequirementComponent implements OnInit, OnDestroy {
         console.log('wrapper element not checked in detail');
 
         // ToDo write validator for datatype wrapper
-        newRow.setAttribute('selected', 'true');
-        newRow.style.backgroundColor = 'red';
+        newRow.classList.add('active');
       }
 
       // event listener
