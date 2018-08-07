@@ -7,6 +7,7 @@ import { RequirementTemplatePart } from '../models/requirement-template-part';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { RequirementDescriptionTemplate } from '../models/requirement-description-template/requirement-description-template';
+import { RequirementDescriptionTemplatePart } from '../models/requirement-description-template/requirement-description-template-part';
 
 const api = environment.apiUrl;
 
@@ -95,6 +96,78 @@ export class RequirementService {
    */
   mapDescriptionTemplateWithRequirementParts(requirements: Requirement[]) {
 
+    /**
+     * helper function
+     * 
+     * @param part
+     * @param template
+     */
+    let mapHelper = (part: RequirementTemplatePart, template: RequirementDescriptionTemplatePart) => {
+
+      // check datatypes and set value
+      if (part.type === template.type) {
+
+        if (part.type === 'dropdown' || part.type === 'input') {
+
+          // dropdown and input handler
+          part.descriptionTemplateValue = template.value;
+        } else if (part.type === 'wrapper') {
+
+          // wrapper handler                      
+          // ToDo !!!!
+          part.descriptionTemplateValue = template.value;
+        } else if (part.type === 'table') {
+
+          // table handler
+
+          // debug
+          console.log('part')
+          console.log(part)
+          console.log(template)
+          console.log('part')
+
+
+
+          let array = Array
+            .from(part.value)
+            .map((element: string) => JSON.parse(element))
+            .forEach((subPart: RequirementTemplatePart) => { // value has only one requirement template part
+
+              // debug
+              console.log('subpart')
+              console.log(subPart)
+              console.log('subpart')
+
+              // search in description template options for fitting datatype
+              let options = Array.from(template.value)
+
+              console.log(options)
+
+
+              // call mapHelper to handle subPart
+
+              // ToDo complete
+
+              
+            })
+
+
+
+          // ToDo !!!!
+          part.descriptionTemplateValue = template.value;
+        } else if (part.type === 'text') {
+
+          // text handler
+          // ToDo !!!!
+          part.descriptionTemplateValue = template.value;
+        }
+
+
+      } else {
+        throw new Error('requirement map error');
+      }
+    };
+
     requirements.forEach((requirement: Requirement) => {
 
       requirement.descriptionParts.forEach((part, i) => {
@@ -102,15 +175,16 @@ export class RequirementService {
         // cast template string array to object array
         requirement.descriptionTemplate.template[i] = JSON.parse(requirement.descriptionTemplate.template[i].toString());
 
-        // check datatypes and set value
-        if (part.type === requirement.descriptionTemplate.template[i].type) {
-          part.descriptionTemplateValue = requirement.descriptionTemplate.template[i].value;
+        // call helper function
+        mapHelper(part, requirement.descriptionTemplate.template[i]);
 
-        } else {
-          throw new Error('requirement map error');
-        }
+        // ToDo: safe return value
+        
       });
     });
+
+    // debug
+    console.log(requirements);
 
     return requirements;
   }
