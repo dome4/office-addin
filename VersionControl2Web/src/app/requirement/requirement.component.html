@@ -26,7 +26,7 @@
 </div>
 
 <div *ngIf="selectedRequirement">
-  <clr-alert *ngIf="!requirementTemplateIsValid" [clrAlertType]="'alert-warning'">
+  <clr-alert *ngIf="!requirementTemplateIsValid" [clrAlertType]="'alert-warning'" [clrAlertClosable]="false">
     <div class="alert-item">
       <span class="alert-text">
         Requirement is not valid!

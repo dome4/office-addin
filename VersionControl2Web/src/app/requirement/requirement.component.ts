@@ -105,6 +105,9 @@ export class RequirementComponent implements OnInit, OnDestroy {
 
     // ToDo: update form
 
+
+    // validate requirement template
+    this.requirementService.validateRequirementTemplate(this.requirementTemplateParts, this.descriptionTemplate);
   }
 
   /**

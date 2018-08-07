@@ -6,6 +6,7 @@ import { AuthService } from './auth/auth.service';
 import { RequirementTemplatePart } from '../models/requirement-template-part';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { RequirementDescriptionTemplate } from '../models/requirement-description-template/requirement-description-template';
 
 const api = environment.apiUrl;
 
@@ -41,41 +42,50 @@ export class RequirementService {
   }
 
   /**
-   *
    * method validates the current active requirement template
+   * 
+   * @param requirementTemplateParts
+   * @param descriptionTemplate
    */
-  validateRequirementTemplate(requirementTemplateParts: RequirementTemplatePart[], descriptionTemplate: any): void {
+  validateRequirementTemplate(requirementTemplateParts: RequirementTemplatePart[], descriptionTemplate: RequirementDescriptionTemplate): void {
 
-    // debug log
-    console.log('requirement validation started');
+    try {
 
-    // variables
-    let descriptionTemplatePart;
-    let requirementTemplatePart;
+      // check all requirement template parts with the description template
+      for (let i = 0; i < descriptionTemplate.template.length; i++) {
 
-    // check all requirement template parts with the description template
-    for (let i = 0; i < requirementTemplateParts.length; i++) {
+        // temp variable for loop
+        let descriptionTemplatePart = this.createObject(descriptionTemplate.template[i]);
+        let requirementTemplatePart = requirementTemplateParts[i];
 
-      // temp variable for loop
-      descriptionTemplatePart = this.createObject(descriptionTemplate.template[i]);
-      requirementTemplatePart = requirementTemplateParts[i];
+        // only validate the order of different element types
+        // ToDo: also validate the values of the different elements
+        if (requirementTemplatePart.type !== descriptionTemplatePart.type) {
 
-      // only validate the order of dirrent element types
-      // ToDo: also validate the values of the different elements
-      if (requirementTemplatePart.type === descriptionTemplatePart.type) {
+          // not valid
+          this.requirementTemplateIsValid$.next(false);
 
-        // valid
-        this.requirementTemplateIsValid$.next(true);
-      } else {
+          // debug
+          console.log('test')
 
-        // not valid
-        this.requirementTemplateIsValid$.next(false);
+          // cancel method
+          return;
+        }
       }
+    } catch (error) {
 
-      // reset variables
-      descriptionTemplatePart = null;
-      requirementTemplatePart = null;
+      // log error
+      console.log(error);
+
+      // not valid
+      this.requirementTemplateIsValid$.next(false);
+
+      // cancel method
+      return;
     }
+
+    // valid
+    this.requirementTemplateIsValid$.next(true);
   }
 
   /**
