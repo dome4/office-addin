@@ -132,6 +132,7 @@
     <TypeScriptCompile Include="src\app\models\requirement-description-template\requirement-description-template-part.ts" />
     <TypeScriptCompile Include="src\app\models\requirement-description-template\requirement-description-template.ts" />
     <TypeScriptCompile Include="src\app\models\requirement-template-part.ts" />
+    <TypeScriptCompile Include="src\app\requirement\template-list\template-list.component.ts" />
     <TypeScriptCompile Include="src\app\services\auth\auth-guard.service.ts" />
     <Content Include="src\app\auth\signin\signin.component.css" />
     <Content Include="src\app\auth\signin\signin.component.html" />
@@ -145,6 +146,8 @@
     <Content Include="src\app\requirement-list\requirement-list.component.html" />
     <Content Include="src\app\requirement\requirement.component.css" />
     <Content Include="src\app\requirement\requirement.component.html" />
+    <Content Include="src\app\requirement\template-list\template-list.component.css" />
+    <Content Include="src\app\requirement\template-list\template-list.component.html" />
     <Content Include="src\app\xml-debug\xml-debug.component.css" />
     <Content Include="src\app\xml-debug\xml-debug.component.html" />
     <Content Include="src\assets\xml-templates\requirement.template.xml" />

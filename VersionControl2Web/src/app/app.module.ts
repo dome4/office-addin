@@ -22,6 +22,7 @@ import { OfficeService } from './services/office-api/office.service';
 import { OoxmlParser } from './services/office-api/ooxml-parser.service';
 import { XmlDebugComponent } from './xml-debug/xml-debug.component';
 import { StoreService } from './services/store.service';
+import { TemplateListComponent } from './requirement/template-list/template-list.component';
 
 
 @NgModule({
@@ -33,7 +34,8 @@ import { StoreService } from './services/store.service';
     NotFoundComponent,
     HeaderComponent,
     SigninComponent,
-    XmlDebugComponent
+    XmlDebugComponent,
+    TemplateListComponent
   ],
   imports: [
     BrowserModule,
