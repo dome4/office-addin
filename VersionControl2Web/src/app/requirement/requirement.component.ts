@@ -220,38 +220,98 @@ export class RequirementComponent implements OnInit, OnDestroy {
 
 
     // add children elements
+    // ToDo: is it valid to iterate as often as the length of descriptionTemplateValue is?
     for (let i = 0; i < templatePart.descriptionTemplateValue.length; i++) {
 
       // local variable
       let tableChildElement = templatePart.descriptionTemplateValue[i];
 
       // create new child element
-      // ToDo handle errors if array is not valid
+      // ToDo handle errors if array is not valid    
       let newChildElement = this.createNewRequirementTemplatePart(tableChildElement);
 
       // create new row
       let newRow = document.createElement('tr');
       this.renderer.addClass(newRow, 'vc-req-table');
 
-      // if types and values are equal -> select the option
+      // local variables
       let descriptionTemplatePart = this.requirementService.createObject(templatePart.descriptionTemplateValue[i]);
       let requirementTemplatePart = this.requirementService.createObject(templatePart.value);
 
-      if (
-        descriptionTemplatePart.type !== 'wrapper' &&
-        descriptionTemplatePart.type === requirementTemplatePart.type &&
-        descriptionTemplatePart.value === requirementTemplatePart.value
-      ) {
-        newRow.classList.add('active');
-      }
-      else if (descriptionTemplatePart.type === 'wrapper') {
+      // debug
+      console.log('debug')
+      console.log(descriptionTemplatePart)
+      console.log(requirementTemplatePart)
+
+      // ToDo create new method
+
+      /*
+       * set subtype as active
+       * valid subtypes of table: wrapper, dropdown, input, text
+       */
+      if (requirementTemplatePart.type === 'text') {
+        // subtype text
+
+        // if type and value are equal
+        if (
+          descriptionTemplatePart.type === requirementTemplatePart.type &&
+          descriptionTemplatePart.value === requirementTemplatePart.value
+        ) {
+
+          // set option as active
+          newRow.classList.add('active');
+        }
+
+      } else if (requirementTemplatePart.type === 'wrapper') {
+        // subtype wrapper
+
+        // ToDo
+        // check sub elements
 
         // requirement part type is wrapper
         console.log('wrapper element not checked in detail');
 
         // ToDo write validator for datatype wrapper
         newRow.classList.add('active');
+
+      } else if (requirementTemplatePart.type === 'input') {
+        // subtype input
+
+        // types are equal and value is not empty
+        if (
+          descriptionTemplatePart.type === requirementTemplatePart.type &&
+          requirementTemplatePart.value !== ''
+        ) {
+          newRow.classList.add('active');
+        }
+
+      } else if (requirementTemplatePart.type === 'dropdown') {
+        // subtype dropdown
+
+        // ToDo: case dropdown not debugged yet
+        console.log('case dropdown in has not been debugged yet');
+
+        // search for option in description template
+        let optionsChoosen = Array.from(descriptionTemplatePart.value).find((option: string) => option === requirementTemplatePart.value[0]);
+
+        if (
+          descriptionTemplatePart.type === requirementTemplatePart.type &&
+          optionsChoosen
+        ) {
+          newRow.classList.add('active');
+        }
+
+      } else {
+
+        // ToDo update error
+        throw new Error('datatype not valid')
       }
+
+
+      /*
+       *
+       * end
+       */
 
       // event listener
       newRow.addEventListener('click', this.onRequirementPartChanged)
