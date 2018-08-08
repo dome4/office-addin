@@ -28,13 +28,32 @@ export class RequirementDropdownComponent implements OnInit {
   @Output()
   createNewRequirement: EventEmitter<Requirement> = new EventEmitter<Requirement>();
 
-  onSelected(event) {
+  /**
+   * method is executed if requirement was selected
+   * 
+   * @param event
+   */
+  onRequirementSelected(event) {
 
     // get selected requirement
     let selectedRequirementId: string = event.target.value;
     let requirement = Requirement.findById(this.requirements, selectedRequirementId);
 
     // emit next requirement
+    this.storeService.selectedRequirement$.next(requirement);
+  }
+
+  /**
+   * method is executed if 'create new requirement' was selected
+   *
+   */
+  onCreateNewRequirement() {
+
+    // create new requirement
+    let requirement = new Requirement();
+    requirement._id = 'new';
+
+    // emit new requirement
     this.storeService.selectedRequirement$.next(requirement);
   }
 

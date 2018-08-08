@@ -89,40 +89,58 @@ export class RequirementComponent implements OnInit, OnDestroy {
     this.subscriptions.forEach(sub => sub.unsubscribe());
   }
 
-  /*
-   * change selectedRequirement-variable
+  /**
+   * update local variables and run methods if selected requirement changes
+   *
+   * @param requirement selected requirement
    */
   onSelectedRequirement(requirement: Requirement) {
 
-    // set selected requirement
-    this.selectedRequirement = requirement;
+    // check if new requirement was created
+    if (requirement._id === 'new') {
+      console.log('new requirement created');
+      console.log(requirement);
 
-    // set requirement template parts
-    this.requirementTemplateParts = this.selectedRequirement.descriptionParts;
+      // ToDo normally in method renderRequirementTemplate() executed
+      // delete content of current requirement - container
+      this.requirementContainer.nativeElement.innerHTML = '';
 
-    // set description template
-    this.descriptionTemplate = this.selectedRequirement.descriptionTemplate;
-
-    // update description template to be a list of objects
-    this.descriptionTemplate.template = this.descriptionTemplate.template.map(element => this.requirementService.createObject(element));
-
-    // set container id
-    this.requirementContainer.nativeElement.setAttribute('id', this.selectedRequirement._id);
-
-    // render selected requirement template
-    this.renderRequirementTemplate();
-
-    // debug
-    console.log('requirement selected');
-    console.log(this.selectedRequirement);
-    console.log(this.requirementTemplateParts);
-    // debug
-
-    // ToDo: update form
+      // ToDo implement logic
 
 
-    // validate requirement template
-    this.requirementService.validateRequirementTemplate(this.requirementTemplateParts, this.descriptionTemplate);
+    } else {
+
+      // set selected requirement 
+      this.selectedRequirement = requirement; 
+
+      // set requirement template parts
+      this.requirementTemplateParts = this.selectedRequirement.descriptionParts;
+
+      // set description template
+      this.descriptionTemplate = this.selectedRequirement.descriptionTemplate;
+
+      // update description template to be a list of objects
+      this.descriptionTemplate.template = this.descriptionTemplate.template.map(element => this.requirementService.createObject(element));
+
+      // set container id
+      this.requirementContainer.nativeElement.setAttribute('id', this.selectedRequirement._id);
+
+      // render selected requirement template
+      this.renderRequirementTemplate();
+
+      // debug
+      console.log('requirement selected');
+      console.log(this.selectedRequirement);
+      console.log(this.requirementTemplateParts);
+      // debug
+
+      // ToDo: update form
+
+
+      // validate requirement template
+      this.requirementService.validateRequirementTemplate(this.requirementTemplateParts, this.descriptionTemplate);
+
+    }  
   }
 
   /**
