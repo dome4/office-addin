@@ -5,6 +5,7 @@ import { Subscription } from 'rxjs';
 import { RequirementTemplatePart } from '../models/requirement-template-part';
 import { RequirementDescriptionTemplate } from '../models/requirement-description-template/requirement-description-template';
 import { RequirementDescriptionTemplatePart } from '../models/requirement-description-template/requirement-description-template-part';
+import { StoreService } from '../services/store.service';
 
 // js variable
 //declare var document: any;
@@ -47,7 +48,8 @@ export class RequirementComponent implements OnInit, OnDestroy {
    */
   constructor(
     private requirementService: RequirementService,
-    private renderer: Renderer2
+    private renderer: Renderer2,
+    private storeService: StoreService
   ) { }
 
   ngOnInit() {
@@ -62,6 +64,15 @@ export class RequirementComponent implements OnInit, OnDestroy {
           console.log(error);
         }
       )
+    );
+
+    // subscribe to selected requirement
+    this.subscriptions.push(
+      this.storeService.selectedRequirement$.subscribe((requirement: Requirement) => {
+
+        // call method
+        this.onSelectedRequirement(requirement);
+      })
     );
 
     // subscribe to requirement template validator

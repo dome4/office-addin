@@ -1,31 +1,41 @@
 import { Component, OnInit, Input, Output, EventEmitter, AfterViewInit } from '@angular/core';
 import { Requirement } from '../../models/requirement';
 import { $ } from 'protractor';
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
+import { StoreService } from '../../services/store.service';
 
 @Component({
   selector: 'app-requirement-dropdown',
   templateUrl: './requirement-dropdown.component.html',
   styleUrls: ['./requirement-dropdown.component.css']
 })
-export class RequirementDropdownComponent {
+export class RequirementDropdownComponent implements OnInit {
 
-  @Input() requirements: Requirement[];
+  // requirements array
+  public requirements: Requirement[] = [];
 
-  @Output()
-  requirementSelected: EventEmitter<Requirement> = new EventEmitter<Requirement>();
+  // subscriptions
+  private subscriptions: Subscription[] = [];
 
-  onChange($event, selectedRequirementId: string) {
+  constructor(private storeService: StoreService) { }
 
-    let requirement = Requirement.findById(this.requirements, selectedRequirementId);
-    this.requirementSelected.emit(requirement);
-    
+  ngOnInit() {
+    this.subscriptions.push(
+      this.storeService.requirements$.subscribe((requirements: Requirement[]) => this.requirements = requirements)
+    );
   }
 
+  @Output()
+  createNewRequirement: EventEmitter<Requirement> = new EventEmitter<Requirement>();
+
   onSelected(event) {
+
+    // get selected requirement
     let selectedRequirementId: string = event.target.value;
     let requirement = Requirement.findById(this.requirements, selectedRequirementId);
-    this.requirementSelected.emit(requirement);
+
+    // emit next requirement
+    this.storeService.selectedRequirement$.next(requirement);
   }
 
 }

@@ -11,14 +11,6 @@
         (click)="onSelected($event)"
         type="button"
         clrDropdownItem >{{ requirement.name }}</button>
-    <button type="button" disabled clrDropdownItem>Create new requirement</button>
+    <button type="button" clrDropdownItem>Create new requirement</button>
   </clr-dropdown-menu>
 </clr-dropdown>
-
-<!--<select
-        #requirement
-        (change)="onChange($event, requirement.value)">
-  <option
-          *ngFor="let requirement of requirements"
-          [value]="requirement._id">{{ requirement.name }}</option>
-</select>-->

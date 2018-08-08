@@ -21,6 +21,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { OfficeService } from './services/office-api/office.service';
 import { OoxmlParser } from './services/office-api/ooxml-parser.service';
 import { XmlDebugComponent } from './xml-debug/xml-debug.component';
+import { StoreService } from './services/store.service';
 
 
 @NgModule({
@@ -54,7 +55,8 @@ import { XmlDebugComponent } from './xml-debug/xml-debug.component';
       multi: true
     },
     OfficeService,
-    OoxmlParser
+    OoxmlParser,
+    StoreService
   ],
   bootstrap: [AppComponent]
 })
