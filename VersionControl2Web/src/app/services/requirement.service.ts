@@ -281,12 +281,17 @@ export class RequirementService {
         // object check
         return element;
 
+      } else if (
+        element == undefined ||
+        element == null
+        ) {
+        throw new Error('element is undefined');
       } else {
-        throw new Error('createObject(): parsing error - type is not String or Object');
+        throw new Error('type is not String or Object');
       }
 
     } catch (error) {
-      throw new Error('createObject(): parsing error');
+      throw new Error(`createObject(): parsing error - ${error}`);
     }
   }
 }

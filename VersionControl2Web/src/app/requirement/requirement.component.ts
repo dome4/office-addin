@@ -182,7 +182,7 @@ export class RequirementComponent implements OnInit, OnDestroy {
         newPart.value = templatePart.value;
 
         // event listener
-        newPart.addEventListener('change', this.onRequirementPartChanged)
+        newPart.addEventListener('change', this.onRequirementPartChanged);
         break;
 
       case 'table':
@@ -218,17 +218,56 @@ export class RequirementComponent implements OnInit, OnDestroy {
     newPart = document.createElement('table');
     newPart.setAttribute('style', 'display:inline;'); // ToDo check if necessary
 
-
     // add children elements
-    // ToDo: is it valid to iterate as often as the length of descriptionTemplateValue is?
+    // descriptionTemplateValue -> all possible options are stored here -> iterate the length often
     for (let i = 0; i < templatePart.descriptionTemplateValue.length; i++) {
 
-      // local variable
+      // local variables
       let tableChildElement = templatePart.descriptionTemplateValue[i];
+      let newChildElement;
 
-      // create new child element
-      // ToDo handle errors if array is not valid    
-      let newChildElement = this.createNewRequirementTemplatePart(tableChildElement);
+      /*
+       * create new DOM element
+       * correct data necessary
+       *
+       * start
+       */
+      // ToDo implement all subelement of table   
+
+      // if requirement type === description type -> descriptionTemplateValue param necessary
+      if (tableChildElement.type === templatePart.value.type) {
+
+        if (
+          templatePart.value.type === 'text' &&
+          tableChildElement.value === templatePart.value.value
+        ) {
+          // table subelement text
+
+          // create new child element of choosen option 
+          newChildElement = this.createNewRequirementTemplatePart(templatePart.value);
+
+        } else if (
+          templatePart.value.type === 'wrapper'
+        ) {
+          // table subelement wrapper
+
+          // create new child element of choosen option 
+          newChildElement = this.createNewRequirementTemplatePart(templatePart.value);
+
+        } else {
+          // create new child element of not choosen option 
+          newChildElement = this.createNewRequirementTemplatePart(tableChildElement);
+        }
+
+      } else {
+        // types are not equal
+
+        // create new child element of not choosen option 
+        newChildElement = this.createNewRequirementTemplatePart(tableChildElement);
+      }
+      /*
+       * end
+       */
 
       // create new row
       let newRow = document.createElement('tr');
@@ -321,7 +360,7 @@ export class RequirementComponent implements OnInit, OnDestroy {
 
     } else if (requirementTemplatePart.type === 'wrapper') {
       // subtype wrapper
-      
+
       // both types have to be 'wrapper'
       if (descriptionTemplatePart.type === requirementTemplatePart.type) {
 
@@ -331,7 +370,7 @@ export class RequirementComponent implements OnInit, OnDestroy {
           // ToDo: issue - if only one subelement is valid, the row gets the active class anyway
         });
       }
-     
+
     } else if (requirementTemplatePart.type === 'input') {
       // subtype input
 
