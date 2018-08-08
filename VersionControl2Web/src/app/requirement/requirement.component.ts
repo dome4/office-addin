@@ -238,80 +238,8 @@ export class RequirementComponent implements OnInit, OnDestroy {
       let descriptionTemplatePart = this.requirementService.createObject(templatePart.descriptionTemplateValue[i]);
       let requirementTemplatePart = this.requirementService.createObject(templatePart.value);
 
-      // debug
-      console.log('debug')
-      console.log(descriptionTemplatePart)
-      console.log(requirementTemplatePart)
-
-      // ToDo create new method
-
-      /*
-       * set subtype as active
-       * valid subtypes of table: wrapper, dropdown, input, text
-       */
-      if (requirementTemplatePart.type === 'text') {
-        // subtype text
-
-        // if type and value are equal
-        if (
-          descriptionTemplatePart.type === requirementTemplatePart.type &&
-          descriptionTemplatePart.value === requirementTemplatePart.value
-        ) {
-
-          // set option as active
-          newRow.classList.add('active');
-        }
-
-      } else if (requirementTemplatePart.type === 'wrapper') {
-        // subtype wrapper
-
-        // ToDo
-        // check sub elements
-
-        // requirement part type is wrapper
-        console.log('wrapper element not checked in detail');
-
-        // ToDo write validator for datatype wrapper
-        newRow.classList.add('active');
-
-      } else if (requirementTemplatePart.type === 'input') {
-        // subtype input
-
-        // types are equal and value is not empty
-        if (
-          descriptionTemplatePart.type === requirementTemplatePart.type &&
-          requirementTemplatePart.value !== ''
-        ) {
-          newRow.classList.add('active');
-        }
-
-      } else if (requirementTemplatePart.type === 'dropdown') {
-        // subtype dropdown
-
-        // ToDo: case dropdown not debugged yet
-        console.log('case dropdown in has not been debugged yet');
-
-        // search for option in description template
-        let optionsChoosen = Array.from(descriptionTemplatePart.value).find((option: string) => option === requirementTemplatePart.value[0]);
-
-        if (
-          descriptionTemplatePart.type === requirementTemplatePart.type &&
-          optionsChoosen
-        ) {
-          newRow.classList.add('active');
-        }
-
-      } else {
-
-        // ToDo update error
-        throw new Error('datatype not valid')
-      }
-
-
-      /*
-       *
-       * end
-       */
+      // set choosen subtype as active
+      this.setChoosenTableOptionActive(descriptionTemplatePart, requirementTemplatePart, newRow);
 
       // event listener
       newRow.addEventListener('click', this.onRequirementPartChanged)
@@ -366,6 +294,76 @@ export class RequirementComponent implements OnInit, OnDestroy {
 
     return newPart;
 
+  }
+
+  /**
+   * set the choosen table option as active
+   * valid subtypes of table: wrapper, dropdown, input, text
+   * 
+   * @param descriptionTemplatePart
+   * @param requirementTemplatePart
+   * @param newRow
+   */
+  setChoosenTableOptionActive(descriptionTemplatePart: RequirementDescriptionTemplatePart, requirementTemplatePart: RequirementDescriptionTemplatePart, newRow: HTMLTableRowElement) {
+
+    if (requirementTemplatePart.type === 'text') {
+      // subtype text
+
+      // if type and value are equal
+      if (
+        descriptionTemplatePart.type === requirementTemplatePart.type &&
+        descriptionTemplatePart.value === requirementTemplatePart.value
+      ) {
+
+        // set option as active
+        newRow.classList.add('active');
+      }
+
+    } else if (requirementTemplatePart.type === 'wrapper') {
+      // subtype wrapper
+      
+      // both types have to be 'wrapper'
+      if (descriptionTemplatePart.type === requirementTemplatePart.type) {
+
+        // check sub elements
+        requirementTemplatePart.value.forEach((subPart, i) => {
+          this.setChoosenTableOptionActive(subPart, descriptionTemplatePart.value[i], newRow);
+          // ToDo: issue - if only one subelement is valid, the row gets the active class anyway
+        });
+      }
+     
+    } else if (requirementTemplatePart.type === 'input') {
+      // subtype input
+
+      // types are equal and value is not empty
+      if (
+        descriptionTemplatePart.type === requirementTemplatePart.type &&
+        requirementTemplatePart.value !== ''
+      ) {
+        newRow.classList.add('active');
+      }
+
+    } else if (requirementTemplatePart.type === 'dropdown') {
+      // subtype dropdown
+
+      // ToDo: case dropdown not debugged yet
+      console.log('case dropdown in has not been debugged yet');
+
+      // search for option in description template
+      let optionsChoosen = Array.from(descriptionTemplatePart.value).find((option: string) => option === requirementTemplatePart.value[0]);
+
+      if (
+        descriptionTemplatePart.type === requirementTemplatePart.type &&
+        optionsChoosen
+      ) {
+        newRow.classList.add('active');
+      }
+
+    } else {
+
+      // ToDo update error
+      throw new Error('datatype not valid')
+    }
   }
 
   onRequirementPartChanged() {
