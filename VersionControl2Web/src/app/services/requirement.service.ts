@@ -22,7 +22,7 @@ export class RequirementService {
 
   getRequirements() {
     return this.http.get<Array<Requirement>>(`${api}/requirements`).pipe(
-      map(this.mapDescriptionTemplateWithRequirementParts)
+      map(this.mapDescriptionTemplateWithRequirementParts, this) // context is a necessary param
     )
   }
 
@@ -96,78 +96,6 @@ export class RequirementService {
    */
   mapDescriptionTemplateWithRequirementParts(requirements: Requirement[]) {
 
-    /**
-     * helper function
-     * 
-     * @param part
-     * @param template
-     */
-    let mapHelper = (part: RequirementTemplatePart, template: RequirementDescriptionTemplatePart) => {
-
-      // check datatypes and set value
-      if (part.type === template.type) {
-
-        if (part.type === 'dropdown' || part.type === 'input') {
-
-          // dropdown and input handler
-          part.descriptionTemplateValue = template.value;
-        } else if (part.type === 'wrapper') {
-
-          // wrapper handler                      
-          // ToDo !!!!
-          part.descriptionTemplateValue = template.value;
-        } else if (part.type === 'table') {
-
-          // table handler
-
-          // debug
-          console.log('part')
-          console.log(part)
-          console.log(template)
-          console.log('part')
-
-
-
-          let array = Array
-            .from(part.value)
-            .map((element: string) => JSON.parse(element))
-            .forEach((subPart: RequirementTemplatePart) => { // value has only one requirement template part
-
-              // debug
-              console.log('subpart')
-              console.log(subPart)
-              console.log('subpart')
-
-              // search in description template options for fitting datatype
-              let options = Array.from(template.value)
-
-              console.log(options)
-
-
-              // call mapHelper to handle subPart
-
-              // ToDo complete
-
-              
-            })
-
-
-
-          // ToDo !!!!
-          part.descriptionTemplateValue = template.value;
-        } else if (part.type === 'text') {
-
-          // text handler
-          // ToDo !!!!
-          part.descriptionTemplateValue = template.value;
-        }
-
-
-      } else {
-        throw new Error('requirement map error');
-      }
-    };
-
     requirements.forEach((requirement: Requirement) => {
 
       requirement.descriptionParts.forEach((part, i) => {
@@ -176,10 +104,11 @@ export class RequirementService {
         requirement.descriptionTemplate.template[i] = JSON.parse(requirement.descriptionTemplate.template[i].toString());
 
         // call helper function
-        mapHelper(part, requirement.descriptionTemplate.template[i]);
+        // ToDo fix context issue -> static method is possible
+        this.mapHelper(part, requirement.descriptionTemplate.template[i]);
 
         // ToDo: safe return value
-        
+
       });
     });
 
@@ -190,35 +119,126 @@ export class RequirementService {
   }
 
   /**
+   * helper function
+   * 
+   * @param part
+   * @param template
+   */
+  mapHelper(part: RequirementTemplatePart, template: RequirementDescriptionTemplatePart) {
+
+    // check datatypes and set value
+    if (part.type === template.type) {
+
+      if (part.type === 'dropdown' || part.type === 'input') {
+
+        // dropdown and input handler
+        part.descriptionTemplateValue = template.value;
+
+        // ToDo dropdown validate options
+      } else if (part.type === 'wrapper') {
+
+        // wrapper handler
+
+        // check all subparts
+        Array.from(part.value)
+          .forEach((subPart: RequirementTemplatePart, i: number) => {
+
+            if (subPart && template.value[i]) {
+
+              // call mapHelper
+              // in the wrapper class should only be dropdown, input and text as subelements
+              this.mapHelper(subPart, template.value[i])
+
+            } else {
+              throw new Error('requirement map error');
+            }
+          });
+      } else if (part.type === 'table') {
+
+        // table handler
+
+        // set default value and overrite it later
+        part.descriptionTemplateValue = template.value;
+
+        let array = Array
+          .from(part.value)
+          .map(element => this.createObject(element))
+          .forEach((subPart: RequirementTemplatePart) => { // value has only one requirement template part
+
+            // search in description template options for fitting datatype
+            let options = Array.from(template.value)
+
+            /*
+             * method Array.find() not supported in IE but it works anyway
+             * (see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/find)
+             */
+            let searchResult = options.find((object: RequirementDescriptionTemplatePart) => object.type === subPart.type);
+
+            if (searchResult) {
+
+              // explicit typecast
+              let descriptionTemplate = <RequirementDescriptionTemplatePart>searchResult;
+
+              // call the mapHelper()-function
+              // subPart is the requirement template subpart and searchResult is the fitting description template
+              this.mapHelper(subPart, descriptionTemplate);
+
+              // ToDo check other cases than 'wrapper'                
+
+            } else {
+
+              // throw error if datatype is not in requirement description template
+              throw new Error('requirement map error');
+            }
+          });
+      } else if (part.type === 'text') {
+
+        // text handler
+        // ToDo validate text
+        part.descriptionTemplateValue = template.value;
+      }
+
+
+    } else {
+      throw new Error('requirement map error');
+    }
+  }
+
+  /**
    * check if the given param is already an object or a JSON-string and return a object
    * 
    * @param element object or JSON-string of an object
    */
   createObject(element: any) {
 
-    /*
-     * check if the value is already parsed
-     */
-    if (
-      element !== undefined &&
-      element !== null &&
-      element.constructor == String
-    ) {
+    try {
+      /*
+       * check if the value is already parsed
+       */
+      if (
+        element !== undefined &&
+        element !== null &&
+        element.constructor == String
+      ) {
 
-      // String check
-      return JSON.parse(element);
+        // String check
+        return JSON.parse(element);
 
-    } else if (
-      element !== undefined &&
-      element !== null &&
-      element.constructor == Object
-    ) {
+      } else if (
+        element !== undefined &&
+        element !== null &&
+        element.constructor == Object
+      ) {
 
-      // object check
-      return element;
+        // object check
+        return element;
 
-    } else {
-      throw new Error('parsing error');
+      } else {
+        throw new Error('createObject(): parsing error - type is not String or Object');
+      }
+
+    } catch (error) {
+      throw new Error('createObject(): parsing error');
     }
   }
 }
