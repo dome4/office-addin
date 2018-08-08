@@ -112,9 +112,6 @@ export class RequirementService {
       });
     });
 
-    // debug
-    console.log(requirements);
-
     return requirements;
   }
 
@@ -129,18 +126,18 @@ export class RequirementService {
     // check datatypes and set value
     if (part.type === template.type) {
 
-      if (part.type === 'dropdown' || part.type === 'input') {
+      if (part.type === 'input') {
 
-        // dropdown and input handler
+        // input handler
         part.descriptionTemplateValue = template.value;
 
         // ToDo dropdown validate options
       } else if (part.type === 'wrapper') {
 
-        // wrapper handler
+        // wrapper handler       
 
-        // check all subparts
-        Array.from(part.value)
+        // check all subparts -> part.value is already an object
+        part.value
           .forEach((subPart: RequirementTemplatePart, i: number) => {
 
             if (subPart && template.value[i]) {
@@ -160,42 +157,93 @@ export class RequirementService {
         // set default value and overrite it later
         part.descriptionTemplateValue = template.value;
 
-        let array = Array
-          .from(part.value)
-          .map(element => this.createObject(element))
-          .forEach((subPart: RequirementTemplatePart) => { // value has only one requirement template part
+        // array gets converted to a simple object by JSON.parse()
+        // array has only one value-object 
+        part.value = this.createObject(part.value.toString());
 
-            // search in description template options for fitting datatype
-            let options = Array.from(template.value)
+        // local variable
+        let subPart: RequirementTemplatePart = part.value;
 
-            /*
-             * method Array.find() not supported in IE but it works anyway
-             * (see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/find)
-             */
-            let searchResult = options.find((object: RequirementDescriptionTemplatePart) => object.type === subPart.type);
+        // search in description template options for fitting datatype
+        // no reference to description tempate necessary -> Array.from()
+        let options = Array.from(template.value)
 
-            if (searchResult) {
+        /*
+         * find option of requirement part in description template
+         * 
+         * method Array.find() not supported in IE but it works anyway
+         * (see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/find)
+         */
+        let searchResult = options.find((object: RequirementDescriptionTemplatePart) => {
 
-              // explicit typecast
-              let descriptionTemplate = <RequirementDescriptionTemplatePart>searchResult;
+          // check object types
+          if (object.type === subPart.type) {
 
-              // call the mapHelper()-function
-              // subPart is the requirement template subpart and searchResult is the fitting description template
-              this.mapHelper(subPart, descriptionTemplate);
+            // text field
+            if (subPart.type === 'text') {
 
-              // ToDo check other cases than 'wrapper'                
+              // text values have to be equal, too
+              if (object.value === subPart.value) {
+                return true;
+              } else {
+                return false;
+              }
 
             } else {
 
-              // throw error if datatype is not in requirement description template
-              throw new Error('requirement map error');
+              // valid if datatype is not text and types are equal
+              return true;
             }
-          });
+          }
+
+          // default value
+          return false;
+        });
+
+        if (searchResult) {
+
+          // explicit typecast
+          let descriptionTemplate = <RequirementDescriptionTemplatePart>searchResult;
+
+          // call the mapHelper()-function
+          // subPart is the requirement template subpart and searchResult is the fitting description template
+          this.mapHelper(subPart, descriptionTemplate);
+
+          // ToDo check other cases than 'wrapper'                
+
+        } else {
+
+          // throw error if datatype is not in requirement description template
+          throw new Error('requirement map error');
+        }
+
       } else if (part.type === 'text') {
 
         // text handler
-        // ToDo validate text
-        part.descriptionTemplateValue = template.value;
+        // descriptionTemplateValue only necessary for check not for rendering
+
+        // text value has to equal description template text
+        if (part.value !== template.value) {
+          throw new Error('requirement map error: text field not valid');
+        }
+      } else if (part.type === 'dropdown') {
+
+        // dropdown handler
+              
+        // array of dropdown options for description template
+        let optionsArray = Array.from(template.value)
+
+        // requirement part choosen option has to be an option of the description template
+        if (optionsArray.find((option: string) => part.value[0] === option)) {
+          part.descriptionTemplateValue = template.value;
+        } else {
+          throw new Error('requirement map error: dropdown option not in description template');
+        }
+
+      } else {
+
+        // theoretical case: description template and requirement part have both the same undefinded type
+        throw new Error('requirement map error: datatype not defined');
       }
 
 
