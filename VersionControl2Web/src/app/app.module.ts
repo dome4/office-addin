@@ -23,6 +23,7 @@ import { OoxmlParser } from './services/office-api/ooxml-parser.service';
 import { XmlDebugComponent } from './xml-debug/xml-debug.component';
 import { StoreService } from './services/store.service';
 import { TemplateListComponent } from './requirement/template-list/template-list.component';
+import { RequirementTemplateService } from './services/requirement-template.service';
 
 
 @NgModule({
@@ -58,7 +59,8 @@ import { TemplateListComponent } from './requirement/template-list/template-list
     },
     OfficeService,
     OoxmlParser,
-    StoreService
+    StoreService,
+    RequirementTemplateService
   ],
   bootstrap: [AppComponent]
 })

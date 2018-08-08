@@ -98,6 +98,11 @@ export class RequirementComponent implements OnInit, OnDestroy {
 
     // check if new requirement was created
     if (requirement._id === 'new') {
+
+      // set selected requirement 
+      this.selectedRequirement = requirement;
+
+
       console.log('new requirement created');
       console.log(requirement);
 

@@ -530,6 +530,7 @@
     <TypeScriptCompile Include="src\app\services\local-storage.service.ts" />
     <TypeScriptCompile Include="src\app\services\office-api\office.service.ts" />
     <TypeScriptCompile Include="src\app\services\office-api\ooxml-parser.service.ts" />
+    <TypeScriptCompile Include="src\app\services\requirement-template.service.ts" />
     <TypeScriptCompile Include="src\app\services\requirement.service.ts" />
     <TypeScriptCompile Include="src\app\services\store.service.ts" />
     <TypeScriptCompile Include="src\app\xml-debug\xml-debug.component.ts" />
