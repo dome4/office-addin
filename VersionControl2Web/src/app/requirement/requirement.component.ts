@@ -235,7 +235,7 @@ export class RequirementComponent implements OnInit, OnDestroy {
 
       // if types and values are equal -> select the option
       let descriptionTemplatePart = this.requirementService.createObject(templatePart.descriptionTemplateValue[i]);
-      let requirementTemplatePart = this.requirementService.createObject(templatePart.value.toString());
+      let requirementTemplatePart = this.requirementService.createObject(templatePart.value);
 
       if (
         descriptionTemplatePart.type !== 'wrapper' &&
