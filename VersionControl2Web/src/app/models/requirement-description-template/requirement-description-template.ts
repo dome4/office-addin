@@ -6,4 +6,5 @@ export class RequirementDescriptionTemplate {
   version: number;
   name: string;
   template: RequirementDescriptionTemplatePart[];
+  description: string;
 }

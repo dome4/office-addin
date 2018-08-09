@@ -4,7 +4,7 @@ import { Requirement } from '../models/requirement';
 import { environment } from '../../environments/environment';
 import { AuthService } from './auth/auth.service';
 import { RequirementTemplatePart } from '../models/requirement-template-part';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { RequirementDescriptionTemplate } from '../models/requirement-description-template/requirement-description-template';
 import { RequirementDescriptionTemplatePart } from '../models/requirement-description-template/requirement-description-template-part';
@@ -17,10 +17,20 @@ export class RequirementService {
   // observable if current requirement template is valid
   public requirementTemplateIsValid$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
-  constructor(private http: HttpClient,
-    private authService: AuthService) { }
+  // requirements observable
+  public requirements$: Subject<Requirement[]> = new Subject<Requirement[]>();
 
-  getRequirements() {
+  constructor(private http: HttpClient,
+    private authService: AuthService) {
+
+    // initialize requirements$ data
+    this.getRequirements().subscribe((requirements: Requirement[]) => this.requirements$.next(requirements));
+  }
+
+  private getRequirements() {
+    // method should only be executed once on app startup
+    // else reloadRequirements() should be executed
+
     return this.http.get<Array<Requirement>>(`${api}/requirements`).pipe(
       map(this.mapDescriptionTemplateWithRequirementParts, this) // context is a necessary param
     )
@@ -40,6 +50,14 @@ export class RequirementService {
 
   updateRequirement(requirement: Requirement) {
     return this.http.put<Requirement>(`${api}/requirement/${requirement._id}`, requirement);
+  }
+
+  /**
+   * reload requirements from the api
+   *
+   */
+  reloadRequirements() {
+    this.getRequirements().subscribe((requirements: Requirement[]) => this.requirements$.next(requirements));
   }
 
   /**
@@ -229,7 +247,7 @@ export class RequirementService {
       } else if (part.type === 'dropdown') {
 
         // dropdown handler
-              
+
         // array of dropdown options for description template
         let optionsArray = Array.from(template.value)
 
@@ -284,7 +302,7 @@ export class RequirementService {
       } else if (
         element == undefined ||
         element == null
-        ) {
+      ) {
         throw new Error('element is undefined');
       } else {
         throw new Error('type is not String or Object');

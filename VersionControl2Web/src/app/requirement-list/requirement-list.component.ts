@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Requirement } from '../models/requirement';
-import { RequirementService } from '../services/requirement.service';
+import { StoreService } from '../services/store.service';
 
 @Component({
   selector: 'app-requirement-list',
@@ -12,11 +12,11 @@ export class RequirementListComponent implements OnInit {
   public requirements: Requirement[] = [];
 
 
-  constructor(private reqService: RequirementService) { }
+  constructor(private storeService: StoreService) { }
 
 
   ngOnInit() {
-    this.reqService.getRequirements()
+    this.storeService.requirements$
       .subscribe(
         (requirements: Requirement[]) => {
           this.requirements = requirements;

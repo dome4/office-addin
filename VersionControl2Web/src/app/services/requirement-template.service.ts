@@ -13,4 +13,8 @@ export class RequirementTemplateService {
   getRequirementTemplates() {
     return this.http.get<Array<RequirementDescriptionTemplate>>(`${api}/requirement-description-templates`);
   }
+
+  getRequirementTemplate(template: RequirementDescriptionTemplate) {
+    return this.http.get<RequirementDescriptionTemplate>(`${api}/requirement-description-template/${template._id}`)
+  }
 }

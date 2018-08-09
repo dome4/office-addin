@@ -56,7 +56,7 @@ export class RequirementComponent implements OnInit, OnDestroy {
 
     // subscribe to requirements
     this.subscriptions.push(
-      this.requirementService.getRequirements().subscribe(
+      this.storeService.requirements$.subscribe(
         (requirements: Requirement[]) => {
           this.requirements = requirements;
         },

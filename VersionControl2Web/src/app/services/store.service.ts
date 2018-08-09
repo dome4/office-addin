@@ -27,7 +27,7 @@ export class StoreService {
   ) {
 
     // initialize data
-    this.requirements$ = this.requirementService.getRequirements();
+    this.requirements$ = this.requirementService.requirements$;
     this.selectedRequirement$ = new Subject<Requirement>();
     this.requirementDescriptionTemplates$ = this.requirementTemplateService.getRequirementTemplates();
   }

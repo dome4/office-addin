@@ -1,3 +1,29 @@
-<div *ngFor="let template of requirementDescriptionTemplates">
-  {{ template.name }}
+<div class="row" *ngIf="this.storeService.requirementDescriptionTemplates$ | async as templates else loading">
+  <div *ngFor="let template of templates"
+       class="col-lg-4 col-md-12 col-sm-12 col-xs-12">
+    <a (click)="onTemplateSelected(template)"
+       [id]="template._id"
+       class="card clickable">
+      <div class="card-block">
+        <h3 class="card-title">{{ template.name }}</h3>
+        <p class="card-text">
+          {{ template.description }}
+        </p>
+      </div>
+      <div class="card-footer">
+        <a class="btn btn-sm btn-link">Select Template</a>
+      </div>
+    </a>
+  </div>
 </div>
+
+<ng-template #loading>
+  <div style="margin: 30px 0px;">
+    <span class="spinner spinner-inline">
+      Loading...
+    </span>
+    <span>
+      Loading...
+    </span>
+  </div>
+</ng-template>
