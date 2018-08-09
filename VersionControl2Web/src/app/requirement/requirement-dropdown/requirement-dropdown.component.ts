@@ -52,9 +52,16 @@ export class RequirementDropdownComponent implements OnInit {
     // create new requirement
     let requirement = new Requirement();
     requirement._id = 'new';
+    requirement.name = 'new Requirement';
 
     // emit new requirement
     this.storeService.selectedRequirement$.next(requirement);
+
+    // emit new requirements
+    this.requirements.push(requirement);
+    this.storeService.requirements$.next(this.requirements);
+
+    // subscriptions work with references -> changed data in one component also changes the data in other components
   }
 
 }

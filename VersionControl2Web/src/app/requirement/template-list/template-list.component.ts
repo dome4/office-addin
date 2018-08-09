@@ -66,22 +66,16 @@ export class TemplateListComponent implements OnInit, OnDestroy {
    * @param templateId requirement description template id
    */
   onTemplateSelected(template: RequirementDescriptionTemplate) {
-    console.log(`card cliecked: ${template}`);
 
+    // get selected requirement description template
     this.templateService.getRequirementTemplate(template).subscribe((template: RequirementDescriptionTemplate) => {
 
-      console.log(this.requirement)
+      // set choosen template to new requirement
       this.requirement.descriptionTemplate = template;
 
-      // new requirement need to go through the requirement service mapping
+      // new requirement needs to go through the requirement service mapping
 
-      console.log('new requirement')
-      console.log(this.requirement)
-
-      this.requirements.push(this.requirement);
-      this.storeService.requirements$.next(this.requirements);
-
-      // Issue: where gets the selected requirement emitted? -> on click on new requirement
+      // ToDo is it necessary to emit changed data again? -> requirement and requirements
     });
   }
 

@@ -110,7 +110,7 @@ export class RequirementComponent implements OnInit, OnDestroy {
       // delete content of current requirement - container
       this.requirementContainer.nativeElement.innerHTML = '';
 
-      // ToDo implement logic
+      // ToDo implement logic     
 
 
     } else {
