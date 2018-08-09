@@ -7,7 +7,7 @@ import { Observable } from "rxjs";
 const api = environment.apiUrl;
 
 @Injectable()
-export class RequirementTemplateService {
+export class RequirementDescriptionTemplateService {
 
   // local requirement description templates
   requirementDescriptionTemplates$: Observable<RequirementDescriptionTemplate[]>;

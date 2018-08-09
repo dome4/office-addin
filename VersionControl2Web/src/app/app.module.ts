@@ -23,8 +23,8 @@ import { OoxmlParser } from './services/office-api/ooxml-parser.service';
 import { XmlDebugComponent } from './xml-debug/xml-debug.component';
 import { StoreService } from './services/store.service';
 import { TemplateListComponent } from './requirement/template-list/template-list.component';
-import { RequirementTemplateService } from './services/requirement-template.service';
-
+import { RequirementDescriptionTemplateService } from './services/requirement-description-template.service';
+import { RequirementTemplatePartService } from './services/requirement-template-part.service';
 
 @NgModule({
   declarations: [
@@ -60,7 +60,8 @@ import { RequirementTemplateService } from './services/requirement-template.serv
     OfficeService,
     OoxmlParser,
     StoreService,
-    RequirementTemplateService
+    RequirementDescriptionTemplateService,
+    RequirementTemplatePartService
   ],
   bootstrap: [AppComponent]
 })
