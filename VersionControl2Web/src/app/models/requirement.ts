@@ -17,6 +17,6 @@ export class Requirement {
         return requirements[i];
       }
     }
-    return null;
+    throw new Error('Requirement - findById(): id not found');
   }
 }

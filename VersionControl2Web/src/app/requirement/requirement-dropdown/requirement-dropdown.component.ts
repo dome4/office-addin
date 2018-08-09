@@ -37,7 +37,7 @@ export class RequirementDropdownComponent implements OnInit {
 
     // get selected requirement
     let selectedRequirementId: string = event.target.value;
-    let requirement = Requirement.findById(this.requirements, selectedRequirementId);
+    let requirement: Requirement = Requirement.findById(this.requirements, selectedRequirementId);
 
     // emit next requirement
     this.storeService.selectedRequirement$.next(requirement);
