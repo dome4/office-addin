@@ -20,6 +20,9 @@ export class RequirementService {
   // requirements observable
   public requirements$: Subject<Requirement[]> = new Subject<Requirement[]>();
 
+  // currently selected requirement
+  public selectedRequirement$: Subject<Requirement> = new Subject<Requirement>();
+
   constructor(private http: HttpClient,
     private authService: AuthService) {
 

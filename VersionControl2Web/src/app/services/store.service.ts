@@ -13,13 +13,13 @@ import { RequirementTemplateService } from "./requirement-template.service";
 export class StoreService {
 
   // local requirements
-  requirements$: Observable<Requirement[]>;
+  public requirements$: Subject<Requirement[]>;
 
   // currently selected requirement
-  selectedRequirement$: Subject<Requirement>;
+  public selectedRequirement$: Subject<Requirement>;
 
   // local requirement description templates
-  requirementDescriptionTemplates$: Observable<RequirementDescriptionTemplate[]>;
+  public requirementDescriptionTemplates$: Observable<RequirementDescriptionTemplate[]>;
 
   constructor(
     private requirementService: RequirementService,
@@ -28,7 +28,7 @@ export class StoreService {
 
     // initialize data
     this.requirements$ = this.requirementService.requirements$;
-    this.selectedRequirement$ = new Subject<Requirement>();
-    this.requirementDescriptionTemplates$ = this.requirementTemplateService.getRequirementTemplates();
+    this.selectedRequirement$ = this.requirementService.selectedRequirement$;
+    this.requirementDescriptionTemplates$ = this.requirementTemplateService.requirementDescriptionTemplates$;
   }
 }

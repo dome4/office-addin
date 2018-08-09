@@ -15,6 +15,12 @@
 
 <hr />
 
+<app-template-list></app-template-list>
+
+<div *ngIf="!selectedRequirement">
+  <label>Choose a requirement</label>
+</div>
+
 <div *ngIf="selectedRequirement">
   <label>Type your Requirement in here:</label>
   <br />
@@ -33,12 +39,4 @@
       </span>
     </div>
   </clr-alert>
-</div>
-
-<div *ngIf="!selectedRequirement">
-  <label>Choose a requirement</label>
-</div>
-
-<div>
-  <app-template-list></app-template-list>
 </div>
