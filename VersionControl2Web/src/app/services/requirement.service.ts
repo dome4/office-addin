@@ -5,7 +5,7 @@ import { environment } from '../../environments/environment';
 import { AuthService } from './auth/auth.service';
 import { RequirementTemplatePart } from '../models/requirement-template-part';
 import { BehaviorSubject, Observable, Subject, from } from 'rxjs';
-import { map, concatMap } from 'rxjs/operators';
+import { map, concatMap, bufferCount } from 'rxjs/operators';
 import { RequirementDescriptionTemplate } from '../models/requirement-description-template/requirement-description-template';
 import { RequirementDescriptionTemplatePart } from '../models/requirement-description-template/requirement-description-template-part';
 import { RequirementTemplatePartService } from './requirement-template-part.service';
@@ -320,17 +320,16 @@ export class RequirementService {
    * creates an empty requirement with the already set requirement description template
    * @param requirement
    */
-  createEmptyRequirementFromTemplate(requirement: Requirement) {
-
-    // debug
-    console.log('RequirementService: createEmptyRequirementFromTemplate() called');
-    console.log(requirement);
+  createEmptyRequirementFromTemplate(requirement: Requirement): Observable<Requirement> {
 
     // parts to create
     let descriptionPartsArray: RequirementTemplatePart[] = [];
 
+    // length of the descriptionPartsCount-array
+    let descriptionPartsCount = requirement.descriptionTemplate.template.length;
+
     // save requirement template parts in api
-    let subscription = from(requirement.descriptionTemplate.template).pipe(
+    return from(requirement.descriptionTemplate.template).pipe(
       concatMap((descriptionTemplatePart: RequirementDescriptionTemplatePart) => {
 
         // cast template string array to object array
@@ -340,10 +339,9 @@ export class RequirementService {
 
         // return observable
         return this.partService.addRequirementTemplatePart(templatePart)
-      })
-    )
-      // ToDo mit pipe lösen -> erst in component subscriben
-      .subscribe((descriptionPart: RequirementTemplatePart) => {
+      }),
+      map((descriptionPart: RequirementTemplatePart) => {
+        // each descriptionPart is emitted as one value
 
         /*
          * info: value and descriptionTemplateValue are only changed to the local template part
@@ -353,27 +351,22 @@ export class RequirementService {
         // call helper
         descriptionPart = this.createNewElementHelper(descriptionPart);
 
+        return descriptionPart;
+
+      }),
+      bufferCount(descriptionPartsCount), // buffer all emitted values
+      map((descriptionParts: RequirementTemplatePart[]) => {
+
         // add received object to the end of the array
-        descriptionPartsArray.push(descriptionPart)
+        descriptionPartsArray.push(...descriptionParts)
 
-        // debug
-        console.log('descriptionPart')
-        console.log(descriptionPart)
+        // set new created description parts
+        requirement.descriptionParts = descriptionPartsArray;
 
-      });
-
-
-    // debug
-    //console.log(descriptionPartsArray)
-
-
-
-    /******************************************************/
-
-    // set new created description parts
-    requirement.descriptionParts = descriptionPartsArray;
-
-    return requirement;
+        // return modified requirement
+        return requirement;
+      })
+    );
   }
 
   createNewElementHelper(descriptionPart: RequirementTemplatePart) {
@@ -410,7 +403,7 @@ export class RequirementService {
         // set first option as active
         // value needs to be an array
         descriptionPart.value = [];
-        descriptionPart.value.push(_.cloneDeep(descriptionPart.descriptionTemplateValue[1]));        
+        descriptionPart.value.push(_.cloneDeep(descriptionPart.descriptionTemplateValue[0]));        
 
         // local temp object
         let template: RequirementDescriptionTemplatePart = new RequirementDescriptionTemplatePart();

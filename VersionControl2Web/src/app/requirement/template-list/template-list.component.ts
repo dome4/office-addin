@@ -68,7 +68,7 @@ export class TemplateListComponent implements OnInit, OnDestroy {
    */
   onTemplateSelected(template: RequirementDescriptionTemplate) {
 
-    // get selected requirement description template
+    // get selected requirement description template (http observable)
     this.templateService.getRequirementTemplate(template).subscribe((template: RequirementDescriptionTemplate) => {
 
       // local reference
@@ -80,19 +80,15 @@ export class TemplateListComponent implements OnInit, OnDestroy {
       // set choosen template to new requirement
       requirement.descriptionTemplate = template;
 
-      // create new empty requirement with the set template
-      requirement = this.requirementService.createEmptyRequirementFromTemplate(requirement);
+      // create new requirement template parts and emit modified requirement as selected requirement
+      this.subscriptions.push(
+        this.requirementService.createEmptyRequirementFromTemplate(requirement)
+          .subscribe((requirement: Requirement) => {
 
-      //console.log('template list')
-      //console.log(requirement)
-
-      // emit data
-      this.storeService.selectedRequirement$.next(requirement);
-
-      // new requirement needs to go through the requirement service mapping
-
-      // ToDo is it necessary to emit changed data again? -> requirement and requirements
+            // emit selected requirement
+            this.storeService.selectedRequirement$.next(requirement);
+          })
+      );
     });
   }
-
 }
