@@ -3,8 +3,8 @@ import { Subscription } from 'rxjs';
 import { RequirementDescriptionTemplate } from '../../models/requirement-description-template/requirement-description-template';
 import { StoreService } from '../../services/store.service';
 import { Requirement } from '../../models/requirement';
-import { RequirementTemplateService } from '../../services/requirement-template.service';
 import { RequirementService } from '../../services/requirement.service';
+import { RequirementDescriptionTemplateService } from '../../services/requirement-description-template.service';
 
 @Component({
   selector: 'app-template-list',
@@ -22,7 +22,8 @@ export class TemplateListComponent implements OnInit, OnDestroy {
   // constructor
   constructor(
     private storeService: StoreService,
-    private templateService: RequirementTemplateService
+    private templateService: RequirementDescriptionTemplateService,
+    private requirementService: RequirementService
   ) { }
 
   // requirement to create
@@ -70,8 +71,23 @@ export class TemplateListComponent implements OnInit, OnDestroy {
     // get selected requirement description template
     this.templateService.getRequirementTemplate(template).subscribe((template: RequirementDescriptionTemplate) => {
 
+      // local reference
+      let requirement = this.requirement;
+
+      // debug -> if in requirement-component wird so geskipped -> einfach requirement davor abspeichern
+      requirement._id = 'test'
+
       // set choosen template to new requirement
-      this.requirement.descriptionTemplate = template;
+      requirement.descriptionTemplate = template;
+
+      // create new empty requirement with the set template
+      requirement = this.requirementService.createEmptyRequirementFromTemplate(requirement);
+
+      //console.log('template list')
+      //console.log(requirement)
+
+      // emit data
+      this.storeService.selectedRequirement$.next(requirement);
 
       // new requirement needs to go through the requirement service mapping
 

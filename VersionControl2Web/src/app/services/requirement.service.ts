@@ -4,10 +4,12 @@ import { Requirement } from '../models/requirement';
 import { environment } from '../../environments/environment';
 import { AuthService } from './auth/auth.service';
 import { RequirementTemplatePart } from '../models/requirement-template-part';
-import { BehaviorSubject, Observable, Subject } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { BehaviorSubject, Observable, Subject, from } from 'rxjs';
+import { map, concatMap } from 'rxjs/operators';
 import { RequirementDescriptionTemplate } from '../models/requirement-description-template/requirement-description-template';
 import { RequirementDescriptionTemplatePart } from '../models/requirement-description-template/requirement-description-template-part';
+import { RequirementTemplatePartService } from './requirement-template-part.service';
+import * as _ from 'lodash';
 
 const api = environment.apiUrl;
 
@@ -22,9 +24,13 @@ export class RequirementService {
 
   // currently selected requirement
   public selectedRequirement$: Subject<Requirement> = new Subject<Requirement>();
+  // ToDo: is a second observable on the same data usefull? maybe the id of the current selected requirement is better
 
-  constructor(private http: HttpClient,
-    private authService: AuthService) {
+  constructor(
+    private http: HttpClient,
+    private authService: AuthService,
+    private partService: RequirementTemplatePartService
+  ) {
 
     // initialize requirements$ data
     this.getRequirements().subscribe((requirements: Requirement[]) => this.requirements$.next(requirements));
@@ -180,7 +186,7 @@ export class RequirementService {
 
         // array gets converted to a simple object by JSON.parse()
         // array has only one value-object 
-        part.value = this.createObject(part.value.toString());
+        part.value = this.createObject(part.value.toString()); // ToDo replace toString()
 
         // local variable
         let subPart: RequirementTemplatePart = part.value;
@@ -281,38 +287,159 @@ export class RequirementService {
   createObject(element: any) {
 
     try {
-      /*
+
+      if (
+        element !== undefined ||
+        element !== null
+      ) {
+        /*
        * check if the value is already parsed
        */
-      if (
-        element !== undefined &&
-        element !== null &&
-        element.constructor == String
-      ) {
+        if (element.constructor == String) {
 
-        // String check
-        return JSON.parse(element);
+          // String check
+          return JSON.parse(element);
 
-      } else if (
-        element !== undefined &&
-        element !== null &&
-        element.constructor == Object
-      ) {
+        } else if (element.constructor == Object) {
 
-        // object check
-        return element;
+          // object check
+          return element;
 
-      } else if (
-        element == undefined ||
-        element == null
-      ) {
-        throw new Error('element is undefined');
+        } else {
+          throw new Error('type is not String or Object');
+        }
       } else {
-        throw new Error('type is not String or Object');
+        throw new Error('element is undefined');
       }
-
     } catch (error) {
       throw new Error(`createObject(): parsing error - ${error}`);
     }
+  }
+
+  /**
+   * creates an empty requirement with the already set requirement description template
+   * @param requirement
+   */
+  createEmptyRequirementFromTemplate(requirement: Requirement) {
+
+    // debug
+    console.log('RequirementService: createEmptyRequirementFromTemplate() called');
+    console.log(requirement);
+
+    // parts to create
+    let descriptionPartsArray: RequirementTemplatePart[] = [];
+
+    // save requirement template parts in api
+    let subscription = from(requirement.descriptionTemplate.template).pipe(
+      concatMap((descriptionTemplatePart: RequirementDescriptionTemplatePart) => {
+
+        // cast template string array to object array
+        let templatePart: RequirementTemplatePart = this.createObject(descriptionTemplatePart);
+
+        // info: description template parts are saved in api with value of the description template
+
+        // return observable
+        return this.partService.addRequirementTemplatePart(templatePart)
+      })
+    )
+      // ToDo mit pipe lösen -> erst in component subscriben
+      .subscribe((descriptionPart: RequirementTemplatePart) => {
+
+        /*
+         * info: value and descriptionTemplateValue are only changed to the local template part
+         * -> has to be saved in api
+         */
+
+        // call helper
+        descriptionPart = this.createNewElementHelper(descriptionPart);
+
+        // add received object to the end of the array
+        descriptionPartsArray.push(descriptionPart)
+
+        // debug
+        console.log('descriptionPart')
+        console.log(descriptionPart)
+
+      });
+
+
+    // debug
+    //console.log(descriptionPartsArray)
+
+
+
+    /******************************************************/
+
+    // set new created description parts
+    requirement.descriptionParts = descriptionPartsArray;
+
+    return requirement;
+  }
+
+  createNewElementHelper(descriptionPart: RequirementTemplatePart) {
+
+    switch (descriptionPart.type) {
+
+      // prevent reference copyg!!!
+
+      case 'dropdown':
+        // add descriptionTemplateValue to response
+        descriptionPart.descriptionTemplateValue = _.cloneDeep(descriptionPart.value);
+
+        // set to empty array
+        descriptionPart.value = [];
+        break;
+
+      case 'input':
+        // add descriptionTemplateValue to response
+        descriptionPart.descriptionTemplateValue = _.cloneDeep(descriptionPart.value);
+
+        // set to empty string
+        descriptionPart.value = '';
+        break;
+
+      case 'text':
+        // add descriptionTemplateValue to response, value is already set
+        descriptionPart.descriptionTemplateValue = _.cloneDeep(descriptionPart.value);
+        break;
+
+      case 'table':
+        // add descriptionTemplateValue to response
+        descriptionPart.descriptionTemplateValue = _.cloneDeep(descriptionPart.value);
+
+        // set first option as active
+        descriptionPart.value = _.cloneDeep(descriptionPart.descriptionTemplateValue[1]);
+
+        // local temp object
+        let template: RequirementDescriptionTemplatePart = new RequirementDescriptionTemplatePart();
+
+        // values to set (descriptionTemplateValue is already an object)
+        template.type = 'table';
+        template.value = _.cloneDeep(descriptionPart.descriptionTemplateValue);
+
+        // debug
+        console.log('table template')
+        console.log(descriptionPart)
+        console.log(template)
+        console.log('table template')
+
+        // use response map function to handle the table type
+        this.mapHelper(descriptionPart, template);
+
+
+        break;
+
+      case 'wrapper':
+        // ToDo
+        descriptionPart.value = null;
+        break;
+
+      default:
+        throw new Error('createNewElementHelper() - type not defined');
+
+    }
+
+    return descriptionPart;
+
   }
 }
