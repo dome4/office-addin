@@ -20,7 +20,7 @@ export class RequirementService {
   public requirementTemplateIsValid$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
   // requirements observable
-  public requirements$: Subject<Requirement[]> = new Subject<Requirement[]>();
+  public requirements$: BehaviorSubject<Requirement[]> = new BehaviorSubject<Requirement[]>(null);
 
   // currently selected requirement
   public selectedRequirement$: Subject<Requirement> = new Subject<Requirement>();

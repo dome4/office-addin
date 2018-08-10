@@ -21,17 +21,20 @@
   <label>Choose a requirement</label>
 </div>
 
-<div *ngIf="selectedRequirement">
+
+
+<div class="clr-row" *ngIf="selectedRequirement">
   <label>Type your Requirement in here:</label>
   <br />
 </div>
+
 <div #requirementContainer style="display:inline;"></div>
 
-<div class="clr-row" *ngIf="selectedRequirement">
-  <button (click)="onRequirementChanged()" class="btn btn-primary">Validate Requirement</button>
-</div>
+<ng-template [ngIf]="selectedRequirement">
+  <div class="clr-row">
+    <button (click)="onRequirementChanged()" class="btn btn-primary">Validate Requirement</button>
+  </div>
 
-<div *ngIf="selectedRequirement">
   <clr-alert *ngIf="!requirementTemplateIsValid" [clrAlertType]="'alert-warning'" [clrAlertClosable]="false">
     <div class="alert-item">
       <span class="alert-text">
@@ -39,4 +42,11 @@
       </span>
     </div>
   </clr-alert>
-</div>
+
+  <hr />
+
+  <div class="clr-row">
+    <button [routerLink]="['/requirements', selectedRequirement._id]" class="btn btn-primary">Requirement Details</button>
+  </div>
+
+</ng-template>

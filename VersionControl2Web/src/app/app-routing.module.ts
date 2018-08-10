@@ -5,9 +5,17 @@ import { RequirementListComponent } from './requirement-list/requirement-list.co
 import { NotFoundComponent } from './not-found/not-found.component';
 import { AuthGuardService } from './services/auth/auth-guard.service';
 import { SigninComponent } from './auth/signin/signin.component';
+import { RequirementDetailsComponent } from './requirement/requirement-details/requirement-details.component';
 
 const appRoutes: Routes = [
-  { path: '', component: RequirementComponent },
+  { path: '', redirectTo: 'requirements', pathMatch: 'full' },
+  {
+    path: 'requirements',
+    children: [
+      { path: '', component: RequirementComponent },
+      { path: ':id', component: RequirementDetailsComponent}
+    ] 
+  },
   { path: 'signin', component: SigninComponent },
   { path: 'list', component: RequirementListComponent, canActivate: [AuthGuardService] },
   { path: '**', component: NotFoundComponent }

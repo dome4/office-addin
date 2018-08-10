@@ -102,6 +102,9 @@ export class RequirementComponent implements OnInit, OnDestroy {
       // set selected requirement 
       this.selectedRequirement = requirement;
 
+      // delete content of current requirement-container
+      this.requirementContainer.nativeElement.innerHTML = '';
+
       // debug
       console.log('requirement component: new requirement selected');
       console.log(requirement);

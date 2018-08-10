@@ -25,6 +25,7 @@ import { StoreService } from './services/store.service';
 import { TemplateListComponent } from './requirement/template-list/template-list.component';
 import { RequirementDescriptionTemplateService } from './services/requirement-description-template.service';
 import { RequirementTemplatePartService } from './services/requirement-template-part.service';
+import { RequirementDetailsComponent } from './requirement/requirement-details/requirement-details.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +37,8 @@ import { RequirementTemplatePartService } from './services/requirement-template-
     HeaderComponent,
     SigninComponent,
     XmlDebugComponent,
-    TemplateListComponent
+    TemplateListComponent,
+    RequirementDetailsComponent
   ],
   imports: [
     BrowserModule,
