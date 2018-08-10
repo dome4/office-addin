@@ -185,8 +185,8 @@ export class RequirementService {
         part.descriptionTemplateValue = template.value;
 
         // array gets converted to a simple object by JSON.parse()
-        // array has only one value-object 
-        part.value = this.createObject(part.value.toString()); // ToDo replace toString()
+        // array has only one value-object-> get the first value
+        part.value = this.createObject(part.value[0]);
 
         // local variable
         let subPart: RequirementTemplatePart = part.value;
