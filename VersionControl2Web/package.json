@@ -26,6 +26,7 @@
     "@clr/ui": "^0.12.1",
     "@webcomponents/custom-elements": "^1.0.0",
     "core-js": "^2.4.1",
+    "lodash": "^4.17.10",
     "mustache": "^2.3.0",
     "rxjs": "^6.2.2",
     "zone.js": "^0.8.26"
@@ -37,6 +38,7 @@
     "@angular/language-service": "6.1.1",
     "@types/jasmine": "^2.8.7",
     "@types/jasminewd2": "~2.0.2",
+    "@types/lodash": "^4.14.116",
     "@types/mustache": "^0.8.31",
     "@types/node": "^6.0.108",
     "@types/office-js": "0.0.83",
