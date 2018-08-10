@@ -408,7 +408,9 @@ export class RequirementService {
         descriptionPart.descriptionTemplateValue = _.cloneDeep(descriptionPart.value);
 
         // set first option as active
-        descriptionPart.value = _.cloneDeep(descriptionPart.descriptionTemplateValue[1]);
+        // value needs to be an array
+        descriptionPart.value = [];
+        descriptionPart.value.push(_.cloneDeep(descriptionPart.descriptionTemplateValue[1]));        
 
         // local temp object
         let template: RequirementDescriptionTemplatePart = new RequirementDescriptionTemplatePart();
@@ -417,26 +419,17 @@ export class RequirementService {
         template.type = 'table';
         template.value = _.cloneDeep(descriptionPart.descriptionTemplateValue);
 
-        // debug
-        console.log('table template')
-        console.log(descriptionPart)
-        console.log(template)
-        console.log('table template')
-
         // use response map function to handle the table type
         this.mapHelper(descriptionPart, template);
-
-
         break;
 
       case 'wrapper':
-        // ToDo
-        descriptionPart.value = null;
-        break;
+        // wrapper is a subpart an can never be on the description parts root level
+        // recursicve calls of the function createNewElementHelper() are not valid
+        throw new Error('wrapper-type cannot be in descriptionParts-array root level');        
 
       default:
         throw new Error('createNewElementHelper() - type not defined');
-
     }
 
     return descriptionPart;
