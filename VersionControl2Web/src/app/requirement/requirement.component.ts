@@ -466,8 +466,21 @@ export class RequirementComponent implements OnInit, OnDestroy {
         // find changed template part -> reference
         changedTemplatePart = RequirementTemplatePart.findById(this.selectedRequirement.descriptionParts, templatePartId);
 
-        // set changed value to requirement
-        changedTemplatePart.value = event.target.value;
+        if (event.target.nodeName.toLowerCase() === 'input') {
+          // input
+
+          // set changed value to requirement
+          changedTemplatePart.value = event.target.value;
+        } else if (event.target.nodeName.toLowerCase() === 'select') {
+          // dropdown
+
+          // local variable
+          let select: HTMLSelectElement = event.target;
+
+          // set changed value to requirement -> array necessary !
+          changedTemplatePart.value = [select.options[select.selectedIndex].textContent];
+        }
+
 
       } else {
         // nested elements hava an id === 'undefined'
@@ -528,7 +541,7 @@ export class RequirementComponent implements OnInit, OnDestroy {
                 // input or dropdown as direct subelement of table
                 // set these option as value
                 templatePart.value = _.cloneDeep(option);
-                templatePart.value.value = modifiedValue;
+                templatePart.value.value = modifiedValue; // Issue: only works for input!!
               } else if (option.type === 'wrapper') {
 
                 // search in subelements of wrapper.value
@@ -592,6 +605,7 @@ export class RequirementComponent implements OnInit, OnDestroy {
 
             // execute method from above
             findModifiedElementInDescriptionTemplate(templatePart, modifiedInput.placeholder, modifiedInput.value);
+
           } else if (event.target.nodeName.toLowerCase() === 'select') {
             // dropdown
 
