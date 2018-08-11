@@ -6,6 +6,7 @@ import { RequirementTemplatePart } from '../models/requirement-template-part';
 import { RequirementDescriptionTemplate } from '../models/requirement-description-template/requirement-description-template';
 import { RequirementDescriptionTemplatePart } from '../models/requirement-description-template/requirement-description-template-part';
 import { StoreService } from '../services/store.service';
+import * as _ from 'lodash';
 
 // js variable
 //declare var document: any;
@@ -289,8 +290,21 @@ export class RequirementComponent implements OnInit, OnDestroy {
       } else {
         // types are not equal
 
+        // clone deep -> prevent side effects
+        let descriptionTemplateElement = _.cloneDeep(tableChildElement);
+
+        // modify subelement values
+        descriptionTemplateElement.value.forEach(subPart => {
+
+          // set placeholder for creation of subelement
+          subPart.descriptionTemplateValue = subPart.value;
+          subPart.value = '';
+
+          // check sideeffects on description template
+        });
+
         // create new child element of not choosen option 
-        newChildElement = this.createNewRequirementTemplatePart(tableChildElement);
+        newChildElement = this.createNewRequirementTemplatePart(descriptionTemplateElement);
       }
       /*
        * end
