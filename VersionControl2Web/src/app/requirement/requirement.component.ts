@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy, ViewChild, ElementRef, Renderer2 } from '@angular/core';
 import { RequirementService } from '../services/requirement.service';
 import { Requirement } from '../models/requirement';
-import { Subscription } from 'rxjs';
+import { Subscription, Observable, Observer } from 'rxjs';
 import { RequirementTemplatePart } from '../models/requirement-template-part';
 import { RequirementDescriptionTemplate } from '../models/requirement-description-template/requirement-description-template';
 import { RequirementDescriptionTemplatePart } from '../models/requirement-description-template/requirement-description-template-part';
@@ -107,13 +107,13 @@ export class RequirementComponent implements OnInit, OnDestroy {
 
       // debug
       console.log('requirement component: new requirement selected');
-      console.log(requirement);
+      console.log(this.selectedRequirement);
 
 
     } else {
 
       // set selected requirement 
-      this.selectedRequirement = requirement; 
+      this.selectedRequirement = requirement;
 
       // set requirement template parts
       this.requirementTemplateParts = this.selectedRequirement.descriptionParts;
@@ -125,7 +125,7 @@ export class RequirementComponent implements OnInit, OnDestroy {
       this.descriptionTemplate.template = this.descriptionTemplate.template.map(element => this.requirementService.createObject(element));
 
       // set container id
-      this.requirementContainer.nativeElement.setAttribute('id', this.selectedRequirement._id);
+      this.requirementContainer.nativeElement.setAttribute('id', 'requirementId_' + this.selectedRequirement._id);
 
       // render selected requirement template
       this.renderRequirementTemplate();
@@ -133,16 +133,12 @@ export class RequirementComponent implements OnInit, OnDestroy {
       // debug
       console.log('requirement selected');
       console.log(this.selectedRequirement);
-      console.log(this.requirementTemplateParts);
       // debug
-
-      // ToDo: update form
-
 
       // validate requirement template
       this.requirementService.validateRequirementTemplate(this.requirementTemplateParts, this.descriptionTemplate);
 
-    }  
+    }
   }
 
   /**
@@ -198,7 +194,7 @@ export class RequirementComponent implements OnInit, OnDestroy {
         }
 
         // event listener
-        newPart.addEventListener('change', this.onRequirementPartChanged)
+        newPart.addEventListener('change', this.onRequirementPartChanged.bind(this))
         break;
 
       case 'text':
@@ -213,7 +209,7 @@ export class RequirementComponent implements OnInit, OnDestroy {
         newPart.value = templatePart.value;
 
         // event listener
-        newPart.addEventListener('change', this.onRequirementPartChanged);
+        newPart.addEventListener('change', this.onRequirementPartChanged.bind(this));
         break;
 
       case 'table':
@@ -229,7 +225,7 @@ export class RequirementComponent implements OnInit, OnDestroy {
     }
 
     // set id and classname
-    newPart.id = this.selectedRequirement._id + '_' + templatePart.type;
+    newPart.id = templatePart._id;
     newPart.classList.add('requirement-part')
 
 
@@ -312,7 +308,7 @@ export class RequirementComponent implements OnInit, OnDestroy {
       this.setChoosenTableOptionActive(descriptionTemplatePart, requirementTemplatePart, newRow);
 
       // event listener
-      newRow.addEventListener('click', this.onRequirementPartChanged)
+      newRow.addEventListener('click', this.onRequirementPartChanged.bind(this))
 
       // value cell
       let newCell1 = document.createElement('td');
@@ -436,12 +432,157 @@ export class RequirementComponent implements OnInit, OnDestroy {
     }
   }
 
-  onRequirementPartChanged() {
+  /**
+   * methods gets executed each time an event occurres on one of the requirement template parts
+   * 
+   * @param event
+   */
+  onRequirementPartChanged(event) {
+
+    if (event.type === 'change') {
+      // dropdown or input
+      console.log('dropdown or input');
+      console.log(event.target);
+
+      let templatePartId = event.target.id;
+      let changedTemplatePart: RequirementTemplatePart;
+
+      if (templatePartId !== 'undefined') {
+
+        // find changed template part -> reference
+        changedTemplatePart = RequirementTemplatePart.findById(this.selectedRequirement.descriptionParts, templatePartId);
+
+        // set changed value to requirement
+        changedTemplatePart.value = event.target.value;
+
+      } else {
+        // nested elements hava an id === 'undefined'
+        console.log('nested input or dropdown element')
+
+        // ToDo save data of nested elements -> overwrite value
+
+
+        new Observable((observer: Observer<string>) => {
+
+          /**
+           * find next requirement template part id
+           * 
+           * @param element
+           */
+          let findValidParentId = (element) => {
+
+            if ((<string>element.id).includes('requirementId')) {
+              // no valid table or wrapper id found
+              observer.error('onRequirementPartChanged() - root level of requirement reached');
+              observer.complete();
+
+            } else if (element.id && element.id !== 'undefined') {
+
+              observer.next(element.id);
+              observer.complete();
+            } else {
+              // recursive method call
+              findValidParentId(element.parentElement);
+
+            }
+          };
+
+          // execute function
+          findValidParentId(event.target);
+
+
+
+
+          // observable end
+        }).subscribe((templatePartId: string) => {
+
+          // debug
+          console.log('fitting parent found:' + templatePartId)
+
+          // find template part
+          let templatePart: RequirementTemplatePart = RequirementTemplatePart.findById(this.selectedRequirement.descriptionParts, templatePartId);
+
+          // ToDo update value of subelement with descriptionTemplateValue
+
+        });
+
+
+      
+
+
+        
+
+
+      }
+
+    } else if (event.type === 'click') {
+      // table
+      console.log('table');
+      console.log(event.target);
+
+      new Observable((observer: Observer<HTMLTableRowElement>) => {
+
+        /**
+         * find next table row parent
+         * 
+         * @param node
+         */
+        let findParentRow = (node) => {
+
+          if (node.nodeName.toLowerCase() === 'tr') {
+            // return result
+            observer.next(node);
+
+            // complete observable -> no need to unsubscribe
+            observer.complete();
+
+          } else if (node.id.includes('requirementId')) {
+            // table node found (upper bound)
+            observer.error('onRequirementPartChanged() - root level of requirement reached');
+            observer.complete();
+          } else {
+            // go to next parent node
+            findParentRow(node.parentNode);
+          }
+        };
+
+        // execute function
+        findParentRow(event.target);
+      }).subscribe(
+        (node: HTMLTableRowElement) => {
+          // debug
+          console.log('clicked table row');
+          console.log(node);
+
+          // save value to requirement template part
+          // ToDo
+
+
+
+
+          // set table row active
+          // ToDo
+
+
+        },
+        error => console.log(error)
+      )
+
+
+
+
+    } else {
+      throw new Error('onRequirementPartChanged() - event type not supported');
+    }
+
 
     // debug
-    console.log(event);
+    console.log(this.requirements);
 
-    // ToDo: write function
+    // ToDo validate updated requirement parts
+    //this.requirementService.validateRequirementTemplate(this.requirementTemplateParts, this.descriptionTemplate); 
+
+    // ToDo API call
   }
 
   /**
@@ -449,7 +590,7 @@ export class RequirementComponent implements OnInit, OnDestroy {
    *
    */
   onRequirementChanged() {
-
+    // validate updated requirement
     this.requirementService.validateRequirementTemplate(this.requirementTemplateParts, this.descriptionTemplate);
   }
 }
