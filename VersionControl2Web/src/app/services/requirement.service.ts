@@ -467,4 +467,76 @@ export class RequirementService {
       findParentRow(DOMNode);
     });
   }
+
+  /**
+   * search in descriptionTemplateValue for option which was clicked on (or changed)
+   *
+   * @param templatePart modified requirement template part
+   * @param searchParam placeholder (input) or options-array(dropdown)
+   * @param modifiedValue event.target.value(input) or selected option(dropdown)
+   *
+   */
+  public findModifiedElementInDescriptionTemplate(templatePart: RequirementTemplatePart, searchParam, modifiedValue) {
+
+    // iterate over
+    templatePart.descriptionTemplateValue.forEach((option: RequirementDescriptionTemplatePart) => {
+
+      // handle all possible sub elements of a table
+      // here are only three cases possible: input, dropdown and wrapper (due to the event type)
+      if (
+        (option.type === 'input' || option.type === 'dropdown') &&
+        option.value === searchParam
+      ) {
+        // input or dropdown as direct subelement of table
+        // set these option as value
+        templatePart.value = _.cloneDeep(option);
+        templatePart.value.value = modifiedValue; // Issue: only works for input!!
+      } else if (option.type === 'wrapper') {
+
+        // search in subelements of wrapper.value
+        let subElement = option.value.filter((wrapperOption: RequirementDescriptionTemplatePart) => {
+          // handle all possible subtypes of wrapper
+          // dropdown, input, text -> text not possible here due to change event
+          if (
+            (wrapperOption.type === 'input' || wrapperOption.type === 'dropdown') &&
+            wrapperOption.value === searchParam
+          ) {
+            return true;
+          }
+          return false;
+        });
+
+        // if not subElement exists and contains only on object => throw error
+        if (!(subElement && subElement.length == 1)) {
+          throw new Error('findModifiedElementInDescriptionTemplate() - wrapper options not valid or searchParam not found');
+        }
+
+        // set value to wrapper template
+        // correct place to set because search in options.value was successfull
+        templatePart.value = _.cloneDeep(option);
+
+        // prepare subelement for insertion
+        let newSubElement: RequirementTemplatePart = _.cloneDeep(subElement[0]);
+        newSubElement.descriptionTemplateValue = _.clone(newSubElement.value);
+        newSubElement.value = modifiedValue; // Issue: does only work for input, not for dropdown
+
+        // wrapper conatins a few elements -> replace the correct one
+        templatePart.value.value.filter((wrapperTemplateOption) => {
+          if (
+            wrapperTemplateOption.type === newSubElement.type &&
+            wrapperTemplateOption.value === newSubElement.descriptionTemplateValue
+          ) {
+            return true;
+          }
+          return false;
+
+        }).map((optionToReplace) => {
+
+          // modify matched description template option
+          optionToReplace.descriptionTemplateValue = newSubElement.descriptionTemplateValue;
+          optionToReplace.value = newSubElement.value;
+        });
+      }
+    })
+  }
 }
