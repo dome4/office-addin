@@ -36,6 +36,15 @@ export class RequirementService {
     this.getRequirements().subscribe((requirements: Requirement[]) => this.requirements$.next(requirements));
   }
 
+  /**
+   * method is executed if the request was blocked due to a not authenticated user
+   * and the user authenticates afterwars
+   *
+   */
+  public resendInitialRequests() {
+    this.reloadRequirements();
+  }
+
   private getRequirements() {
     // method should only be executed once on app startup
     // else reloadRequirements() should be executed

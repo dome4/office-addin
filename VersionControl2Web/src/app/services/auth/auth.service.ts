@@ -2,8 +2,9 @@ import { Router } from "@angular/router";
 import { Injectable } from "@angular/core";
 import { HttpClient, HttpHeaders, HttpParams } from "@angular/common/http";
 import { environment } from '../../../environments/environment';
-import { catchError, retry } from 'rxjs/operators';
+import { catchError, retry, map } from 'rxjs/operators';
 import { LocalStorageService } from "../local-storage.service";
+import { Observable } from "rxjs";
 
 // api url
 const api = environment.apiUrl;
@@ -41,27 +42,28 @@ export class AuthService {
    * @param username
    * @param password
    */
-  signinUser(username: string, password: string) {
+  signinUser(username: string, password: string): Observable<boolean> {
 
     const body = new HttpParams()
       .set('name', username)
       .set('password', password);
 
-    this.http.post<{ success: boolean, message: string, token: string }>(`${api}/user/authenticate`, body, httpOptions)
-      .subscribe(
-      (data) => {
+    return this.http.post<{ success: boolean, message: string, token: string }>(`${api}/user/authenticate`, body, httpOptions).pipe(
+      map((data) => {
+        if (data['token']) {
 
-        // save in local storage
-        this.storageService.store('vc-token', data['token']);
+          // save in local storage
+          this.storageService.store('vc-token', data['token']);
 
-        // save in variable
-        this.token = data['token'];
-      },
-      (error) => {
+          // save in variable
+          this.token = data['token'];
 
-        // ToDo write alert component
-        console.log('Login Failed');
-      });
+          return true;
+        } else {
+          throw new Error('signinUser() - Login Failed');
+        }
+      })
+    );
   }
 
   /**
