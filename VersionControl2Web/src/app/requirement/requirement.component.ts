@@ -508,8 +508,6 @@ export class RequirementComponent implements OnInit, OnDestroy {
 
     if (event.type === 'change') {
       // dropdown or input
-      console.log('dropdown or input');
-      console.log(event.target);
 
       let templatePartId = event.target.id;
       let changedTemplatePart: RequirementTemplatePart;
@@ -569,34 +567,90 @@ export class RequirementComponent implements OnInit, OnDestroy {
       }
     } else if (event.type === 'click') {
       // table
-      console.log('table');
-      console.log(event.target);
 
-      // service method call
-      this.requirementService.findParentRow(event.target)
-        .subscribe(
-          (node: HTMLTableRowElement) => {
-            // debug
-            console.log('clicked table row');
-            console.log(node);
+      // local variable
+      let clickedElement: HTMLElement = event.target;
 
-            // save value to requirement template part
-            // ToDo
+      this.requirementService.findValidParentId(clickedElement).subscribe(
+        (templatePartId: string) => {
 
+          // changed requirement template part -> must be a table due to the click event is only defined for tables yet
+          let templatePart: RequirementTemplatePart = RequirementTemplatePart.findById(this.selectedRequirement.descriptionParts, templatePartId);
 
+          //
+          this.requirementService.findParentRow(clickedElement).subscribe(
+            (tableRow: HTMLTableRowElement) => {
 
+              // compare length of child nodelist with templatePart.descriptionTemplateValue.length
+              // templatePart will be always a table
+              if (tableRow.parentNode.childNodes.length !== templatePart.descriptionTemplateValue.length) {
+                throw new Error('onRequirementPartChanged() - table row count issue');
+              }
 
-            // set table row active
-            // ToDo
+              // check if choosen option is already active
+              if (!tableRow.classList.contains('active')) {
+                // option not active
 
+                // local variable of row nodes array
+                let rowNodesArray = Array.from(tableRow.parentNode.childNodes);
 
-          },
-          error => console.log(error)
-        )
+                // get index of selected option
+                let optinIndex = rowNodesArray.indexOf(tableRow);
 
+                // prepare option for insertion
+                let insertableOption = _.cloneDeep(templatePart.descriptionTemplateValue[optinIndex]);
 
+                /*
+                 * handle all subtypes of table
+                 *
+                 */
+                let handleTableSubElement = (subElement: RequirementTemplatePart) => {
 
+                  switch (subElement.type) {
+                    case 'wrapper':
+                      // recursive method call
+                      subElement.value.forEach(wrapperElement => handleTableSubElement(wrapperElement));
+                      break;
+                    case 'dropdown':
+                      subElement.descriptionTemplateValue = _.cloneDeep(subElement.value);
+                      subElement.value = [];
+                      break;
+                    case 'input':
+                      subElement.descriptionTemplateValue = _.cloneDeep(subElement.value);
+                      subElement.value = '';
+                      break;
+                    case 'text':
+                      // do nothing
+                      // value is needed for rendering
+                      break;
+                    default:
+                      throw new Error(`handleTableSubElement() - type ${subElement.type} is no subelement type of table`);
+                  }
+                };
 
+                // execute method
+                handleTableSubElement(insertableOption);
+
+                // set clicked option
+                templatePart.value = [insertableOption];
+
+                // remove css class active from all table rows 
+                rowNodesArray.forEach((row: HTMLTableRowElement) => row.classList.remove('active'));
+
+                // set tableRow active
+                tableRow.classList.add('active');
+
+              }
+            }, (error) => {
+              // if findParentRow() fails
+              throw new Error(error);
+            }
+          );
+        }, (error) => {
+          // if findValidParentId() fails
+          throw new Error(error);
+        }
+      );
     } else {
       throw new Error('onRequirementPartChanged() - event type not supported');
     }

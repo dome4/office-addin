@@ -4,7 +4,15 @@
  */
 .vc-req-table {
   opacity: 0.3;
+  cursor: pointer;
 }
-.vc-req-table.active {
+
+  .vc-req-table:hover {
     opacity: 1;
-}
+    background-color: #007cbb;
+    color: white;
+  }
+
+  .vc-req-table.active {
+    opacity: 1;
+  }
