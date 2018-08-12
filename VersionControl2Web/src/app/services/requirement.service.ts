@@ -4,7 +4,7 @@ import { Requirement } from '../models/requirement';
 import { environment } from '../../environments/environment';
 import { AuthService } from './auth/auth.service';
 import { RequirementTemplatePart } from '../models/requirement-template-part';
-import { BehaviorSubject, Observable, Subject, from } from 'rxjs';
+import { BehaviorSubject, Observable, Subject, from, Observer } from 'rxjs';
 import { map, concatMap, bufferCount } from 'rxjs/operators';
 import { RequirementDescriptionTemplate } from '../models/requirement-description-template/requirement-description-template';
 import { RequirementDescriptionTemplatePart } from '../models/requirement-description-template/requirement-description-template-part';
@@ -404,7 +404,7 @@ export class RequirementService {
         // set first option as active
         // value needs to be an array
         descriptionPart.value = [];
-        descriptionPart.value.push(_.cloneDeep(descriptionPart.descriptionTemplateValue[0]));        
+        descriptionPart.value.push(_.cloneDeep(descriptionPart.descriptionTemplateValue[0]));
 
         // local temp object
         let template: RequirementDescriptionTemplatePart = new RequirementDescriptionTemplatePart();
@@ -420,7 +420,7 @@ export class RequirementService {
       case 'wrapper':
         // wrapper is a subpart an can never be on the description parts root level
         // recursicve calls of the function createNewElementHelper() are not valid
-        throw new Error('wrapper-type cannot be in descriptionParts-array root level');        
+        throw new Error('wrapper-type cannot be in descriptionParts-array root level');
 
       default:
         throw new Error('createNewElementHelper() - type not defined');
@@ -428,5 +428,43 @@ export class RequirementService {
 
     return descriptionPart;
 
+  }
+
+  /**
+  * find next table row parent
+  * 
+  * @param node
+  */
+  public findParentRow(DOMNode): Observable<HTMLTableRowElement> {
+
+    return new Observable((observer: Observer<HTMLTableRowElement>) => {
+
+      /**
+       * find next table row parent - subfunction
+       * 
+       * @param node
+       */
+      let findParentRow = (node) => {
+
+        if (node.nodeName.toLowerCase() === 'tr') {
+          // return result
+          observer.next(node);
+
+          // complete observable -> no need to unsubscribe
+          observer.complete();
+
+        } else if (node.id.includes('requirementId')) {
+          // table node found (upper bound)
+          observer.error('onRequirementPartChanged() - root level of requirement reached');
+          observer.complete();
+        } else {
+          // go to next parent node
+          findParentRow(node.parentNode);
+        }
+      };
+
+      // execute function
+      findParentRow(DOMNode);
+    });
   }
 }

@@ -637,35 +637,9 @@ export class RequirementComponent implements OnInit, OnDestroy {
       console.log('table');
       console.log(event.target);
 
-      new Observable((observer: Observer<HTMLTableRowElement>) => {
-
-        /**
-         * find next table row parent
-         * 
-         * @param node
-         */
-        let findParentRow = (node) => {
-
-          if (node.nodeName.toLowerCase() === 'tr') {
-            // return result
-            observer.next(node);
-
-            // complete observable -> no need to unsubscribe
-            observer.complete();
-
-          } else if (node.id.includes('requirementId')) {
-            // table node found (upper bound)
-            observer.error('onRequirementPartChanged() - root level of requirement reached');
-            observer.complete();
-          } else {
-            // go to next parent node
-            findParentRow(node.parentNode);
-          }
-        };
-
-        // execute function
-        findParentRow(event.target);
-      }).subscribe(
+      // service method call
+      this.requirementService.findParentRow(event.target)
+        .subscribe(
         (node: HTMLTableRowElement) => {
           // debug
           console.log('clicked table row');
