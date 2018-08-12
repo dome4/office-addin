@@ -186,14 +186,15 @@ export class RequirementService {
 
         // array gets converted to a simple object by JSON.parse()
         // array has only one value-object-> get the first value
-        part.value = this.createObject(part.value[0]);
+        // new value has to be also an array!
+        part.value = [this.createObject(part.value[0])];
 
         // local variable
-        let subPart: RequirementTemplatePart = part.value;
+        let subPart: RequirementTemplatePart = part.value[0];
 
         // search in description template options for fitting datatype
         // no reference to description tempate necessary -> Array.from()
-        let options = Array.from(template.value)
+        let options = Array.from(template.value);
 
         /*
          * find option of requirement part in description template

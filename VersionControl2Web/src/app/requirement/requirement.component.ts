@@ -260,27 +260,27 @@ export class RequirementComponent implements OnInit, OnDestroy {
        *
        * start
        */
-      // ToDo implement all subelement of table   
+      // ToDo implement all subelement of table    
 
       // if requirement type === description type -> descriptionTemplateValue param necessary
-      if (tableChildElement.type === templatePart.value.type) {
+      if (tableChildElement.type === templatePart.value[0].type) {
 
         if (
-          templatePart.value.type === 'text' &&
-          tableChildElement.value === templatePart.value.value
+          templatePart.value[0].type === 'text' &&
+          tableChildElement.value === templatePart.value[0].value
         ) {
           // table subelement text
 
           // create new child element of choosen option 
-          newChildElement = this.createNewRequirementTemplatePart(templatePart.value);
+          newChildElement = this.createNewRequirementTemplatePart(templatePart.value[0]);
 
         } else if (
-          templatePart.value.type === 'wrapper'
+          templatePart.value[0].type === 'wrapper'
         ) {
           // table subelement wrapper
 
           // create new child element of choosen option 
-          newChildElement = this.createNewRequirementTemplatePart(templatePart.value);
+          newChildElement = this.createNewRequirementTemplatePart(templatePart.value[0]);
 
         } else {
           // create new child element of not choosen option 
@@ -293,15 +293,27 @@ export class RequirementComponent implements OnInit, OnDestroy {
         // clone deep -> prevent side effects
         let descriptionTemplateElement = _.cloneDeep(tableChildElement);
 
-        // modify subelement values
-        descriptionTemplateElement.value.forEach(subPart => {
+        try {
+          // modify subelement values
+          descriptionTemplateElement.value.forEach(subPart => {
 
-          // set placeholder for creation of subelement
-          subPart.descriptionTemplateValue = subPart.value;
-          subPart.value = '';
+            // set placeholder for creation of subelement
+            subPart.descriptionTemplateValue = _.cloneDeep(subPart.value);
+            subPart.value = '';
+          });
 
-          // check sideeffects on description template
-        });
+        } catch (error) {
+          if (error.name === 'TypeError') {
+            // value is only an array with datatype wrapper
+
+            // set placeholder for creation of subelement
+            descriptionTemplateElement.descriptionTemplateValue = _.cloneDeep(descriptionTemplateElement.value);
+            descriptionTemplateElement.value = '';
+
+          } else {
+            throw new Error('tableHandler() - descriptionTemplateElement.value.forEach() error');
+          }
+        }
 
         // create new child element of not choosen option 
         newChildElement = this.createNewRequirementTemplatePart(descriptionTemplateElement);
@@ -316,7 +328,7 @@ export class RequirementComponent implements OnInit, OnDestroy {
 
       // local variables
       let descriptionTemplatePart = this.requirementService.createObject(templatePart.descriptionTemplateValue[i]);
-      let requirementTemplatePart = this.requirementService.createObject(templatePart.value);
+      let requirementTemplatePart = this.requirementService.createObject(templatePart.value[0]);
 
       // set choosen subtype as active
       this.setChoosenTableOptionActive(descriptionTemplatePart, requirementTemplatePart, newRow);
@@ -335,6 +347,7 @@ export class RequirementComponent implements OnInit, OnDestroy {
       let newCell2 = document.createElement('td');
       // add new button
       // ToDo check what this method does
+      // Simon used the button to choose the next option
       //newCell2.appendChild(getNewButton(requirementId, childReqElementType, parentId));
 
       // append new created elements
