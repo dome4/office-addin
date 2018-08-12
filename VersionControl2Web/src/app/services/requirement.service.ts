@@ -128,7 +128,7 @@ export class RequirementService {
       requirement.descriptionParts.forEach((part, i) => {
 
         // cast template string array to object array
-        requirement.descriptionTemplate.template[i] = JSON.parse(requirement.descriptionTemplate.template[i].toString());
+        requirement.descriptionTemplate.template[i] = this.createObject(requirement.descriptionTemplate.template[i].toString());
 
         // call helper function
         // ToDo fix context issue -> static method is possible

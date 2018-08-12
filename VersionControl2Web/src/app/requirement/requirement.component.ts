@@ -229,7 +229,6 @@ export class RequirementComponent implements OnInit, OnDestroy {
     newPart.id = templatePart._id;
     newPart.classList.add('requirement-part')
 
-
     return newPart;
 
   }
@@ -260,7 +259,9 @@ export class RequirementComponent implements OnInit, OnDestroy {
        *
        * start
        */
-      // ToDo implement all subelement of table    
+
+      // ToDo implement all subelements of table:
+      // wrapper, dropdown, input, text
 
       // if requirement type === description type -> descriptionTemplateValue param necessary
       if (tableChildElement.type === templatePart.value[0].type) {
@@ -278,41 +279,52 @@ export class RequirementComponent implements OnInit, OnDestroy {
           templatePart.value[0].type === 'wrapper'
         ) {
           // table subelement wrapper
+          // ToDo: the correct wrapper has to be choosen
+          // Issue: with the current method only one wrapper per table is allowed
 
           // create new child element of choosen option 
           newChildElement = this.createNewRequirementTemplatePart(templatePart.value[0]);
 
         } else {
+          // types are equal but values not
           // create new child element of not choosen option 
           newChildElement = this.createNewRequirementTemplatePart(tableChildElement);
         }
 
       } else {
         // types are not equal
+        // render not choosen option
 
         // clone deep -> prevent side effects
         let descriptionTemplateElement = _.cloneDeep(tableChildElement);
 
-        try {
-          // modify subelement values
-          descriptionTemplateElement.value.forEach(subPart => {
+        // handle all subelements of table
+        if (tableChildElement.type === 'text') {
+          // text
 
-            // set placeholder for creation of subelement
-            subPart.descriptionTemplateValue = _.cloneDeep(subPart.value);
-            subPart.value = '';
-          });
+          // change nothing
+          // value-property is necessary to render the element
+        } else if (tableChildElement.type === 'input') {
+          // input
 
-        } catch (error) {
-          if (error.name === 'TypeError') {
-            // value is only an array with datatype wrapper
+          // set placeholder for creation of subelement
+          descriptionTemplateElement.descriptionTemplateValue = _.cloneDeep(descriptionTemplateElement.value);
+          descriptionTemplateElement.value = '';
+        } else if (tableChildElement.type === 'dropdown') {
+          // dropdown
 
-            // set placeholder for creation of subelement
-            descriptionTemplateElement.descriptionTemplateValue = _.cloneDeep(descriptionTemplateElement.value);
-            descriptionTemplateElement.value = '';
+          // set empty array for creation of subelement
+          descriptionTemplateElement.descriptionTemplateValue = _.cloneDeep(descriptionTemplateElement.value);
+          descriptionTemplateElement.value = [];
+        } else if (tableChildElement.type === 'wrapper') {
+          // wrapper         
 
-          } else {
-            throw new Error('tableHandler() - descriptionTemplateElement.value.forEach() error');
-          }
+          // changes to descriptionTemplateElement.value would not effect anything
+          // because descriptionTemplateElement is a deep clone
+          // -> handle wrapper in wrapperHandler()         
+        } else {
+          // type not supported as subelement of table
+          throw new Error(`tableHandler() - type ${templatePart.value[0].type} not supported as subelement of table`);
         }
 
         // create new child element of not choosen option 
@@ -372,9 +384,38 @@ export class RequirementComponent implements OnInit, OnDestroy {
     newPart.style.display = 'inline';
 
     // add children elements
-    for (var i = 0; i < templatePart.value.length; i++) {
+    for (let i = 0; i < templatePart.value.length; i++) {
 
-      var tableChildElement = templatePart.value[i];
+      // local variable
+      let tableChildElement = templatePart.value[i];
+
+      // handle all subelement types of wrapper: dropdown, input, text
+      // wrapperHandler() called for choosen options -> descriptionTemplateValue already set
+      // wrapperHandler() called for not-choosen options -> descriptionTemplateValue not set
+      switch (tableChildElement.type) {
+        case 'dropdown':
+          if (!tableChildElement.descriptionTemplateValue) {
+
+            // set empty array for creation of subelement
+            tableChildElement.descriptionTemplateValue = _.cloneDeep(tableChildElement.value);
+            tableChildElement.value = [];
+          }
+          break;
+        case 'input':
+          if (!tableChildElement.descriptionTemplateValue) {
+
+            // set placeholder for creation of subelement
+            tableChildElement.descriptionTemplateValue = _.cloneDeep(tableChildElement.value);
+            tableChildElement.value = '';
+          }
+          break;
+        case 'text':
+          // do nothing
+          // descriptionTemplateValue is not set and value is needed for rendering
+          break;
+        default:
+          throw new Error(`wrapperHandler() - type ${tableChildElement.type} is not supported as a subtype of wrapper`);
+      }
 
       // create new child element
       // ToDo handle errors if array is not valid
@@ -382,7 +423,6 @@ export class RequirementComponent implements OnInit, OnDestroy {
 
       // append new elements to wrapper
       newPart.appendChild(newChildElement);
-
     }
 
     return newPart;
