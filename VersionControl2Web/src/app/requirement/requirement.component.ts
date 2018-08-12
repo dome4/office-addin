@@ -498,61 +498,34 @@ export class RequirementComponent implements OnInit, OnDestroy {
       } else {
         // nested elements hava an id === 'undefined'
 
-        new Observable((observer: Observer<string>) => {
+        // requirement service method call
+        this.requirementService.findValidParentId(event.target)
+          .subscribe((templatePartId: string) => {
 
-          /**
-           * find next parent with requirement template part id
-           * 
-           * @param element start node
-           */
-          let findValidParentId = (element) => {
+            // find template part -> is a table (see definition, wrapper-elements are always subelements of a table)
+            let templatePart: RequirementTemplatePart = RequirementTemplatePart.findById(this.selectedRequirement.descriptionParts, templatePartId);
 
-            if ((<string>element.id).includes('requirementId')) {
-              // no valid table or wrapper id found
-              observer.error('onRequirementPartChanged() - root level of requirement reached');
-              observer.complete();
+            if (event.target.nodeName.toLowerCase() === 'input') {
+              // input
 
-            } else if (element.id && element.id !== 'undefined') {
-              // return id result
-              observer.next(element.id);
-              observer.complete();
+              // local variable
+              let modifiedInput: HTMLInputElement = event.target;
 
+              // execute method from above
+              this.requirementService.findModifiedElementInDescriptionTemplate(templatePart, modifiedInput.placeholder, modifiedInput.value);
+
+            } else if (event.target.nodeName.toLowerCase() === 'select') {
+              // dropdown
+
+              // ToDo if dropdown is in an table element
+              throw new Error('onRequirementPartChanged() - dropdown case not implemented yet');
+
+              // Issue: findModifiedElementInDescriptionTemplate() does not work for dropdown yet
+              // because value is set to '' and not to[]
             } else {
-              // recursive method call
-              findValidParentId(element.parentElement);
-
+              throw new Error('onRequirementPartChanged() - neither input nor dropdown element');
             }
-          };
-
-          // execute function
-          findValidParentId(event.target);
-
-        }).subscribe((templatePartId: string) => {
-
-          // find template part -> is a table (see definition, wrapper-elements are always subelements of a table)
-          let templatePart: RequirementTemplatePart = RequirementTemplatePart.findById(this.selectedRequirement.descriptionParts, templatePartId);          
-
-          if (event.target.nodeName.toLowerCase() === 'input') {
-            // input
-
-            // local variable
-            let modifiedInput: HTMLInputElement = event.target;
-
-            // execute method from above
-            this.requirementService.findModifiedElementInDescriptionTemplate(templatePart, modifiedInput.placeholder, modifiedInput.value);
-
-          } else if (event.target.nodeName.toLowerCase() === 'select') {
-            // dropdown
-
-            // ToDo if dropdown is in an table element
-            throw new Error('onRequirementPartChanged() - dropdown case not implemented yet');
-
-            // Issue: findModifiedElementInDescriptionTemplate() does not work for dropdown yet
-            // because value is set to '' and not to[]
-          } else {
-            throw new Error('onRequirementPartChanged() - neither input nor dropdown element');
-          }
-        });
+          });
       }
     } else if (event.type === 'click') {
       // table
@@ -562,24 +535,24 @@ export class RequirementComponent implements OnInit, OnDestroy {
       // service method call
       this.requirementService.findParentRow(event.target)
         .subscribe(
-        (node: HTMLTableRowElement) => {
-          // debug
-          console.log('clicked table row');
-          console.log(node);
+          (node: HTMLTableRowElement) => {
+            // debug
+            console.log('clicked table row');
+            console.log(node);
 
-          // save value to requirement template part
-          // ToDo
-
-
+            // save value to requirement template part
+            // ToDo
 
 
-          // set table row active
-          // ToDo
 
 
-        },
-        error => console.log(error)
-      )
+            // set table row active
+            // ToDo
+
+
+          },
+          error => console.log(error)
+        )
 
 
 

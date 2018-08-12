@@ -433,7 +433,7 @@ export class RequirementService {
   /**
   * find next table row parent
   * 
-  * @param node
+  * @param DOMNode
   */
   public findParentRow(DOMNode): Observable<HTMLTableRowElement> {
 
@@ -538,5 +538,43 @@ export class RequirementService {
         });
       }
     })
+  }
+
+  /**
+   * find next parent with requirement template part id
+   * 
+   * @param DOMNode start node
+   */
+  public findValidParentId(DOMNode): Observable<string> {
+
+    return new Observable((observer: Observer<string>) => {
+
+      /**
+       * find next parent with requirement template part id - subfunction
+       * 
+       * @param element start node
+       */
+      let findValidParentId = (element) => {
+
+        if ((<string>element.id).includes('requirementId')) {
+          // no valid table or wrapper id found
+          observer.error('onRequirementPartChanged() - root level of requirement reached');
+          observer.complete();
+
+        } else if (element.id && element.id !== 'undefined') {
+          // return id result
+          observer.next(element.id);
+          observer.complete();
+
+        } else {
+          // recursive method call
+          findValidParentId(element.parentElement);
+
+        }
+      };
+
+      // execute function
+      findValidParentId(DOMNode);
+    });
   }
 }
