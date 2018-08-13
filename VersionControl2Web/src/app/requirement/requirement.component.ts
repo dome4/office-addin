@@ -1,12 +1,14 @@
 import { Component, OnInit, OnDestroy, ViewChild, ElementRef, Renderer2 } from '@angular/core';
 import { RequirementService } from '../services/requirement.service';
 import { Requirement } from '../models/requirement';
-import { Subscription, Observable, Observer } from 'rxjs';
+import { Subscription, Observable, Observer, BehaviorSubject, from } from 'rxjs';
 import { RequirementTemplatePart } from '../models/requirement-template-part';
 import { RequirementDescriptionTemplate } from '../models/requirement-description-template/requirement-description-template';
 import { RequirementDescriptionTemplatePart } from '../models/requirement-description-template/requirement-description-template-part';
 import { StoreService } from '../services/store.service';
 import * as _ from 'lodash';
+import { RequirementTemplatePartService } from '../services/requirement-template-part.service';
+import { concatMap, bufferCount } from 'rxjs/operators';
 
 // js variable
 //declare var document: any;
@@ -44,13 +46,17 @@ export class RequirementComponent implements OnInit, OnDestroy {
   // variable shows if current requirement template is valid
   public requirementTemplateIsValid: boolean;
 
+  // modified template parts to upload
+  private modifiedRequirementTemplateParts: RequirementTemplatePart[] = [];
+
   /*
    * constructor
    */
   constructor(
     private requirementService: RequirementService,
     private renderer: Renderer2,
-    private storeService: StoreService
+    private storeService: StoreService,
+    private requirementTemplatePartService: RequirementTemplatePartService
   ) { }
 
   ngOnInit() {
@@ -532,6 +538,9 @@ export class RequirementComponent implements OnInit, OnDestroy {
           changedTemplatePart.value = [select.options[select.selectedIndex].textContent];
         }
 
+        // save chagend data for api call
+        this.modifiedRequirementTemplateParts.push(changedTemplatePart);
+        this.storeService.requirementTemplatePartsModified$.next(true);
 
       } else {
         // nested elements hava an id === 'undefined'
@@ -563,8 +572,12 @@ export class RequirementComponent implements OnInit, OnDestroy {
             } else {
               throw new Error('onRequirementPartChanged() - neither input nor dropdown element');
             }
+
+            // save chagend data for api call
+            this.modifiedRequirementTemplateParts.push(templatePart);
+            this.storeService.requirementTemplatePartsModified$.next(true);
           });
-      }
+      }    
     } else if (event.type === 'click') {
       // table
 
@@ -640,6 +653,10 @@ export class RequirementComponent implements OnInit, OnDestroy {
                 // set tableRow active
                 tableRow.classList.add('active');
 
+                // save chagend data for api call
+                this.modifiedRequirementTemplateParts.push(templatePart);
+                this.storeService.requirementTemplatePartsModified$.next(true);
+
               }
             }, (error) => {
               // if findParentRow() fails
@@ -672,5 +689,71 @@ export class RequirementComponent implements OnInit, OnDestroy {
   onRequirementChanged() {
     // validate updated requirement
     this.requirementService.validateRequirementTemplate(this.requirementTemplateParts, this.descriptionTemplate);
+  }
+
+  /**
+   * make api calls for changed requirement template parts
+   *
+   */
+  onSaveRequirement() {
+
+    // indicate loading
+    this.storeService.appLoading$.next(true);
+
+    // requirement template parts to update -> local variable
+    let templateParts: RequirementTemplatePart[] = _.cloneDeep(this.modifiedRequirementTemplateParts);
+
+    // remove duplicates from behind -> last items are the newest ones
+    templateParts = _.uniqWith(templateParts.reverse(), (firstItem, secondItem) => {
+      return firstItem._id === secondItem._id;
+    });
+
+    // count variable
+    let templatePartsCount = templateParts.length;
+
+    from(templateParts).pipe(
+      concatMap((part: RequirementTemplatePart) => {
+
+        // prepare template parts -> property descriptionTemplateValue is not in backend model and also not necessary
+        delete part['descriptionTemplateValue'];
+
+        // ToDo prepare table and wrapper types
+
+        // debug
+        console.log('part to update')
+        console.log(_.cloneDeep(part))
+
+        return this.requirementTemplatePartService.updateRequirementTemplatePart(part);
+      }),
+      bufferCount(templatePartsCount)
+    )
+      .subscribe(
+        (result) => {
+          console.log('save successfull')
+          console.log(result)
+
+          // set modified indicator to false
+          this.storeService.requirementTemplatePartsModified$.next(false);
+
+          // reset array of modified requirement template parts
+          this.modifiedRequirementTemplateParts = [];
+
+          // reload requirements
+          this.requirementService.reloadRequirements();
+
+          // ToDo select current requirement -> rerender page
+          //this.storeService.selectedRequirement$.next();
+
+
+          // end loading
+          this.storeService.appLoading$.next(false);
+        }, (error) => {
+          console.log('onSaveRequirement() - updating requirement template parts went wrong');
+          console.log(error);
+
+          // end loading
+          this.storeService.appLoading$.next(false);
+        }
+      );
   }
 }

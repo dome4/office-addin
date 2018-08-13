@@ -43,6 +43,10 @@
     </div>
   </clr-alert>
 
+  <div class="clr-row" *ngIf="this.storeService.requirementTemplatePartsModified$ | async">
+    <button (click)="onSaveRequirement()" class="btn btn-primary">Save Requirement</button>
+  </div>
+
   <hr />
 
   <div class="clr-row">
