@@ -589,4 +589,84 @@ export class RequirementService {
       findValidParentId(DOMNode);
     });
   }
+
+  /**
+   * get the descriptionParts string of the requirement param
+   * 
+   * @param requirement Requirement
+   */
+  getStringFromRequirement(requirement: Requirement) {
+
+    return new Observable((observer: Observer<string>) => {
+
+      // return string
+      let sentence: string = '';
+
+      requirement.descriptionParts.forEach((part: RequirementTemplatePart) => {
+
+        // handle all descriptionParts
+        switch (part.type) {
+          case 'dropdown':
+            sentence += ' ' + part.value[0];
+            break;
+          case 'input':
+            sentence += ' ' + part.value;
+            break;
+          case 'text':
+            sentence += ' ' + part.value;
+            break;
+          case 'table':
+            (<RequirementTemplatePart[]>part.value).forEach((tablePart: RequirementTemplatePart) => {
+
+              // handle all table subpart types
+              switch (tablePart.type) {
+                case 'dropdown':
+                  sentence += ' ' + tablePart.value[0];
+                  break;
+                case 'input':
+                  sentence += ' ' + tablePart.value;
+                  break;
+                case 'text':
+                  sentence += ' ' + tablePart.value;
+                  break;
+                case 'wrapper':
+                  (<RequirementTemplatePart[]>tablePart.value).forEach((wrapperPart: RequirementTemplatePart) => {
+
+                    // handle all wrapper subpart types
+                    switch (wrapperPart.type) {
+                      case 'dropdown':
+                        sentence += ' ' + wrapperPart.value[0];
+                        break;
+                      case 'input':
+                        sentence += ' ' + wrapperPart.value;
+                        break;
+                      case 'text':
+                        sentence += ' ' + wrapperPart.value;
+                        break;
+                      default:
+                        observer.error(`getStringFromRequirement() - type ${wrapperPart.type} not defined as subpart type of wrapper`);
+                        observer.complete();
+                    }
+                  });
+                  break;
+                default:
+                  observer.error(`getStringFromRequirement() - type ${tablePart.type} not defined as subpart type of table`);
+                  observer.complete();
+              }
+            });
+            break;
+          //case 'wrapper':
+          //  // is defined as subtype of table -> no need to handle
+          //  break;
+          default:
+            observer.error(`getStringFromRequirement() - type ${part.type} not defined`);
+            observer.complete();
+        }
+      });
+
+      // return result
+      observer.next(sentence);
+      observer.complete();
+    });
+  }
 }
