@@ -27,6 +27,7 @@ import { RequirementDescriptionTemplateService } from './services/requirement-de
 import { RequirementTemplatePartService } from './services/requirement-template-part.service';
 import { RequirementDetailsComponent } from './requirement/requirement-details/requirement-details.component';
 import { AlertComponent } from './alert/alert.component';
+import { RequirementAPIService } from './services/requirement/requirement-api.service';
 
 @NgModule({
   declarations: [
@@ -53,6 +54,7 @@ import { AlertComponent } from './alert/alert.component';
   ],
   providers: [
     RequirementService,
+    RequirementAPIService,
     AuthService,
     AuthService,
     LocalStorageService,

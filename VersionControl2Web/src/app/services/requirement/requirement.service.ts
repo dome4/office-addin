@@ -10,6 +10,7 @@ import { RequirementDescriptionTemplate } from '../../models/requirement-descrip
 import { RequirementDescriptionTemplatePart } from '../../models/requirement-description-template/requirement-description-template-part';
 import { RequirementTemplatePartService } from '../requirement-template-part.service';
 import * as _ from 'lodash';
+import { RequirementAPIService } from './requirement-api.service';
 
 const api = environment.apiUrl;
 
@@ -29,7 +30,8 @@ export class RequirementService {
   constructor(
     private http: HttpClient,
     private authService: AuthService,
-    private partService: RequirementTemplatePartService
+    private partService: RequirementTemplatePartService,
+    private requirementApiService: RequirementAPIService
   ) {
 
     // initialize requirements$ data
@@ -49,25 +51,25 @@ export class RequirementService {
     // method should only be executed once on app startup
     // else reloadRequirements() should be executed
 
-    return this.http.get<Array<Requirement>>(`${api}/requirements`).pipe(
+    return this.requirementApiService.getRequirements().pipe(
       map(this.mapDescriptionTemplateWithRequirementParts, this) // context is a necessary param
     )
   }
 
   getRequirement(requirement: Requirement) {
-    return this.http.get<Requirement>(`${api}/requirement/${requirement._id}`)
+    return this.requirementApiService.getRequirement(requirement);
   }
 
   deleteRequirement(requirement: Requirement) {
-    return this.http.delete(`${api}/requirement/${requirement._id}`);
+    return this.requirementApiService.deleteRequirement(requirement);
   }
 
   addRequirement(requirement: Requirement) {
-    return this.http.post<Requirement>(`${api}/requirement/`, requirement);
+    return this.requirementApiService.addRequirement(requirement);
   }
 
   updateRequirement(requirement: Requirement) {
-    return this.http.put<Requirement>(`${api}/requirement/${requirement._id}`, requirement);
+    return this.requirementApiService.updateRequirement(requirement);
   }
 
   /**
