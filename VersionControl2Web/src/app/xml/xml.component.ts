@@ -7,6 +7,9 @@ import { OfficeService } from '../services/office-api/office.service';
 import { OoxmlParser } from '../services/office-api/ooxml-parser.service';
 import * as _ from 'lodash';
 
+// Office variables
+declare let Office: any;
+
 @Component({
   selector: 'app-xml',
   templateUrl: './xml.component.html',
@@ -57,14 +60,34 @@ export class XmlComponent implements OnInit, OnDestroy {
         // search in xml for current requirement
         if (this.officeService.documentIncludesRequiremntId(xml, requirement._id)) {
 
-          // update current document with rich text elements
-          console.log('requirement already in specification sheet');
+          // array of currently defined placeholders in requirement template
+          let richTextElements = [
+            { id: `requirement_${requirement._id}_id`, value: requirement._id },
+            { id: `requirement_${requirement._id}_version`, value: requirement.version.toString() },
+            { id: `requirement_${requirement._id}_name`, value: requirement.name },
+            { id: `requirement_${requirement._id}_duration`, value: requirement.duration.toString() },
+            { id: `requirement_${requirement._id}_description`, value: string }
+          ];
+
+          // ToDo put all variables of the requirement model as rich text element in the specification
+          // template and handle them here
+
+          // go through all parts
+          richTextElements.forEach(element => {
+
+            // add binding
+            this.officeService.addBindingFromNamedItem(element.id, Office.BindingType.Text, element.id, () => {
+
+              // set value
+              this.officeService.setRichTextElementContent(element.id, 'text', element.value);
+            });
+          });
 
         } else {
           // insert requirement in document
 
           let params = {
-            counter: '2',
+            counter: '2', // ToDo set counter
             requirement: {
               id: requirement._id,
               version: requirement.version,

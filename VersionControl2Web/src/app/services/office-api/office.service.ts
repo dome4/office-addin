@@ -40,6 +40,23 @@ export class OfficeService {
   }
 
   /**
+   * set given param as content of a rich text element
+   * 
+   * @param bindingId Binding Id of the rich text element to set
+   * @param bindingType Binding Type
+   * @param valueToSet value to set
+   */
+  setRichTextElementContent(bindingId: string, bindingType: any, valueToSet: string) {
+
+    Office.select(`bindings#${bindingId}`).setDataAsync(valueToSet, { coercionType: bindingType },
+      (asyncResult) => {
+        if (asyncResult.status == Office.AsyncResultStatus.Failed) {
+          console.log('Error: ' + asyncResult.error.message);
+        }
+      });
+  }
+
+  /**
    * get the xml representation of the whole document
    * 
    */

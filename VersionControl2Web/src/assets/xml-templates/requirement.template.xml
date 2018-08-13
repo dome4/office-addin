@@ -484,8 +484,8 @@
         <w:rFonts w:ascii="Tahoma" w:eastAsia="Tahoma" w:hAnsi="Tahoma" w:cs="Tahoma"/>
         <w:sz w:val="20"/>
       </w:rPr>
-      <w:alias w:val="requirement_{{ requirement.id }}_description "/>
-      <w:tag w:val="requirement_{{ requirement.id }}_description "/>
+      <w:alias w:val="requirement_{{ requirement.id }}_description"/>
+      <w:tag w:val="requirement_{{ requirement.id }}_description"/>
       <w:id w:val="-235323408"/>
       <w:placeholder>
         <w:docPart w:val="1D3F8E95024149CCA6A0A503AA94586C"/>
