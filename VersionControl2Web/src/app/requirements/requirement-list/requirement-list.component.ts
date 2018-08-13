@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { StoreService } from '../../services/store.service';
 
 @Component({
   selector: 'app-requirement-list',
@@ -7,8 +8,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class RequirementListComponent implements OnInit {
 
-  constructor() { }
+  constructor(private storeService: StoreService) { }
 
-  ngOnInit() {
-  }
+  ngOnInit() { }
 }
