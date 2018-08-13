@@ -9,6 +9,7 @@ import { StoreService } from '../services/store.service';
 import * as _ from 'lodash';
 import { RequirementTemplatePartService } from '../services/requirement-template-part.service';
 import { concatMap, bufferCount } from 'rxjs/operators';
+import { Router } from '@angular/router';
 
 // js variable
 //declare var document: any;
@@ -56,7 +57,8 @@ export class RequirementComponent implements OnInit, OnDestroy {
     private requirementService: RequirementService,
     private renderer: Renderer2,
     private storeService: StoreService,
-    private requirementTemplatePartService: RequirementTemplatePartService
+    private requirementTemplatePartService: RequirementTemplatePartService,
+    private router: Router
   ) { }
 
   ngOnInit() {
@@ -726,7 +728,7 @@ export class RequirementComponent implements OnInit, OnDestroy {
         // !! important !!
 
         // ToDo fix
-        //delete part['__v'];
+        delete part['__v'];
 
         // set correct value datatype
         if (part.type === 'input' || part.type === 'dropdown' || part.type === 'text') {
@@ -763,14 +765,12 @@ export class RequirementComponent implements OnInit, OnDestroy {
           // reload requirements
           this.requirementService.reloadRequirements();
 
-          // ToDo select current requirement -> rerender page
-          //this.storeService.selectedRequirement$.next();
-
-          // !! important !!
-
+          //
+          this.router.navigate(['/']);
 
           // end loading
           this.storeService.appLoading$.next(false);
+
         }, (error) => {
           console.log('onSaveRequirement() - updating requirement template parts went wrong');
           console.log(error);
