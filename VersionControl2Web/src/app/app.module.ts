@@ -29,6 +29,7 @@ import { RequirementDetailsComponent } from './requirement/requirement-details/r
 import { AlertComponent } from './alert/alert.component';
 import { RequirementAPIService } from './services/requirement/requirement-api.service';
 import { XmlComponent } from './xml/xml.component';
+import { RequirementsComponent } from './requirements/requirements.component';
 
 @NgModule({
   declarations: [
@@ -43,7 +44,8 @@ import { XmlComponent } from './xml/xml.component';
     TemplateListComponent,
     RequirementDetailsComponent,
     AlertComponent,
-    XmlComponent
+    XmlComponent,
+    RequirementsComponent
   ],
   imports: [
     BrowserModule,

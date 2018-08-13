@@ -133,6 +133,7 @@
     <TypeScriptCompile Include="src\app\models\requirement-description-template\requirement-description-template-part.ts" />
     <TypeScriptCompile Include="src\app\models\requirement-description-template\requirement-description-template.ts" />
     <TypeScriptCompile Include="src\app\models\requirement-template-part.ts" />
+    <TypeScriptCompile Include="src\app\requirements\requirements.component.ts" />
     <TypeScriptCompile Include="src\app\requirement\requirement-details\requirement-details.component.ts" />
     <TypeScriptCompile Include="src\app\requirement\template-list\template-list.component.ts" />
     <TypeScriptCompile Include="src\app\services\auth\auth-guard.service.ts" />
@@ -140,6 +141,8 @@
     <Content Include="src\app\alert\alert.component.html" />
     <Content Include="src\app\auth\signin\signin.component.css" />
     <Content Include="src\app\auth\signin\signin.component.html" />
+    <Content Include="src\app\requirements\requirements.component.css" />
+    <Content Include="src\app\requirements\requirements.component.html" />
     <Content Include="src\app\requirement\requirement-details\requirement-details.component.css" />
     <Content Include="src\app\requirement\requirement-details\requirement-details.component.html" />
     <Content Include="src\app\requirement\requirement-dropdown\requirement-dropdown.component.css" />
