@@ -577,7 +577,7 @@ export class RequirementComponent implements OnInit, OnDestroy {
             this.modifiedRequirementTemplateParts.push(templatePart);
             this.storeService.requirementTemplatePartsModified$.next(true);
           });
-      }    
+      }
     } else if (event.type === 'click') {
       // table
 
@@ -714,14 +714,23 @@ export class RequirementComponent implements OnInit, OnDestroy {
     from(templateParts).pipe(
       concatMap((part: RequirementTemplatePart) => {
 
-        // prepare template parts -> property descriptionTemplateValue is not in backend model and also not necessary
+        // prepare template parts
+
+        // property descriptionTemplateValue is not in backend model and also not necessary
         delete part['descriptionTemplateValue'];
 
-        // ToDo prepare table and wrapper types
+        // set correct value datatype
+        if (part.type === 'input' || part.type === 'dropdown' || part.type === 'text') {
 
-        // debug
-        console.log('part to update')
-        console.log(_.cloneDeep(part))
+          // do nothing -> string or string array are valid datatypes
+        } else if (part.type === 'table' || part.type === 'wrapper') {
+
+          // ToDo delete descriptionTemplateValue of subelements
+
+          // stringify table items
+          part.value.forEach(item => item = JSON.stringify(item));
+
+        }
 
         return this.requirementTemplatePartService.updateRequirementTemplatePart(part);
       }),

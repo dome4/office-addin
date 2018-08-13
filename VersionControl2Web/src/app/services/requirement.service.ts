@@ -188,7 +188,7 @@ export class RequirementService {
           });
       } else if (part.type === 'table') {
 
-        // table handler
+        // table handler      
 
         // set default value and overrite it later
         part.descriptionTemplateValue = template.value;
@@ -520,9 +520,9 @@ export class RequirementService {
           throw new Error('findModifiedElementInDescriptionTemplate() - wrapper options not valid or searchParam not found');
         }
 
-        // set value to wrapper template
+        // set value to wrapper template -> array necessary due to definition
         // correct place to set because search in options.value was successfull
-        templatePart.value = _.cloneDeep(option);
+        templatePart.value = [_.cloneDeep(option)];
 
         // prepare subelement for insertion
         let newSubElement: RequirementTemplatePart = _.cloneDeep(subElement[0]);
@@ -530,7 +530,8 @@ export class RequirementService {
         newSubElement.value = modifiedValue; // Issue: does only work for input, not for dropdown
 
         // wrapper conatins a few elements -> replace the correct one
-        templatePart.value.value.filter((wrapperTemplateOption) => {
+        // templatePart.value is an array but only contains one element (see above)
+        templatePart.value[0].value.filter((wrapperTemplateOption) => {
           if (
             wrapperTemplateOption.type === newSubElement.type &&
             wrapperTemplateOption.value === newSubElement.descriptionTemplateValue
