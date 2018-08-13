@@ -719,6 +719,15 @@ export class RequirementComponent implements OnInit, OnDestroy {
         // property descriptionTemplateValue is not in backend model and also not necessary
         delete part['descriptionTemplateValue'];
 
+        // mongoose internal version causes errors on double requests
+        // Issue: this.selectedRequirement is not updated!!
+        // -> a second request with the same __v gets rejected by the api
+
+        // !! important !!
+
+        // ToDo fix
+        //delete part['__v'];
+
         // set correct value datatype
         if (part.type === 'input' || part.type === 'dropdown' || part.type === 'text') {
 
@@ -731,6 +740,10 @@ export class RequirementComponent implements OnInit, OnDestroy {
           part.value.forEach(item => item = JSON.stringify(item));
 
         }
+
+        // debug
+        console.log('part to save')
+        console.log(part)
 
         return this.requirementTemplatePartService.updateRequirementTemplatePart(part);
       }),
@@ -752,6 +765,8 @@ export class RequirementComponent implements OnInit, OnDestroy {
 
           // ToDo select current requirement -> rerender page
           //this.storeService.selectedRequirement$.next();
+
+          // !! important !!
 
 
           // end loading
