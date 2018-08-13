@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { RequirementService } from "./requirement.service";
+import { RequirementService } from "./requirement/requirement.service";
 import { Observable, Subject, BehaviorSubject } from "rxjs";
 import { Requirement } from "../models/requirement";
 import { RequirementDescriptionTemplate } from "../models/requirement-description-template/requirement-description-template";

@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { RequirementService } from '../services/requirement.service';
+import { RequirementService } from '../services/requirement/requirement.service';
 import { OfficeService } from '../services/office-api/office.service';
 import { Subscription } from 'rxjs';
 

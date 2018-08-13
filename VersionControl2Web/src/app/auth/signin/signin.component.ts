@@ -3,7 +3,7 @@ import { NgForm } from '@angular/forms';
 import { AuthService } from '../../services/auth/auth.service';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { RequirementService } from '../../services/requirement.service';
+import { RequirementService } from '../../services/requirement/requirement.service';
 
 @Component({
   selector: 'app-signin',

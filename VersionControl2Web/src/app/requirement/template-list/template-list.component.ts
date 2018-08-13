@@ -3,7 +3,7 @@ import { Subscription } from 'rxjs';
 import { RequirementDescriptionTemplate } from '../../models/requirement-description-template/requirement-description-template';
 import { StoreService } from '../../services/store.service';
 import { Requirement } from '../../models/requirement';
-import { RequirementService } from '../../services/requirement.service';
+import { RequirementService } from '../../services/requirement/requirement.service';
 import { RequirementDescriptionTemplateService } from '../../services/requirement-description-template.service';
 
 @Component({

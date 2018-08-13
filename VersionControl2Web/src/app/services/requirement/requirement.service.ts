@@ -1,14 +1,14 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Requirement } from '../models/requirement';
-import { environment } from '../../environments/environment';
-import { AuthService } from './auth/auth.service';
-import { RequirementTemplatePart } from '../models/requirement-template-part';
+import { Requirement } from '../../models/requirement';
+import { environment } from '../../../environments/environment';
+import { AuthService } from '../auth/auth.service';
+import { RequirementTemplatePart } from '../../models/requirement-template-part';
 import { BehaviorSubject, Observable, Subject, from, Observer } from 'rxjs';
 import { map, concatMap, bufferCount } from 'rxjs/operators';
-import { RequirementDescriptionTemplate } from '../models/requirement-description-template/requirement-description-template';
-import { RequirementDescriptionTemplatePart } from '../models/requirement-description-template/requirement-description-template-part';
-import { RequirementTemplatePartService } from './requirement-template-part.service';
+import { RequirementDescriptionTemplate } from '../../models/requirement-description-template/requirement-description-template';
+import { RequirementDescriptionTemplatePart } from '../../models/requirement-description-template/requirement-description-template-part';
+import { RequirementTemplatePartService } from '../requirement-template-part.service';
 import * as _ from 'lodash';
 
 const api = environment.apiUrl;

@@ -5,7 +5,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ClarityModule } from '@clr/angular';
 
 import { AppComponent } from './app.component';
-import { RequirementService } from './services/requirement.service';
+import { RequirementService } from './services/requirement/requirement.service';
 import { RequirementListComponent } from './requirement-list/requirement-list.component';
 import { RequirementComponent } from './requirement/requirement.component';
 import { FormsModule } from '@angular/forms';

@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy, ViewChild, ElementRef, Renderer2 } from '@angular/core';
-import { RequirementService } from '../services/requirement.service';
+import { RequirementService } from '../services/requirement/requirement.service';
 import { Requirement } from '../models/requirement';
 import { Subscription, Observable, Observer, BehaviorSubject, from } from 'rxjs';
 import { RequirementTemplatePart } from '../models/requirement-template-part';

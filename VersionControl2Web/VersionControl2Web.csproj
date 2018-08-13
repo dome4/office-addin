@@ -538,7 +538,7 @@
     <TypeScriptCompile Include="src\app\services\office-api\ooxml-parser.service.ts" />
     <TypeScriptCompile Include="src\app\services\requirement-template-part.service.ts" />
     <TypeScriptCompile Include="src\app\services\requirement-description-template.service.ts" />
-    <TypeScriptCompile Include="src\app\services\requirement.service.ts" />
+    <TypeScriptCompile Include="src\app\services\requirement\requirement.service.ts" />
     <TypeScriptCompile Include="src\app\services\store.service.ts" />
     <TypeScriptCompile Include="src\app\xml-debug\xml-debug.component.ts" />
     <TypeScriptCompile Include="src\environments\environment.prod.ts" />
