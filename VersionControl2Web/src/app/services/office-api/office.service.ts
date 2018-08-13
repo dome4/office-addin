@@ -172,4 +172,9 @@ export class OfficeService {
         console.log(error);
       });
   }
+
+  documentIncludesRequiremntId(xmlDoucment: string, requirementId: string): boolean {
+
+    return xmlDoucment.includes(`"requirement-id": "${requirementId}"`);
+  }
 }

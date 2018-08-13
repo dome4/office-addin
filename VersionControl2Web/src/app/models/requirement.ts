@@ -3,7 +3,9 @@ import { RequirementDescriptionTemplate } from './requirement-description-templa
 
 export class Requirement {
   _id: string;
+  version: number;
   name: string;
+  duration: number;
   description: string;
   descriptionParts: RequirementTemplatePart[];
   descriptionTemplate: RequirementDescriptionTemplate;

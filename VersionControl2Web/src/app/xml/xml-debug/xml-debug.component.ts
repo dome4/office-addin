@@ -1,7 +1,8 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { RequirementService } from '../services/requirement/requirement.service';
-import { OfficeService } from '../services/office-api/office.service';
+import { OfficeService } from '../../services/office-api/office.service';
 import { Subscription } from 'rxjs';
+import { Requirement } from '../../models/requirement';
+import { StoreService } from '../../services/store.service';
 
 // Office variables
 declare let Office: any;
@@ -21,7 +22,10 @@ export class XmlDebugComponent implements OnInit, OnDestroy {
   // subscriptions
   private subscriptions: Subscription[] = [];
 
-  constructor(private officeService: OfficeService) { }
+  constructor(
+    private officeService: OfficeService,
+    private storeService: StoreService
+  ) { }
 
   ngOnInit() {
   }
@@ -145,5 +149,4 @@ export class XmlDebugComponent implements OnInit, OnDestroy {
     //})
     // ToDo insertNextRequirement needs an observable return type to subscribe
   }
-
 }

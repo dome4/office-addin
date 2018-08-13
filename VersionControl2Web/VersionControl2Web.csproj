@@ -154,8 +154,10 @@
     <Content Include="src\app\requirement\requirement.component.html" />
     <Content Include="src\app\requirement\template-list\template-list.component.css" />
     <Content Include="src\app\requirement\template-list\template-list.component.html" />
-    <Content Include="src\app\xml-debug\xml-debug.component.css" />
-    <Content Include="src\app\xml-debug\xml-debug.component.html" />
+    <Content Include="src\app\xml\xml-debug\xml-debug.component.css" />
+    <Content Include="src\app\xml\xml-debug\xml-debug.component.html" />
+    <Content Include="src\app\xml\xml.component.css" />
+    <Content Include="src\app\xml\xml.component.html" />
     <Content Include="src\assets\xml-templates\requirement.template.xml" />
     <Content Include="src\assets\xml-templates\specification-sheet.template.xml">
       <SubType>Designer</SubType>
@@ -541,7 +543,8 @@
     <TypeScriptCompile Include="src\app\services\requirement\requirement-api.service.ts" />
     <TypeScriptCompile Include="src\app\services\requirement\requirement.service.ts" />
     <TypeScriptCompile Include="src\app\services\store.service.ts" />
-    <TypeScriptCompile Include="src\app\xml-debug\xml-debug.component.ts" />
+    <TypeScriptCompile Include="src\app\xml\xml-debug\xml-debug.component.ts" />
+    <TypeScriptCompile Include="src\app\xml\xml.component.ts" />
     <TypeScriptCompile Include="src\environments\environment.prod.ts" />
     <TypeScriptCompile Include="src\environments\environment.ts" />
     <TypeScriptCompile Include="src\main.ts" />

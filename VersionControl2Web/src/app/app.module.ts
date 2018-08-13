@@ -20,7 +20,7 @@ import { RequirementDropdownComponent } from './requirement/requirement-dropdown
 import { ReactiveFormsModule } from '@angular/forms';
 import { OfficeService } from './services/office-api/office.service';
 import { OoxmlParser } from './services/office-api/ooxml-parser.service';
-import { XmlDebugComponent } from './xml-debug/xml-debug.component';
+import { XmlDebugComponent } from './xml/xml-debug/xml-debug.component';
 import { StoreService } from './services/store.service';
 import { TemplateListComponent } from './requirement/template-list/template-list.component';
 import { RequirementDescriptionTemplateService } from './services/requirement-description-template.service';
@@ -28,6 +28,7 @@ import { RequirementTemplatePartService } from './services/requirement-template-
 import { RequirementDetailsComponent } from './requirement/requirement-details/requirement-details.component';
 import { AlertComponent } from './alert/alert.component';
 import { RequirementAPIService } from './services/requirement/requirement-api.service';
+import { XmlComponent } from './xml/xml.component';
 
 @NgModule({
   declarations: [
@@ -41,7 +42,8 @@ import { RequirementAPIService } from './services/requirement/requirement-api.se
     XmlDebugComponent,
     TemplateListComponent,
     RequirementDetailsComponent,
-    AlertComponent
+    AlertComponent,
+    XmlComponent
   ],
   imports: [
     BrowserModule,
