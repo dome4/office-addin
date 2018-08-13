@@ -7,6 +7,7 @@ import { AuthGuardService } from './services/auth/auth-guard.service';
 import { SigninComponent } from './auth/signin/signin.component';
 import { RequirementDetailsComponent } from './requirement/requirement-details/requirement-details.component';
 import { RequirementsComponent } from './requirements/requirements.component';
+import { RequirementEditComponent } from './requirements/requirement-edit/requirement-edit.component';
 
 const appRoutes: Routes = [
   { path: '', redirectTo: 'requirements', pathMatch: 'full' },
@@ -14,8 +15,9 @@ const appRoutes: Routes = [
     path: 'requirements', component: RequirementsComponent, children:
       [
         { path: '', component: RequirementListComponent },
+        { path: 'new', component: RequirementEditComponent },
         { path: ':id', component: RequirementComponent },
-        { path: ':id/detail', component: RequirementDetailsComponent }
+        { path: ':id/detail', component: RequirementDetailsComponent }        
       ]
   },
   { path: 'signin', component: SigninComponent },
