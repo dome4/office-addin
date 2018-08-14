@@ -2,7 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { ClarityModule } from '@clr/angular';
+import { ClarityModule, ClrFormsNextModule } from '@clr/angular';
 
 import { AppComponent } from './app.component';
 import { RequirementService } from './services/requirement/requirement.service';
@@ -49,6 +49,7 @@ import { RequirementEditComponent } from './requirements/requirement-edit/requir
     BrowserModule,
     BrowserAnimationsModule,
     ClarityModule,
+    ClrFormsNextModule,
     HttpClientModule,
     FormsModule,
     AppRoutingModule,

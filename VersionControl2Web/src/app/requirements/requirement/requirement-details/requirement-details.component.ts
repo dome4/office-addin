@@ -3,6 +3,7 @@ import { StoreService } from '../../../services/store.service';
 import { Requirement } from '../../../models/requirement';
 import { Subscription, merge } from 'rxjs';
 import { ActivatedRoute, Params } from '@angular/router';
+import { RequirementService } from '../../../services/requirement/requirement.service';
 
 @Component({
   selector: 'app-requirement-details',
@@ -25,7 +26,8 @@ export class RequirementDetailsComponent implements OnInit, OnDestroy {
 
   constructor(
     private storeService: StoreService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private requirementService: RequirementService
   ) { }
 
   ngOnInit() {
@@ -82,5 +84,36 @@ export class RequirementDetailsComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     // unsubscribe all subscriptions
     this.subscriptions.forEach(sub => sub.unsubscribe());
+  }
+
+  /**
+   * save changes to the api
+   *
+   */
+  onRequirementSave() {
+
+    // app starts loading
+    this.storeService.appLoading$.next(true);
+
+    // update current changes requirement (http observable)
+    this.requirementService.updateRequirement(this.selectedRequirement)
+      .subscribe(
+      (requirement: Requirement) => {
+        console.log('onRequirementSave() - requirement save successfull');
+
+        // reload requirements
+        this.requirementService.reloadRequirements();
+
+        // app loading finished
+        this.storeService.appLoading$.next(false);
+
+      }, (error) => {
+        console.log('onRequirementSave() - error occurred');
+        console.log(error);
+
+        // app loading finished
+        this.storeService.appLoading$.next(false);
+      }
+      );
   }
 }
