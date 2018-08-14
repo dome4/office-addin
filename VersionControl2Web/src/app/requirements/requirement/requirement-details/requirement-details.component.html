@@ -81,12 +81,6 @@
             </clr-input-container>
 
             <clr-input-container>
-              <label>Contractor</label>
-              <input clrInput type="text" [(ngModel)]="selectedRequirement.contractor" name="contractor" required />
-              <clr-control-error>Value is required</clr-control-error>
-            </clr-input-container>
-
-            <clr-input-container>
               <label>Due Date</label>
               <input clrInput clrDate type="date" [(ngModel)]="selectedRequirement.dueDate" name="dueDate" required />
               <clr-control-error>Value is required</clr-control-error>
@@ -201,11 +195,6 @@
       </div>
     </div>
   </div>
-</div>
-
-<div *ngIf="selectedRequirement else loading" class="row">
-
-  
 </div>
 
 <ng-template #loading>
