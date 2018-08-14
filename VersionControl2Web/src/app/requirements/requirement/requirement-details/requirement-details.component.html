@@ -1,198 +1,211 @@
+<div class="row" *ngIf="selectedRequirement else loading">
+  <div class="col-md-12 col-sm-12 col-xs-12">
+    <div class="card">
+      <div class="card-header">
+        {{ selectedRequirement.name }}g
+      </div>
+      <div class="card-block">
+        <div class="card-text">
+          <form clrForm>
+
+            <clr-input-container>
+              <label>Name</label>
+              <input clrInput type="text" [(ngModel)]="selectedRequirement.name" name="name" required />
+              <clr-control-error>Value is required</clr-control-error>
+            </clr-input-container>
+
+            <clr-input-container>
+              <label>Version</label>
+              <input clrInput type="number" [(ngModel)]="selectedRequirement.version" name="version" required />
+              <clr-control-error>Value is required</clr-control-error>
+            </clr-input-container>
+
+            <clr-input-container>
+              <label>Duration</label>
+              <input clrInput type="number" [(ngModel)]="selectedRequirement.duration" name="duration" required />
+              <clr-control-helper>Duration in hours</clr-control-helper>
+              <clr-control-error>Value is required</clr-control-error>
+            </clr-input-container>
+
+            <clr-input-container>
+              <label>Responsible</label>
+              <input clrInput type="text" [(ngModel)]="selectedRequirement.responsible" name="responsible" required />
+              <clr-control-helper>Responisble person for the requirement</clr-control-helper>
+              <clr-control-error>Value is required</clr-control-error>
+            </clr-input-container>
+
+            <div class="clr-form-control">
+              <label for="category" class="clr-control-label">Category</label>
+              <div class="clr-control-container">
+                <div class="clr-input-wrapper">
+                  <clr-icon class="clr-validate-icon" shape="exclamation-circle"></clr-icon>
+                  <div class="clr-input select">
+                    <select id="category" [(ngModel)]="selectedRequirement.category" name="category">
+                      <option>Geschäftliche Anforderungen</option>
+                      <option>Normen und Gesetze</option>
+                      <option>Produkteigenschaften</option>
+                      <option>Anforderungen an den Produktlebenszyklus</option>
+                      <option>Designanforderungen</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="clr-form-control">
+              <label for="type" class="clr-control-label">Type</label>
+              <div class="clr-control-container">
+                <div class="clr-input-wrapper">
+                  <clr-icon class="clr-validate-icon" shape="exclamation-circle"></clr-icon>
+                  <div class="clr-input select">
+                    <select id="type" [(ngModel)]="selectedRequirement.type" name="type">
+                      <option>FA</option>
+                      <option>NFA</option>
+                    </select>
+                  </div>
+                </div>
+                <span class="clr-subtext">Funktionale Anforderung (FA) oder nicht-funktionale Anforderung (NFA)</span>
+              </div>
+            </div>
+
+            <clr-input-container>
+              <label>Stakeholder</label>
+              <input clrInput type="text" [(ngModel)]="selectedRequirement.stakeholder" name="stakeholder" required />
+              <clr-control-error>Value is required</clr-control-error>
+            </clr-input-container>
+
+            <clr-input-container>
+              <label>Contractor</label>
+              <input clrInput type="text" [(ngModel)]="selectedRequirement.contractor" name="contractor" required />
+              <clr-control-error>Value is required</clr-control-error>
+            </clr-input-container>
+
+            <clr-input-container>
+              <label>Contractor</label>
+              <input clrInput type="text" [(ngModel)]="selectedRequirement.contractor" name="contractor" required />
+              <clr-control-error>Value is required</clr-control-error>
+            </clr-input-container>
+
+            <clr-input-container>
+              <label>Due Date</label>
+              <input clrInput clrDate type="date" [(ngModel)]="selectedRequirement.dueDate" name="dueDate" required />
+              <clr-control-error>Value is required</clr-control-error>
+            </clr-input-container>
+
+            <div class="clr-form-control">
+              <label for="type" class="clr-control-label">Status</label>
+              <div class="clr-control-container">
+                <div class="clr-input-wrapper">
+                  <clr-icon class="clr-validate-icon" shape="exclamation-circle"></clr-icon>
+                  <div class="clr-input select">
+                    <select id="type" [(ngModel)]="selectedRequirement.status" name="status">
+                      <option>Maßnahme festgelegt</option>
+                      <option>Ablauf defniert</option>
+                      <option>Maßnahmenbearbeitung gestartet</option>
+                      <option>Maßnahme umgesetzt</option>
+                      <option>Maßnahme abgeschlossen</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <clr-input-container>
+              <label>Reason</label>
+              <input clrInput type="text" [(ngModel)]="selectedRequirement.reason" name="reason" required />
+              <clr-control-error>Value is required</clr-control-error>
+            </clr-input-container>
+
+            <div class="clr-form-control">
+              <label for="type" class="clr-control-label">Description</label>
+              <div class="clr-control-container">
+                <div class="clr-input-wrapper">
+                  <clr-icon class="clr-validate-icon" shape="exclamation-circle"></clr-icon>
+                  <input [routerLink]="['/', 'requirements', this.selectedRequirement._id]"
+                         type="text"
+                         [value]="this.requirementService.getStringFromRequirement(this.selectedRequirement) | async"
+                         name="reason"
+                         style="cursor: pointer;" />
+                </div>
+                <span class="clr-subtext">Click to Open Edit-Page</span>
+              </div>
+            </div>
+
+            <div class="clr-form-control">
+              <label for="type" class="clr-control-label">Relations</label>
+              <div class="clr-control-container">
+                <div class="">
+                  <clr-icon class="clr-validate-icon" shape="exclamation-circle"></clr-icon>
+                  <ul class="list" *ngFor="let relation of this.selectedRequirement.relations">
+                    <li style="cursor: pointer;">{{ relation.type }}</li>
+                  </ul>
+                </div>
+                <span class="clr-subtext">Click to Open Edit-Page</span>
+              </div>
+            </div>
+
+            <div class="clr-form-control">
+              <label for="type" class="clr-control-label">Priority</label>
+              <div class="clr-control-container">
+                <div class="clr-input-wrapper">
+                  <clr-icon class="clr-validate-icon" shape="exclamation-circle"></clr-icon>
+                  <div class="clr-input select">
+                    <select id="type" [(ngModel)]="selectedRequirement.priority" name="priority">
+                      <option>Must-have</option>
+                      <option>Should-have</option>
+                      <option>Nice-to-have</option>
+                      <option>Soon-to-be</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="clr-form-control">
+              <label for="type" class="clr-control-label">Keywords</label>
+              <div class="clr-control-container">
+                <div class="">
+                  <clr-icon class="clr-validate-icon" shape="exclamation-circle"></clr-icon>
+                  <ul class="list" *ngFor="let keyword of this.selectedRequirement.keyWords">
+                    <li>{{ keyword }}</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+            <clr-input-container>
+              <label>Acceptance Criteria</label>
+              <input clrInput type="text" [(ngModel)]="selectedRequirement.acceptanceCriteria" name="acceptanceCriteria" required />
+              <clr-control-error>Value is required</clr-control-error>
+            </clr-input-container>
+
+            <div class="clr-form-control">
+              <label for="type" class="clr-control-label">Description Template</label>
+              <div class="clr-control-container">
+                <div class="clr-input-wrapper">
+                  <clr-icon class="clr-validate-icon" shape="exclamation-circle"></clr-icon>
+                  <div class="clr-input" style="cursor: pointer;">
+                    {{ selectedRequirement.descriptionTemplate.name }}
+                  </div>
+                </div>
+                <span class="clr-subtext">Click to Open Edit-Page</span>
+              </div>
+            </div>
+
+            <div style="padding: 20px;">
+              <button (click)="onRequirementSave()" type="button" class="btn btn-primary">Save Changes</button>
+            </div>
+
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
 <div *ngIf="selectedRequirement else loading" class="row">
 
-  <form clrForm>
-
-    <h3>{{ selectedRequirement.name }}</h3>
-
-    <clr-input-container>
-      <label>Name</label>
-      <input clrInput type="text" [(ngModel)]="selectedRequirement.name" name="name" required />
-      <clr-control-error>Value is required</clr-control-error>
-    </clr-input-container>
-
-    <clr-input-container>
-      <label>Version</label>
-      <input clrInput type="number" [(ngModel)]="selectedRequirement.version" name="version" required />
-      <clr-control-error>Value is required</clr-control-error>
-    </clr-input-container>
-
-    <clr-input-container>
-      <label>Duration</label>
-      <input clrInput type="number" [(ngModel)]="selectedRequirement.duration" name="duration" required />
-      <clr-control-helper>Duration in hours</clr-control-helper>
-      <clr-control-error>Value is required</clr-control-error>
-    </clr-input-container>
-
-    <clr-input-container>
-      <label>Responsible</label>
-      <input clrInput type="text" [(ngModel)]="selectedRequirement.responsible" name="responsible" required />
-      <clr-control-helper>Responisble person for the requirement</clr-control-helper>
-      <clr-control-error>Value is required</clr-control-error>
-    </clr-input-container>
-
-    <div class="clr-form-control">
-      <label for="category" class="clr-control-label">Category</label>
-      <div class="clr-control-container">
-        <div class="clr-input-wrapper">
-          <clr-icon class="clr-validate-icon" shape="exclamation-circle"></clr-icon>
-          <div class="clr-input select">
-            <select id="category" [(ngModel)]="selectedRequirement.category" name="category">
-              <option>Geschäftliche Anforderungen</option>
-              <option>Normen und Gesetze</option>
-              <option>Produkteigenschaften</option>
-              <option>Anforderungen an den Produktlebenszyklus</option>
-              <option>Designanforderungen</option>
-            </select>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="clr-form-control">
-      <label for="type" class="clr-control-label">Type</label>
-      <div class="clr-control-container">
-        <div class="clr-input-wrapper">
-          <clr-icon class="clr-validate-icon" shape="exclamation-circle"></clr-icon>
-          <div class="clr-input select">
-            <select id="type" [(ngModel)]="selectedRequirement.type" name="type">
-              <option>FA</option>
-              <option>NFA</option>
-            </select>
-          </div>
-        </div>
-        <span class="clr-subtext">Funktionale Anforderung (FA) oder nicht-funktionale Anforderung (NFA)</span>
-      </div>
-    </div>
-
-    <clr-input-container>
-      <label>Stakeholder</label>
-      <input clrInput type="text" [(ngModel)]="selectedRequirement.stakeholder" name="stakeholder" required />
-      <clr-control-error>Value is required</clr-control-error>
-    </clr-input-container>
-
-    <clr-input-container>
-      <label>Contractor</label>
-      <input clrInput type="text" [(ngModel)]="selectedRequirement.contractor" name="contractor" required />
-      <clr-control-error>Value is required</clr-control-error>
-    </clr-input-container>
-
-    <clr-input-container>
-      <label>Contractor</label>
-      <input clrInput type="text" [(ngModel)]="selectedRequirement.contractor" name="contractor" required />
-      <clr-control-error>Value is required</clr-control-error>
-    </clr-input-container>
-
-    <clr-input-container>
-      <label>Due Date</label>
-      <input clrInput clrDate type="date" [(ngModel)]="selectedRequirement.dueDate" name="dueDate" required />
-      <clr-control-error>Value is required</clr-control-error>
-    </clr-input-container>
-
-    <div class="clr-form-control">
-      <label for="type" class="clr-control-label">Status</label>
-      <div class="clr-control-container">
-        <div class="clr-input-wrapper">
-          <clr-icon class="clr-validate-icon" shape="exclamation-circle"></clr-icon>
-          <div class="clr-input select">
-            <select id="type" [(ngModel)]="selectedRequirement.status" name="status">
-              <option>Maßnahme festgelegt</option>
-              <option>Ablauf defniert</option>
-              <option>Maßnahmenbearbeitung gestartet</option>
-              <option>Maßnahme umgesetzt</option>
-              <option>Maßnahme abgeschlossen</option>
-            </select>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <clr-input-container>
-      <label>Reason</label>
-      <input clrInput type="text" [(ngModel)]="selectedRequirement.reason" name="reason" required />
-      <clr-control-error>Value is required</clr-control-error>
-    </clr-input-container>
-
-    <div class="clr-form-control">
-      <label for="type" class="clr-control-label">Description</label>
-      <div class="clr-control-container">
-        <div class="clr-input-wrapper">
-          <clr-icon class="clr-validate-icon" shape="exclamation-circle"></clr-icon>
-          <input [routerLink]="['/', 'requirements', this.selectedRequirement._id]"
-                 type="text"
-                 [value]="this.requirementService.getStringFromRequirement(this.selectedRequirement) | async"
-                 name="reason"
-                 style="cursor: pointer;" />
-        </div>
-        <span class="clr-subtext">Click to Open Edit-Page</span>
-      </div>
-    </div>
-
-    <div class="clr-form-control">
-      <label for="type" class="clr-control-label">Relations</label>
-      <div class="clr-control-container">
-        <div class="">
-          <clr-icon class="clr-validate-icon" shape="exclamation-circle"></clr-icon>
-          <ul class="list" *ngFor="let relation of this.selectedRequirement.relations">
-            <li style="cursor: pointer;">{{ relation.type }}</li>
-          </ul>
-        </div>
-        <span class="clr-subtext">Click to Open Edit-Page</span>
-      </div>
-    </div>
-
-    <div class="clr-form-control">
-      <label for="type" class="clr-control-label">Priority</label>
-      <div class="clr-control-container">
-        <div class="clr-input-wrapper">
-          <clr-icon class="clr-validate-icon" shape="exclamation-circle"></clr-icon>
-          <div class="clr-input select">
-            <select id="type" [(ngModel)]="selectedRequirement.priority" name="priority">
-              <option>Must-have</option>
-              <option>Should-have</option>
-              <option>Nice-to-have</option>
-              <option>Soon-to-be</option>
-            </select>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="clr-form-control">
-      <label for="type" class="clr-control-label">Keywords</label>
-      <div class="clr-control-container">
-        <div class="">
-          <clr-icon class="clr-validate-icon" shape="exclamation-circle"></clr-icon>
-          <ul class="list" *ngFor="let keyword of this.selectedRequirement.keyWords">
-            <li>{{ keyword }}</li>
-          </ul>
-        </div>
-      </div>
-    </div>
-
-    <clr-input-container>
-      <label>Acceptance Criteria</label>
-      <input clrInput type="text" [(ngModel)]="selectedRequirement.acceptanceCriteria" name="acceptanceCriteria" required />
-      <clr-control-error>Value is required</clr-control-error>
-    </clr-input-container>
-
-    <div class="clr-form-control">
-      <label for="type" class="clr-control-label">Description Template</label>
-      <div class="clr-control-container">
-        <div class="clr-input-wrapper">
-          <clr-icon class="clr-validate-icon" shape="exclamation-circle"></clr-icon>
-          <div class="clr-input" style="cursor: pointer;">
-            {{ selectedRequirement.descriptionTemplate.name }}
-          </div>
-        </div>
-        <span class="clr-subtext">Click to Open Edit-Page</span>
-      </div>
-    </div>
-
-    <div style="padding: 20px;">
-      <button (click)="onRequirementSave()" type="button" class="btn btn-primary">Save Changes</button>
-    </div>
-
-  </form>
+  
 </div>
 
 <ng-template #loading>
