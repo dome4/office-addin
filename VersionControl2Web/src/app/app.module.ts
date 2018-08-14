@@ -16,13 +16,11 @@ import { SigninComponent } from './auth/signin/signin.component';
 import { AuthService } from './services/auth/auth.service';
 import { LocalStorageService } from './services/local-storage.service';
 import { TokenInterceptor } from './services/auth/token-interceptor.service';
-import { RequirementDropdownComponent } from './requirement/requirement-dropdown/requirement-dropdown.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { OfficeService } from './services/office-api/office.service';
 import { OoxmlParser } from './services/office-api/ooxml-parser.service';
 import { XmlDebugComponent } from './xml/xml-debug/xml-debug.component';
 import { StoreService } from './services/store.service';
-import { TemplateListComponent } from './requirement/template-list/template-list.component';
 import { RequirementDescriptionTemplateService } from './services/requirement-description-template.service';
 import { RequirementTemplatePartService } from './services/requirement-template-part.service';
 import { RequirementDetailsComponent } from './requirement/requirement-details/requirement-details.component';
@@ -35,14 +33,12 @@ import { RequirementEditComponent } from './requirements/requirement-edit/requir
 @NgModule({
   declarations: [
     AppComponent,
-    RequirementDropdownComponent,
     RequirementListComponent,
     RequirementComponent,
     NotFoundComponent,
     HeaderComponent,
     SigninComponent,
     XmlDebugComponent,
-    TemplateListComponent,
     RequirementDetailsComponent,
     AlertComponent,
     XmlComponent,
