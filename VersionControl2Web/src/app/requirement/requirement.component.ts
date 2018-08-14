@@ -702,15 +702,6 @@ export class RequirementComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * method should be executed everytime the requirement changes
-   *
-   */
-  onRequirementChanged() {
-    // validate updated requirement
-    this.requirementService.validateRequirementTemplate(this.requirementTemplateParts, this.descriptionTemplate);
-  }
-
-  /**
    * make api calls for changed requirement template parts
    *
    */
@@ -737,15 +728,6 @@ export class RequirementComponent implements OnInit, OnDestroy {
 
         // property descriptionTemplateValue is not in backend model and also not necessary
         delete part['descriptionTemplateValue'];
-
-        // mongoose internal version causes errors on double requests
-        // Issue: this.selectedRequirement is not updated!!
-        // -> a second request with the same __v gets rejected by the api
-
-        // !! important !!
-
-        // ToDo fix
-        delete part['__v'];
 
         // set correct value datatype
         if (part.type === 'input' || part.type === 'dropdown' || part.type === 'text') {
@@ -781,9 +763,6 @@ export class RequirementComponent implements OnInit, OnDestroy {
 
           // reload requirements
           this.requirementService.reloadRequirements();
-
-          //
-          this.router.navigate(['/']);
 
           // end loading
           this.storeService.appLoading$.next(false);

@@ -1,25 +1,16 @@
 <div class="clr-row">
   <div class="clr-col-12">
-    <app-requirement-dropdown></app-requirement-dropdown>
-    <!-- ToDo delete dropdown-->
-  </div>
-</div>
-<div class="clr-row">
-  <div class="clr-col-12">
     <div *ngIf="selectedRequirement && selectedRequirement.name">
       <label>Selected Requirement: {{ selectedRequirement.name }}</label>
     </div>
   </div>
 </div>
 
+<hr />
+
 <app-xml></app-xml>
 
 <hr />
-
-<!-- ToDo delete template list-->
-<app-template-list></app-template-list>
-
-
 
 <div class="clr-row">
   <label>Type your Requirement in here:</label>
@@ -28,33 +19,29 @@
 
 <div #requirementContainer style="display:inline;"></div>
 
-<ng-template [ngIf]="selectedRequirement">
-  <div class="clr-row">
-    <button (click)="onRequirementChanged()" class="btn btn-primary">Validate Requirement</button>
-  </div>
-
-  <clr-alert *ngIf="!requirementTemplateIsValid" [clrAlertType]="'alert-warning'" [clrAlertClosable]="false">
-    <div class="alert-item">
-      <span class="alert-text">
-        Requirement is not valid!
-      </span>
-    </div>
-  </clr-alert>
-
-  <div class="clr-row" *ngIf="this.storeService.requirementTemplatePartsModified$ | async">
-    <button (click)="onSaveRequirement()" class="btn btn-primary">Save Requirement</button>
-  </div>
-
-  <hr />
-
-  <div class="clr-row">
-    <button [routerLink]="['/requirements', selectedRequirement._id]" class="btn btn-primary">Requirement Details</button>
-  </div>
-
-</ng-template>
-
 <div *ngIf="requirementComponentLoadingCompleted$ | async else loading">
-  App Loading completed
+  
+  <ng-template [ngIf]="selectedRequirement">
+
+    <clr-alert *ngIf="!requirementTemplateIsValid" [clrAlertType]="'alert-warning'" [clrAlertClosable]="false">
+      <div class="alert-item">
+        <span class="alert-text">
+          Requirement is not valid!
+        </span>
+      </div>
+    </clr-alert>
+
+    <div class="clr-row" *ngIf="this.storeService.requirementTemplatePartsModified$ | async">
+      <button (click)="onSaveRequirement()" class="btn btn-primary">Save Requirement</button>
+    </div>
+
+    <hr />
+
+    <div class="clr-row">
+      <button [routerLink]="['/requirements', selectedRequirement._id, 'detail']" class="btn btn-primary">Requirement Details</button>
+    </div>
+
+  </ng-template>
 
 </div>
 
