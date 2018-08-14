@@ -1,13 +1,13 @@
 import { Component, OnInit, OnDestroy, ViewChild, ElementRef, Renderer2 } from '@angular/core';
-import { RequirementService } from '../services/requirement/requirement.service';
-import { Requirement } from '../models/requirement';
+import { RequirementService } from '../../services/requirement/requirement.service';
+import { Requirement } from '../../models/requirement';
 import { Subscription, Observable, Observer, BehaviorSubject, from, merge } from 'rxjs';
-import { RequirementTemplatePart } from '../models/requirement-template-part';
-import { RequirementDescriptionTemplate } from '../models/requirement-description-template/requirement-description-template';
-import { RequirementDescriptionTemplatePart } from '../models/requirement-description-template/requirement-description-template-part';
-import { StoreService } from '../services/store.service';
+import { RequirementTemplatePart } from '../../models/requirement-template-part';
+import { RequirementDescriptionTemplate } from '../../models/requirement-description-template/requirement-description-template';
+import { RequirementDescriptionTemplatePart } from '../../models/requirement-description-template/requirement-description-template-part';
+import { StoreService } from '../../services/store.service';
 import * as _ from 'lodash';
-import { RequirementTemplatePartService } from '../services/requirement-template-part.service';
+import { RequirementTemplatePartService } from '../../services/requirement-template-part.service';
 import { concatMap, bufferCount } from 'rxjs/operators';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 

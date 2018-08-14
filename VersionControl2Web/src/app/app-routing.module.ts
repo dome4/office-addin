@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { RequirementComponent } from './requirement/requirement.component';
+import { RequirementComponent } from './requirements/requirement/requirement.component';
 import { RequirementListComponent } from './requirements/requirement-list/requirement-list.component';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { AuthGuardService } from './services/auth/auth-guard.service';
 import { SigninComponent } from './auth/signin/signin.component';
-import { RequirementDetailsComponent } from './requirement/requirement-details/requirement-details.component';
+import { RequirementDetailsComponent } from './requirements/requirement/requirement-details/requirement-details.component';
 import { RequirementsComponent } from './requirements/requirements.component';
 import { RequirementEditComponent } from './requirements/requirement-edit/requirement-edit.component';
 

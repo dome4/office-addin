@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { StoreService } from '../../services/store.service';
-import { Requirement } from '../../models/requirement';
+import { StoreService } from '../../../services/store.service';
+import { Requirement } from '../../../models/requirement';
 import { Subscription, merge } from 'rxjs';
 import { ActivatedRoute, Params } from '@angular/router';
 
