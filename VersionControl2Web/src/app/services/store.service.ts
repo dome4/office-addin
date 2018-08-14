@@ -16,9 +16,6 @@ export class StoreService {
   // local requirements
   public requirements$: BehaviorSubject<Requirement[]>;
 
-  // currently selected requirement
-  public selectedRequirement$: Subject<Requirement>;
-
   // local requirement description templates
   public requirementDescriptionTemplates$: Observable<RequirementDescriptionTemplate[]>;
 
@@ -36,7 +33,6 @@ export class StoreService {
 
     // initialize data
     this.requirements$ = this.requirementService.requirements$;
-    this.selectedRequirement$ = this.requirementService.selectedRequirement$;
     this.requirementDescriptionTemplates$ = this.requirementDescriptionTemplateService.requirementDescriptionTemplates$;
     this.requirementTemplatePartsModified$ = this.requirementTemplatePartService.requirementTemplatePartsModified$;
   }

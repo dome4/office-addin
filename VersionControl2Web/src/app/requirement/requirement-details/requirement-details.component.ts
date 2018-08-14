@@ -1,8 +1,8 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { StoreService } from '../../services/store.service';
 import { Requirement } from '../../models/requirement';
-import { Subscription } from 'rxjs';
-import { ActivatedRoute } from '@angular/router';
+import { Subscription, merge } from 'rxjs';
+import { ActivatedRoute, Params } from '@angular/router';
 
 @Component({
   selector: 'app-requirement-details',
@@ -17,6 +17,9 @@ export class RequirementDetailsComponent implements OnInit, OnDestroy {
   // requirements
   public requirements: Requirement[];
 
+  // selected requirement id
+  private selectedRequirementId: string;
+
   // subscriptions
   private subscriptions: Subscription[] = [];
 
@@ -27,20 +30,53 @@ export class RequirementDetailsComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
 
-    // subscribe to requirements
+    // subscribe to requirements and route params
     this.subscriptions.push(
-      this.storeService.requirements$.subscribe((requirements: Requirement[]) => this.requirements = requirements)
+      merge(
+        this.storeService.requirements$,
+        this.route.params
+      )
+        .subscribe((data: Requirement[] | Params) => {
+
+          // app is loading
+          this.storeService.appLoading$.next(true);
+
+          // requirements$ is a BehaviorSubject with null inital value
+          if (data) {
+
+            // set new data
+            if (data.constructor == Object) {
+              // data is of type Params
+
+              // set selected requirement id
+              this.selectedRequirementId = data['id'];
+
+            } else if (data.constructor == Array) {
+              // data is of type Requirement[]
+
+              // set requirements
+              this.requirements = <Requirement[]>data;
+
+            } else {
+              throw new Error('RequirementComponent - data is neither of type Requirement[] nor Params');
+            }
+
+            // update current data if all observables emitted
+            if (this.selectedRequirementId && this.requirements) {
+
+              // set selected requirement
+              this.selectedRequirement = this.requirements.find((requirement: Requirement) => requirement._id === this.selectedRequirementId);
+            }
+
+            // app loading completed
+            this.storeService.appLoading$.next(false);
+
+          }
+        }, (error) => {
+          console.log('RequirementDetailsComponent - error occurred in ngOnInit()');
+          console.log(error);
+        })
     );
-
-    // initialize selected requirement with router
-    let selectedId = this.route.snapshot.params['id'];
-    this.selectedRequirement = Requirement.findById(this.requirements, selectedId);
-
-    // subscribe to selectedRequirement Observable
-    // necessary for changes in other components
-    this.subscriptions.push(
-      this.storeService.selectedRequirement$.subscribe((requirement: Requirement) => this.selectedRequirement = requirement)
-    ); 
   }
 
   ngOnDestroy() {

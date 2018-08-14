@@ -23,10 +23,6 @@ export class RequirementService {
   // requirements observable
   public requirements$: BehaviorSubject<Requirement[]> = new BehaviorSubject<Requirement[]>(null);
 
-  // currently selected requirement
-  public selectedRequirement$: Subject<Requirement> = new Subject<Requirement>();
-  // ToDo: is a second observable on the same data usefull? maybe the id of the current selected requirement is better
-
   constructor(
     private http: HttpClient,
     private authService: AuthService,
