@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy, ViewChild, ElementRef, Renderer2 } from '@angular/core';
 import { RequirementService } from '../services/requirement/requirement.service';
 import { Requirement } from '../models/requirement';
-import { Subscription, Observable, Observer, BehaviorSubject, from } from 'rxjs';
+import { Subscription, Observable, Observer, BehaviorSubject, from, merge } from 'rxjs';
 import { RequirementTemplatePart } from '../models/requirement-template-part';
 import { RequirementDescriptionTemplate } from '../models/requirement-description-template/requirement-description-template';
 import { RequirementDescriptionTemplatePart } from '../models/requirement-description-template/requirement-description-template-part';
@@ -9,7 +9,7 @@ import { StoreService } from '../services/store.service';
 import * as _ from 'lodash';
 import { RequirementTemplatePartService } from '../services/requirement-template-part.service';
 import { concatMap, bufferCount } from 'rxjs/operators';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute, Params } from '@angular/router';
 
 // js variable
 //declare var document: any;
@@ -30,7 +30,10 @@ export class RequirementComponent implements OnInit, OnDestroy {
   /*
    * requirements array
    */
-  public requirements: Requirement[] = [];
+  public requirements: Requirement[];
+
+  // selected requirement id
+  private selectedRequirementId: string;
 
   // subscriptions
   private subscriptions: Subscription[] = [];
@@ -50,6 +53,9 @@ export class RequirementComponent implements OnInit, OnDestroy {
   // modified template parts to upload
   private modifiedRequirementTemplateParts: RequirementTemplatePart[] = [];
 
+  // component is loading
+  public requirementComponentLoadingCompleted$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(true);
+
   /*
    * constructor
    */
@@ -58,30 +64,62 @@ export class RequirementComponent implements OnInit, OnDestroy {
     private renderer: Renderer2,
     private storeService: StoreService,
     private requirementTemplatePartService: RequirementTemplatePartService,
-    private router: Router
+    private router: Router,
+    private route: ActivatedRoute
   ) { }
 
   ngOnInit() {
 
-    // subscribe to requirements
+    // subscribe to requirements and route params
     this.subscriptions.push(
-      this.storeService.requirements$.subscribe(
-        (requirements: Requirement[]) => {
-          this.requirements = requirements;
-        },
-        (error) => {
-          console.log(error);
-        }
+      merge(
+        this.storeService.requirements$,
+        this.route.params
       )
-    );
+        .subscribe((data: Requirement[] | Params) => {
 
-    // subscribe to selected requirement
-    this.subscriptions.push(
-      this.storeService.selectedRequirement$.subscribe((requirement: Requirement) => {
+          // app is loading
+          this.requirementComponentLoadingCompleted$.next(false);
 
-        // call method
-        this.onSelectedRequirement(requirement);
-      })
+          // requirements$ is a BehaviorSubject with null inital value
+          if (data) {
+
+            // set new data
+            if (data.constructor == Object) {
+              // data is of type Params
+
+              // set selected requirement id
+              this.selectedRequirementId = data['id'];
+
+            } else if (data.constructor == Array) {
+              // data is of type Requirement[]
+
+              // set requirements
+              this.requirements = <Requirement[]>data;
+
+            } else {
+              throw new Error('RequirementComponent - data is neither of type Requirement[] nor Params');
+            }
+
+            // update current data if all observables emitted
+            if (this.selectedRequirementId && this.requirements) {
+
+              // set selected requirement
+              this.selectedRequirement = this.requirements.find((requirement: Requirement) => requirement._id === this.selectedRequirementId);
+
+              // ToDo run predefined method
+              // debug
+              this.onSelectedRequirement();
+            }
+
+            // app loading completed
+            this.requirementComponentLoadingCompleted$.next(true);
+
+          }
+        }, (error) => {
+          console.log('RequirementComponent - error occurred in ngOnInit()');
+          console.log(error);
+        })
     );
 
     // subscribe to requirement template validator
@@ -101,53 +139,32 @@ export class RequirementComponent implements OnInit, OnDestroy {
   /**
    * update local variables and run methods if selected requirement changes
    *
-   * @param requirement selected requirement
    */
-  onSelectedRequirement(requirement: Requirement) {
+  onSelectedRequirement() {
 
-    // check if new requirement was created
-    if (requirement._id === 'new') {
+    // set requirement template parts
+    this.requirementTemplateParts = this.selectedRequirement.descriptionParts;
 
-      // set selected requirement 
-      this.selectedRequirement = requirement;
+    // set description template
+    this.descriptionTemplate = this.selectedRequirement.descriptionTemplate;
 
-      // delete content of current requirement-container
-      this.requirementContainer.nativeElement.innerHTML = '';
+    // update description template to be a list of objects
+    this.descriptionTemplate.template = this.descriptionTemplate.template.map(element => this.requirementService.createObject(element));
 
-      // debug
-      console.log('requirement component: new requirement selected');
-      console.log(this.selectedRequirement);
+    // set container id
+    this.requirementContainer.nativeElement.setAttribute('id', 'requirementId_' + this.selectedRequirement._id);
 
+    // render selected requirement template
+    this.renderRequirementTemplate();
 
-    } else {
+    // debug
+    console.log('requirement selected');
+    console.log(this.selectedRequirement);
+    // debug
 
-      // set selected requirement 
-      this.selectedRequirement = requirement;
+    // validate requirement template
+    this.requirementService.validateRequirementTemplate(this.requirementTemplateParts, this.descriptionTemplate);
 
-      // set requirement template parts
-      this.requirementTemplateParts = this.selectedRequirement.descriptionParts;
-
-      // set description template
-      this.descriptionTemplate = this.selectedRequirement.descriptionTemplate;
-
-      // update description template to be a list of objects
-      this.descriptionTemplate.template = this.descriptionTemplate.template.map(element => this.requirementService.createObject(element));
-
-      // set container id
-      this.requirementContainer.nativeElement.setAttribute('id', 'requirementId_' + this.selectedRequirement._id);
-
-      // render selected requirement template
-      this.renderRequirementTemplate();
-
-      // debug
-      console.log('requirement selected');
-      console.log(this.selectedRequirement);
-      // debug
-
-      // validate requirement template
-      this.requirementService.validateRequirementTemplate(this.requirementTemplateParts, this.descriptionTemplate);
-
-    }
   }
 
   /**

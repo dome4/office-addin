@@ -1,6 +1,7 @@
 <div class="clr-row">
   <div class="clr-col-12">
     <app-requirement-dropdown></app-requirement-dropdown>
+    <!-- ToDo delete dropdown-->
   </div>
 </div>
 <div class="clr-row">
@@ -15,11 +16,12 @@
 
 <hr />
 
+<!-- ToDo delete template list-->
 <app-template-list></app-template-list>
 
 
 
-<div class="clr-row" *ngIf="selectedRequirement">
+<div class="clr-row">
   <label>Type your Requirement in here:</label>
   <br />
 </div>
@@ -49,4 +51,20 @@
     <button [routerLink]="['/requirements', selectedRequirement._id]" class="btn btn-primary">Requirement Details</button>
   </div>
 
+</ng-template>
+
+<div *ngIf="requirementComponentLoadingCompleted$ | async else loading">
+  App Loading completed
+
+</div>
+
+<ng-template #loading>
+  <div style="margin: 30px 0px;">
+    <span class="spinner spinner-inline">
+      Loading...
+    </span>
+    <span>
+      Loading...
+    </span>
+  </div>
 </ng-template>
