@@ -8,10 +8,6 @@
 
 <hr />
 
-<app-xml></app-xml>
-
-<hr />
-
 <div class="clr-row">
   <label>Type your Requirement in here:</label>
   <br />
@@ -20,7 +16,7 @@
 <div #requirementContainer style="display:inline;"></div>
 
 <div *ngIf="requirementComponentLoadingCompleted$ | async else loading">
-  
+
   <ng-template [ngIf]="selectedRequirement">
 
     <clr-alert *ngIf="!requirementTemplateIsValid" [clrAlertType]="'alert-warning'" [clrAlertClosable]="false">
@@ -40,6 +36,10 @@
     <div class="clr-row">
       <button [routerLink]="['/requirements', selectedRequirement._id, 'detail']" class="btn btn-primary">Requirement Details</button>
     </div>
+
+    <hr />
+
+    <app-xml></app-xml>
 
   </ng-template>
 

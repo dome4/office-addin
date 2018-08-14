@@ -1,11 +1,12 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Requirement } from '../models/requirement';
-import { Subscription } from 'rxjs';
+import { Subscription, merge } from 'rxjs';
 import { StoreService } from '../services/store.service';
 import { RequirementService } from '../services/requirement/requirement.service';
 import { OfficeService } from '../services/office-api/office.service';
 import { OoxmlParser } from '../services/office-api/ooxml-parser.service';
 import * as _ from 'lodash';
+import { ActivatedRoute, Params } from '@angular/router';
 
 // Office variables
 declare let Office: any;
@@ -20,6 +21,12 @@ export class XmlComponent implements OnInit, OnDestroy {
   // in dropdown selected requirement
   public selectedRequirement: Requirement = null;
 
+  // selected requirement id
+  private selectedRequirementId: string;
+
+  // requirements array
+  public requirements: Requirement[];
+
   // subscriptions
   private subscriptions: Subscription[] = [];
 
@@ -27,15 +34,51 @@ export class XmlComponent implements OnInit, OnDestroy {
     private storeService: StoreService,
     private requirementService: RequirementService,
     private officeService: OfficeService,
-    private xmlParser: OoxmlParser
+    private xmlParser: OoxmlParser,
+    private route: ActivatedRoute
   ) { }
 
   ngOnInit() {
-    // subscribe to selected requirement
+
+    // subscribe to requirements and route params
     this.subscriptions.push(
-      this.storeService.selectedRequirement$.subscribe((requirement: Requirement) => {
-        this.selectedRequirement = requirement;
-      })
+      merge(
+        this.storeService.requirements$,
+        this.route.params
+      )
+        .subscribe((data: Requirement[] | Params) => {
+
+          // requirements$ is a BehaviorSubject with null inital value
+          if (data) {
+
+            // set new data
+            if (data.constructor == Object) {
+              // data is of type Params
+
+              // set selected requirement id
+              this.selectedRequirementId = data['id'];
+
+            } else if (data.constructor == Array) {
+              // data is of type Requirement[]
+
+              // set requirements
+              this.requirements = <Requirement[]>data;
+
+            } else {
+              throw new Error('RequirementComponent - data is neither of type Requirement[] nor Params');
+            }
+
+            // update current data if all observables emitted
+            if (this.selectedRequirementId && this.requirements) {
+
+              // set selected requirement
+              this.selectedRequirement = this.requirements.find((requirement: Requirement) => requirement._id === this.selectedRequirementId);
+            }
+          }
+        }, (error) => {
+          console.log('RequirementComponent - error occurred in ngOnInit()');
+          console.log(error);
+        })
     );
   }
 
@@ -53,6 +96,7 @@ export class XmlComponent implements OnInit, OnDestroy {
     // local variable
     let requirement = _.cloneDeep(this.selectedRequirement);
 
+    // ToDo save subscription
     this.requirementService.getStringFromRequirement(requirement).subscribe((string: string) => {
 
       this.officeService.getOoxml().subscribe((xml: string) => {
