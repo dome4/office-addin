@@ -4,10 +4,22 @@ import { RequirementDescriptionTemplate } from './requirement-description-templa
 export class Requirement {
   _id: string;
   version: number;
+  description: string;
   name: string;
   duration: number;
-  description: string;
+  responsible: string;
+  category: string;
+  type: string;
+  stakeholder: string;
+  contractor: string;
+  dueDate: Date;
+  status: string;
+  reason: any;
   descriptionParts: RequirementTemplatePart[];
+  relations: any;
+  priority: string;
+  keyWords: string[];
+  acceptanceCriteria: string;
   descriptionTemplate: RequirementDescriptionTemplate;
 
   /*
