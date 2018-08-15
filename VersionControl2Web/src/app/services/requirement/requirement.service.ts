@@ -69,11 +69,31 @@ export class RequirementService {
   }
 
   /**
-   * reload requirements from the api
+   * reload requirements from the api and return them as observable emit
    *
    */
-  reloadRequirements() {
-    this.getRequirements().subscribe((requirements: Requirement[]) => this.requirements$.next(requirements));
+  reloadRequirements(): Observable<Requirement[]> {
+
+    // create new observable
+    return new Observable((observer: Observer<Requirement[]>) => {
+
+      // call api for new requirements (http observabe)
+      this.getRequirements().subscribe((requirements: Requirement[]) => {
+
+        // set results to local requirements observable
+        this.requirements$.next(requirements);
+
+        // emit result and complete observable
+        observer.next(requirements);
+        observer.complete();
+
+      }, (error) => {
+        // send error as emit value
+        console.log('reloadRequirements() - error occurred');
+        observer.error('reloadRequirements() - error occurred');
+        });
+    });
+    
   }
 
   /**
