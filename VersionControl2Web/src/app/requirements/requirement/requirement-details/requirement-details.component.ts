@@ -2,8 +2,9 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { StoreService } from '../../../services/store.service';
 import { Requirement } from '../../../models/requirement';
 import { Subscription, merge } from 'rxjs';
-import { ActivatedRoute, Params } from '@angular/router';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 import { RequirementService } from '../../../services/requirement/requirement.service';
+import * as _ from 'lodash';
 
 @Component({
   selector: 'app-requirement-details',
@@ -27,7 +28,8 @@ export class RequirementDetailsComponent implements OnInit, OnDestroy {
   constructor(
     private storeService: StoreService,
     private route: ActivatedRoute,
-    private requirementService: RequirementService
+    private requirementService: RequirementService,
+    private router: Router
   ) { }
 
   ngOnInit() {
@@ -67,7 +69,8 @@ export class RequirementDetailsComponent implements OnInit, OnDestroy {
             if (this.selectedRequirementId && this.requirements) {
 
               // set selected requirement
-              this.selectedRequirement = this.requirements.find((requirement: Requirement) => requirement._id === this.selectedRequirementId);
+              // should be a real copy if changes were canceled
+              this.selectedRequirement = _.cloneDeep(this.requirements.find((requirement: Requirement) => requirement._id === this.selectedRequirementId));
             }
 
             // app loading completed
@@ -105,8 +108,12 @@ export class RequirementDetailsComponent implements OnInit, OnDestroy {
         this.requirementService.reloadRequirements()
           .subscribe((requirements: Requirement[]) => {
 
+            // get back to requirement component
+            this.router.navigate(['/', 'requirements', this.selectedRequirement._id]);
+
             // app loading finished
             this.storeService.appLoading$.next(false);
+          
           }, (error) => {
             console.log('onRequirementSave() - observable error occurred');
             console.log(error);
@@ -119,5 +126,18 @@ export class RequirementDetailsComponent implements OnInit, OnDestroy {
         this.storeService.appLoading$.next(false);
       }
       );
+  }
+
+  /**
+   * abort edit and get back to requirement component
+   *
+   */
+  onRequirementCanceled() {
+
+    // unsaved changes to the selected requirement get lost due to it is a deep copy (_.cloneDeep())
+    // of the requirements-array-object
+
+    // get back to requirement component
+    this.router.navigate(['/', 'requirements', this.selectedRequirement._id]);
   }
 }
