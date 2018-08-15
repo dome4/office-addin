@@ -260,7 +260,7 @@ export class RequirementComponent implements OnInit, OnDestroy {
 
     // set id and classname
     newPart.id = templatePart._id;
-    newPart.classList.add('requirement-part')
+    newPart.classList.add('requirement-part');
 
     return newPart;
 
@@ -383,7 +383,7 @@ export class RequirementComponent implements OnInit, OnDestroy {
 
       // value cell
       let newCell1 = document.createElement('td');
-      newCell1.setAttribute('align', 'center');
+      newCell1.setAttribute('align', 'left');
 
       // append new created child element
       newCell1.appendChild(newChildElement);

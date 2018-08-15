@@ -16,3 +16,7 @@
   .vc-req-table.active {
     opacity: 1;
   }
+
+.requirement-part {
+  margin: 5px 10px;
+}
