@@ -698,15 +698,6 @@ export class RequirementComponent implements OnInit, OnDestroy {
     } else {
       throw new Error('onRequirementPartChanged() - event type not supported');
     }
-
-
-    // debug
-    console.log(this.requirements);
-
-    // ToDo validate updated requirement parts
-    //this.requirementService.validateRequirementTemplate(this.requirementTemplateParts, this.descriptionTemplate); 
-
-    // ToDo API call
   }
 
   /**
