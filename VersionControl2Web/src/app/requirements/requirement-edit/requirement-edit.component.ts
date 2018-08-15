@@ -15,9 +15,6 @@ import { Router } from '@angular/router';
 })
 export class RequirementEditComponent implements OnInit {
 
-  // requirement to create
-  public requirement: Requirement = new Requirement();
-
   // subscriptions
   private subscriptions: Subscription[] = [];
 
@@ -44,24 +41,24 @@ export class RequirementEditComponent implements OnInit {
     // get selected requirement description template (http observable)
     this.templateService.getRequirementTemplate(template).subscribe((template: RequirementDescriptionTemplate) => {
 
-      // local reference
-      let requirement = this.requirement;
+      // create new requirement
+      let newRequirement = new Requirement();
 
       // temp name to display in dropdown
-      requirement.name = 'new created Requirement';
+      newRequirement.name = 'new created Requirement';
 
       // set choosen template to new requirement
-      requirement.descriptionTemplate = _.cloneDeep(template);
+      newRequirement.descriptionTemplate = _.cloneDeep(template);
 
       // create new requirement template parts and emit modified requirement as selected requirement
       this.subscriptions.push(
-        this.requirementService.createEmptyRequirementFromTemplate(requirement)
+        this.requirementService.createEmptyRequirementFromTemplate(newRequirement)
           .subscribe((requirement: Requirement) => {
 
             // save requirement in database (http observable)
             this.requirementService.addRequirement(requirement)
               .subscribe(
-                (requirement: Requirement) => {
+                (savedRequirement: Requirement) => {
 
                   // reload current requirements
                   // necessary to go through mapping with all requirements
@@ -72,7 +69,7 @@ export class RequirementEditComponent implements OnInit {
                       this.storeService.appLoading$.next(false);
 
                       // navigate to new created requirement
-                      this.router.navigate(['/', 'requirements', requirement._id]);
+                      this.router.navigate(['/', 'requirements', savedRequirement._id]);
 
                     });
                 }, (error) => {
