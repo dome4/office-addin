@@ -14,11 +14,11 @@
 
   <!--Die Version. Updates aus dem Store werden nur ausgelöst, wenn eine Versionsänderung vorliegt. -->
   <Version>1.0.0.0</Version>
-  <ProviderName>[Anbietername]</ProviderName>
+  <ProviderName>Dominic Seitz</ProviderName>
   <DefaultLocale>en-US</DefaultLocale>
   <!-- Der Anzeigename Ihres Add-Ins. Er wird im Store und an verschiedenen Stellen in der Office-Benutzeroberfläche verwendet, z. B. im Dialogfeld "Add-Ins". -->
-  <DisplayName DefaultValue="VersionControl2" />
-  <Description DefaultValue="VersionControl2"/>
+  <DisplayName DefaultValue="VersionControl" />
+  <Description DefaultValue="VersionControl"/>
   <!-- Das Symbol für Ihr Add-In. Es wird auf Installationsbildschirmen und im Dialogfeld "Add-Ins" verwendet. -->
   <IconUrl DefaultValue="~remoteAppUrl/dist/assets/images/Button32x32.png" />
 
@@ -65,7 +65,7 @@
             <LearnMoreUrl resid="Contoso.GetStarted.LearnMoreUrl"/>
           </GetStarted>
           <!-- Die Funktionsdatei ist eine HTML-Seite mit JavaScript, auf der Funktionen für "ExecuteAction" aufgerufen werden.              Betrachten Sie "FunctionFile" als CodeBehind-ExecuteFunction. -->
-          <FunctionFile resid="Contoso.DesktopFunctionFile.Url" />
+          <!--<FunctionFile resid="Contoso.DesktopFunctionFile.Url" />-->
 
           <!-- "PrimaryCommandSurface" ist das zentrale Office-Menüband. -->
           <ExtensionPoint xsi:type="PrimaryCommandSurface">
@@ -120,7 +120,7 @@
         <bt:Image id="Contoso.tpicon_80x80" DefaultValue="~remoteAppUrl/dist/assets/images/Button80x80.png" />
       </bt:Images>
       <bt:Urls>
-        <bt:Url id="Contoso.DesktopFunctionFile.Url" DefaultValue="~remoteAppUrl/Functions/FunctionFile.html" />
+        <!--<bt:Url id="Contoso.DesktopFunctionFile.Url" DefaultValue="~remoteAppUrl/Functions/FunctionFile.html" />-->
         <bt:Url id="Contoso.Taskpane.Url" DefaultValue="~remoteAppUrl/dist/index.html" />
         <bt:Url id="Contoso.GetStarted.LearnMoreUrl" DefaultValue="https://go.microsoft.com/fwlink/?LinkId=276812" />
       </bt:Urls>
