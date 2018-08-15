@@ -380,7 +380,30 @@ export class RequirementService {
         // cast template string array to object array
         let templatePart: RequirementTemplatePart = this.createObject(descriptionTemplatePart);
 
+        console.log(_.cloneDeep(templatePart))
+
+        // new created requirement template part has value of description template part
+        // -> should not be displayed especially for inputs
+        // handle all datatypes
+        if (templatePart.type === 'dropdown') {
+          // needs to be a valid option -> select the first value of the array
+          templatePart.value = [_.cloneDeep(templatePart.value[0])];
+
+        } else if (templatePart.type === 'input') {
+          templatePart.value = '';
+
+        } else if (templatePart.type === 'text') {
+          // do nothing
+
+        } else if (templatePart.type === 'table') {
+          // ToDo
+
+        } else if (templatePart.type === 'wrapper') {
+          // ToDo
+
+        }
         // info: description template parts are saved in api with value of the description template
+        // if not handled above
 
         // return observable
         return this.partService.addRequirementTemplatePart(templatePart)
@@ -418,7 +441,7 @@ export class RequirementService {
 
     switch (descriptionPart.type) {
 
-      // prevent reference copyg!!!
+      // prevent reference copies !!!
 
       case 'dropdown':
         // add descriptionTemplateValue to response
