@@ -1,17 +1,23 @@
-<div class="ms-Grid">
-  <div class="ms-Grid-row">
-    <div class="ms-Grid-col ms-u-sm12">
-      <form (ngSubmit)="onSignin(f)" #f="ngForm">
-        <div class="form-group">
-          <label for="email">Mail</label>
-          <input type="email" id="email" name="email" ngModel class="form-control">
-        </div>
-        <div class="form-group">
-          <label for="password">Password</label>
-          <input type="password" id="password" name="password" ngModel class="form-control">
-        </div>
-        <button class="btn btn-primary" type="submit">Sign In</button>
-      </form>
+<div class="login-wrapper">
+  <form (ngSubmit)="onSignin(f)" #f="ngForm" class="login">
+    <section class="title">
+      <h3 class="welcome">Welcome to</h3>
+      Version Control
+      <h5 class="hint">Use your Company ID to sign in or create one now</h5>
+    </section>
+    <div class="login-group">
+      <input ngModel class="username" type="text" id="email" name="email" placeholder="Mail ...">
+      <input ngModel class="password" type="password" id="password" name="password" placeholder="Password ...">
+      <div class="checkbox">
+        <input type="checkbox" id="rememberme">
+        <label for="rememberme">
+          Remember me
+        </label>
+      </div>
+      <div class="error" #loginError>
+        Invalid mail or password
+      </div>
+      <button type="submit" class="btn btn-primary">Sign In</button>
     </div>
-  </div>
+  </form>
 </div>

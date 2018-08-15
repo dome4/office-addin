@@ -1,4 +1,4 @@
-import { Component, OnDestroy } from '@angular/core';
+import { Component, OnDestroy, ElementRef, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { AuthService } from '../../services/auth/auth.service';
 import { Router } from '@angular/router';
@@ -14,6 +14,8 @@ export class SigninComponent implements OnDestroy {
 
   // subscriptions
   private subscriptions: Subscription[] = [];
+
+  @ViewChild('loginError') loginError: ElementRef;
 
   constructor(
     private authService: AuthService,
@@ -51,6 +53,10 @@ export class SigninComponent implements OnDestroy {
               });
           }
         }, (error) => {
+
+          // activate error message
+          this.loginError.nativeElement.classList.add('active');
+
           console.log('Login failed - try again');
           console.log(error.error.message);
         })
