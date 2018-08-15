@@ -149,19 +149,4 @@ export class XmlComponent implements OnInit, OnDestroy {
       console.log(error);
     });
   }
-
-  /**
-   * insert empty specification sheet in Word
-   *
-   */
-  insertSpecificationSheet() {
-
-    this.subscriptions.push(
-      this.xmlParser.loadTemplate('specification-sheet.template', {}).subscribe((template: string) => {
-
-        this.officeService.setOoxml(template);
-      })
-    );
-  }
-
 }
