@@ -70,6 +70,9 @@ export class RequirementComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
 
+    // app is loading
+    this.requirementComponentLoadingCompleted$.next(false);
+
     // subscribe to requirements and route params
     this.subscriptions.push(
       merge(
@@ -77,9 +80,6 @@ export class RequirementComponent implements OnInit, OnDestroy {
         this.route.params
       )
         .subscribe((data: Requirement[] | Params) => {
-
-          // app is loading
-          this.requirementComponentLoadingCompleted$.next(false);
 
           // requirements$ is a BehaviorSubject with null inital value
           if (data) {
@@ -104,11 +104,17 @@ export class RequirementComponent implements OnInit, OnDestroy {
             // update current data if all observables emitted
             if (this.selectedRequirementId && this.requirements) {
 
-              // set selected requirement
-              this.selectedRequirement = this.requirements.find((requirement: Requirement) => requirement._id === this.selectedRequirementId);
+              // find current selected requirement in requirements-array
+              let result = this.requirements.find((requirement: Requirement) => requirement._id === this.selectedRequirementId);
 
-              // ToDo run predefined method
-              // debug
+              if (!result) {
+                throw new Error('RequirementComponent - requirement not found');
+              }
+
+              // set selected requirement
+              this.selectedRequirement = result;
+
+              // run predefined method
               this.onSelectedRequirement();
             }
 
@@ -119,6 +125,9 @@ export class RequirementComponent implements OnInit, OnDestroy {
         }, (error) => {
           console.log('RequirementComponent - error occurred in ngOnInit()');
           console.log(error);
+
+          // app loading completed
+          this.requirementComponentLoadingCompleted$.next(true);
         })
     );
 
@@ -131,7 +140,6 @@ export class RequirementComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-
     // unsubscribe all subscriptions
     this.subscriptions.forEach(sub => sub.unsubscribe());
   }

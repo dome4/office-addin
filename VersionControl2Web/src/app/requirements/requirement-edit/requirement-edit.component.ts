@@ -64,21 +64,24 @@ export class RequirementEditComponent implements OnInit {
                 (requirement: Requirement) => {
 
                   // reload current requirements
-                  this.requirementService.reloadRequirements();
+                  // necessary to go through mapping with all requirements
+                  this.requirementService.reloadRequirements()
+                    .subscribe(requirements => {
 
-                  // app loading finished
-                  this.storeService.appLoading$.next(false);
+                      // app loading finished
+                      this.storeService.appLoading$.next(false);
 
-                  // navigate to new created requirement
-                  this.router.navigate(['/', 'requirements', requirement._id]);
+                      // navigate to new created requirement
+                      this.router.navigate(['/', 'requirements', requirement._id]);
 
+                    });
                 }, (error) => {
                   console.log('onTemplateSelected() - new created requirement could not be saved');
                   console.log(error);
 
                   // app loading finished
                   this.storeService.appLoading$.next(false);
-                });  
+                });
           })
       );
     });
