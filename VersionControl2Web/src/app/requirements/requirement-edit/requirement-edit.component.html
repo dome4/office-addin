@@ -6,11 +6,23 @@
     <a (click)="onTemplateSelected(template)"
        [id]="template._id"
        class="card clickable">
+      <div class="card-header">
+        {{ template.name }}
+      </div>
       <div class="card-block">
-        <h3 class="card-title">{{ template.name }}</h3>
-        <p class="card-text">
-          {{ template.description }}
-        </p>
+        <div *ngIf="template.description">
+          <h4 style="margin-top: 0px;">Description</h4>
+          <p class="card-text">
+            {{ template.description }}
+          </p>
+        </div>
+
+        <div *ngIf="template.example">
+          <h4>Example</h4>
+          <p class="card-text">
+            {{ template.example }}
+          </p>
+        </div>
       </div>
       <div class="card-footer">
         <a class="btn btn-sm btn-link">Select Template</a>
