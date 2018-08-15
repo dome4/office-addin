@@ -36,7 +36,7 @@
 
             <div class="clr-form-control">
               <label for="category" class="clr-control-label">Category</label>
-              <div class="clr-control-container">
+              <div class="clr-control-container" style="max-width: 100%">
                 <div class="clr-input-wrapper">
                   <clr-icon class="clr-validate-icon" shape="exclamation-circle"></clr-icon>
                   <div class="clr-input select">
@@ -54,7 +54,7 @@
 
             <div class="clr-form-control">
               <label for="type" class="clr-control-label">Type</label>
-              <div class="clr-control-container">
+              <div class="clr-control-container" style="max-width: 100%">
                 <div class="clr-input-wrapper">
                   <clr-icon class="clr-validate-icon" shape="exclamation-circle"></clr-icon>
                   <div class="clr-input select">
@@ -88,7 +88,7 @@
 
             <div class="clr-form-control">
               <label for="type" class="clr-control-label">Status</label>
-              <div class="clr-control-container">
+              <div class="clr-control-container" style="max-width: 100%">
                 <div class="clr-input-wrapper">
                   <clr-icon class="clr-validate-icon" shape="exclamation-circle"></clr-icon>
                   <div class="clr-input select">
@@ -178,9 +178,7 @@
               <div class="clr-control-container">
                 <div class="clr-input-wrapper">
                   <clr-icon class="clr-validate-icon" shape="exclamation-circle"></clr-icon>
-                  <div class="clr-input" style="cursor: pointer;">
-                    {{ selectedRequirement.descriptionTemplate.name }}
-                  </div>
+                  <input type="text" [value]="selectedRequirement.descriptionTemplate.name" class="clr-input vc-input-readonly" readonly="readonly" />
                 </div>
                 <span class="clr-subtext">Click to Open Edit-Page</span>
               </div>

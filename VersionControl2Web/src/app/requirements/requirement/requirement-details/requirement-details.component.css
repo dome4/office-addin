@@ -1,0 +1,6 @@
+.vc-input-readonly {
+  cursor: pointer;
+  border-bottom-color: rgb(154, 154, 154) !important;
+  border-bottom-style: solid !important;
+  border-bottom-width: 1px !important;
+}
