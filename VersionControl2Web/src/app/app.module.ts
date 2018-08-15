@@ -29,6 +29,7 @@ import { RequirementAPIService } from './services/requirement/requirement-api.se
 import { XmlComponent } from './xml/xml.component';
 import { RequirementsComponent } from './requirements/requirements.component';
 import { RequirementEditComponent } from './requirements/requirement-edit/requirement-edit.component';
+import { AuthGuardService } from './services/auth/auth-guard.service';
 
 @NgModule({
   declarations: [
@@ -59,7 +60,7 @@ import { RequirementEditComponent } from './requirements/requirement-edit/requir
     RequirementService,
     RequirementAPIService,
     AuthService,
-    AuthService,
+    AuthGuardService,
     LocalStorageService,
     {
       provide: HTTP_INTERCEPTORS,

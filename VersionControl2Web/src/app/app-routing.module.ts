@@ -12,7 +12,7 @@ import { RequirementEditComponent } from './requirements/requirement-edit/requir
 const appRoutes: Routes = [
   { path: '', redirectTo: 'requirements', pathMatch: 'full' },
   {
-    path: 'requirements', component: RequirementsComponent, children:
+    path: 'requirements', component: RequirementsComponent, canActivate: [AuthGuardService], children:
       [
         { path: '', component: RequirementListComponent },
         { path: 'new', component: RequirementEditComponent },
@@ -21,7 +21,6 @@ const appRoutes: Routes = [
       ]
   },
   { path: 'signin', component: SigninComponent },
-  { path: 'list', component: RequirementListComponent, canActivate: [AuthGuardService] },
   { path: '**', component: NotFoundComponent }
 ];
 

@@ -22,25 +22,27 @@ export class TokenInterceptor implements HttpInterceptor {
         setHeaders: {
           'x-access-token': this.authService.getToken()
         }
-      });     
+      });
     }
 
     let handler = next.handle(request)
       .pipe(
-      catchError((error) => {
+        catchError((error) => {
 
-        if (error instanceof HttpErrorResponse && error.status === 403) {
+          if (error instanceof HttpErrorResponse && error.status === 403) {
 
             // redirect to the login route
             this.router.navigate(['/signin']);
-        }
+          }
 
-        //intercept the response error and displace it to the console
-        console.log("HTTP Error Occurred");
+          //intercept the response error and displace it to the console
+          console.log("HTTP Error Occurred");
 
-        //return the error to the method that called it
-        return throwError(error);
-      }));
+          //return the error to the method that called it
+          return throwError(error);
+
+
+        }));
 
     return handler;
   }
