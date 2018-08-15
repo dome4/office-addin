@@ -223,11 +223,11 @@
     <Content Include="Home.css" />
     <Content Include="Home.html" />
     <Content Include="Home.js" />
-    <Content Include="Images\AddinIcon.png" />
-    <Content Include="Images\Button16x16.png" />
-    <Content Include="Images\Button32x32.png" />
-    <Content Include="Images\Button80x80.png" />
-    <Content Include="Images\Close.png" />
+    <Content Include="src\assets\images\AddinIcon.png" />
+    <Content Include="src\assets\images\Button16x16.png" />
+    <Content Include="src\assets\images\Button32x32.png" />
+    <Content Include="src\assets\images\Button80x80.png" />
+    <Content Include="src\assets\images\Close.png" />
     <Content Include="karma.conf.js" />
     <Content Include="protractor.conf.js" />
     <Content Include="Scripts\FabricUI\MessageBanner.js" />
@@ -555,6 +555,7 @@
   <ItemGroup>
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
   </ItemGroup>
+  <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
