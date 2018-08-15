@@ -8,8 +8,10 @@ import { Router } from '@angular/router';
 @Injectable()
 export class TokenInterceptor implements HttpInterceptor {
 
-  constructor(private authService: AuthService,
-    private router: Router) { }
+  constructor(
+    private authService: AuthService,
+    private router: Router
+  ) { }
 
   // ToDo: interface for HttpRequest to filter requests
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpSentEvent | HttpHeaderResponse | HttpProgressEvent | HttpResponse<any> | HttpUserEvent<any>> {
@@ -21,6 +23,16 @@ export class TokenInterceptor implements HttpInterceptor {
       request = request.clone({
         setHeaders: {
           'x-access-token': this.authService.getToken()
+        }
+      });
+    }
+
+    // set nocache param to prevent IE 11 from caching get request -> common IE 11 issue
+    if (request.method === 'GET') {
+      request = request.clone({
+        setHeaders: {
+          'Cache-Control': 'no-cache',
+          'Pragma': 'no-cache'
         }
       });
     }
