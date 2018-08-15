@@ -770,11 +770,15 @@ export class RequirementComponent implements OnInit, OnDestroy {
           this.modifiedRequirementTemplateParts = [];
 
           // reload requirements
-          this.requirementService.reloadRequirements();
+          this.requirementService.reloadRequirements()
+            .subscribe((requirements: Requirement[]) => {
 
-          // end loading
-          this.storeService.appLoading$.next(false);
-
+              // end loading
+              this.storeService.appLoading$.next(false);
+            }, (error) => {
+              console.log('onSaveRequirement() - observable error');
+              console.log(error);
+            });
         }, (error) => {
           console.log('onSaveRequirement() - updating requirement template parts went wrong');
           console.log(error);

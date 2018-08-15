@@ -40,7 +40,23 @@ export class RequirementService {
    *
    */
   public resendInitialRequests() {
-    this.reloadRequirements();
+
+    return new Observable((observer: Observer<Requirement[]>) => {
+
+      // subsribe to
+      this.reloadRequirements()
+        .subscribe((requirements: Requirement[]) => {
+
+          // hand over observable data
+          observer.next(requirements);
+          observer.complete();
+        }, (error) => {
+
+          // hand over observable error
+          observer.error(error);
+          observer.complete();
+        });
+    });
   }
 
   private getRequirements() {
@@ -91,9 +107,10 @@ export class RequirementService {
         // send error as emit value
         console.log('reloadRequirements() - error occurred');
         observer.error('reloadRequirements() - error occurred');
-        });
+        observer.complete();
+      });
     });
-    
+
   }
 
   /**

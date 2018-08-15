@@ -101,12 +101,16 @@ export class RequirementDetailsComponent implements OnInit, OnDestroy {
       (requirement: Requirement) => {
         console.log('onRequirementSave() - requirement save successfull');
 
-        // reload requirements
-        this.requirementService.reloadRequirements();
+        // reload requirements (observable completes)
+        this.requirementService.reloadRequirements()
+          .subscribe((requirements: Requirement[]) => {
 
-        // app loading finished
-        this.storeService.appLoading$.next(false);
-
+            // app loading finished
+            this.storeService.appLoading$.next(false);
+          }, (error) => {
+            console.log('onRequirementSave() - observable error occurred');
+            console.log(error);
+          });
       }, (error) => {
         console.log('onRequirementSave() - error occurred');
         console.log(error);

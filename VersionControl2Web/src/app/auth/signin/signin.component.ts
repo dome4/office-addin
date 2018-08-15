@@ -38,11 +38,17 @@ export class SigninComponent implements OnDestroy {
 
           // if signin was successfull (true) 
           if (response) {
-            // retry first request (should be first request)
-            this.requirementService.resendInitialRequests();
+            // retry first request (should be first request) (observerable completes)
+            this.requirementService.resendInitialRequests()
+              .subscribe(data => {
 
-            // navigate to root page
-            this.router.navigate(['/']);
+                // navigate to root page
+                this.router.navigate(['/']);
+              }, error => {
+
+                console.log('Login failed - try again');
+                console.log(error);
+              });
           }
         }, (error) => {
           console.log('Login failed - try again');
