@@ -1,68 +1,60 @@
-﻿<!DOCTYPE html>
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
-    <title>Word Add-In with Commands Sample</title>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <script src="Scripts/jquery-1.9.1.js" type="text/javascript"></script>
-    <script src="Scripts/FabricUI/MessageBanner.js" type="text/javascript"></script>
-    <script src="https://appsforoffice.microsoft.com/lib/1/hosted/office.js" type="text/javascript"></script>
+  <title>Office Version Control Backend API</title>
 
-    <!-- Verwenden Sie Folgendes zum Aktivieren von Offlinedebuggen mithilfe eines lokalen Verweises auf "Office.js":                        -->
-    <!-- <script src="Scripts/Office/MicrosoftAjax.js" type="text/javascript"></script>  -->
-    <!-- <script src="Scripts/Office/1/office.js" type="text/javascript"></script>  -->
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
 
-    <link href="Home.css" rel="stylesheet" type="text/css" />
-    <script src="Home.js" type="text/javascript"></script>
+  <!-- Styles -->
+  <style>
+    html, body {
+      background-color: #fff;
+      color: #636b6f;
+      font-family: 'Raleway', sans-serif;
+      font-weight: 100;
+      height: 100vh;
+      margin: 0;
+    }
 
-    <!-- Weitere Informationen zum Office-UI-Fabric finden Sie unter https://aka.ms/office-ui-fabric. -->
-    <link rel="stylesheet" href="https://appsforoffice.microsoft.com/fabric/2.1.0/fabric.min.css">
-    <link rel="stylesheet" href="https://appsforoffice.microsoft.com/fabric/2.1.0/fabric.components.min.css">
-    
-    <!-- Verwenden Sie Folgendes zum Aktivieren der Offlineverwendung des Office-UI-Fabrics: -->
-    <!-- link rel="stylesheet" href="Content/fabric.min.css" -->
-    <!-- link rel="stylesheet" href="Content/fabric.components.min.css" -->
+    .full-height {
+      height: 100vh;
+    }
+
+    .flex-center {
+      align-items: center;
+      display: flex;
+      justify-content: center;
+    }
+
+    .position-ref {
+      position: relative;
+    }
+
+    .content {
+      text-align: center;
+    }
+
+    .title {
+      font-size: 36px;
+      padding: 20px;
+    }
+  </style>
 </head>
 <body>
-    <div id="content-main">
-        <div class="padding">
-            <br />
-            <p class="ms-font-xxl ms-fontColor-neutralSecondary ms-fontWeight-semilight">Beispiel</p>
-            <br /><br />
-            <div class="ms-font-xl ms-fontColor-neutralTertiary">Wählt Text aus.</div>
-            <p class="ms-font-m-plus ms-fontColor-neutralTertiary" id="template-description"></p>
-            <div class="ms-font-m"><a target="_blank" class="ms-Link ms-Link--hero" href="https://go.microsoft.com/fwlink/?LinkId=276812">Weitere Beispiele online suchen...</a></div>
-            <br /><br />
-
-            <button class="ms-Button ms-Button--primary" id="highlight-button">
-                <span class="ms-Button-icon"><i class="ms-Icon ms-Icon--plus"></i></span>
-                <span class="ms-Button-label" id="button-text"></span>
-                <span class="ms-Button-description" id="button-desc"></span>
-            </button>
-        </div>
+  <div class="flex-center position-ref full-height">
+    <div class="content">
+      <div class="title">
+        Office Version Control
+      </div>
+      <div>
+        For Documentation see: <a href="https://github.com/dome4/office-addin/" target="_blank">Github</a>
+      </div>
     </div>
-    <div class="footer">
-        <div class="ms-Grid ms-bgColor-themeSecondary">
-            <div class="ms-Grid-row">
-                <div class="ms-Grid-col ms-u-sm12 ms-u-md12 ms-u-lg12"> <div class="ms-font-xl ms-fontColor-white">Contoso</div></div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Eine FabricUI-Komponente, die für die Anzeige von Benachrichtigungen verwendet wird. -->
-    <div class="ms-MessageBanner" id="notification-popup">
-        <div class="ms-MessageBanner-content">
-            <div class="ms-MessageBanner-text">
-                <div class="ms-MessageBanner-clipper">
-                    <div class="ms-font-m-plus ms-fontWeight-semibold" id="notification-header"></div>
-                    <div class="ms-font-m ms-fontWeight-semilight" id="notification-body"></div>
-                </div>
-            </div>
-            <button class="ms-MessageBanner-expand" style="display:none"><i class="ms-Icon ms-Icon--chevronsDown"></i> </button>
-            <div class="ms-MessageBanner-action"></div>
-        </div>
-        <button class="ms-MessageBanner-close"> <i class="ms-Icon ms-Icon--x"></i> </button>
-    </div>
+  </div>
 </body>
 </html>
