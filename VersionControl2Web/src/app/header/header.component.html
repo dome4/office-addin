@@ -11,7 +11,8 @@
         <clr-icon shape="caret down"></clr-icon>
       </button>
       <clr-dropdown-menu *clrIfOpen clrPosition="bottom-right">
-        <a routerLink="signin" clrDropdownItem>Login</a>
+        <a routerLink="signin" clrDropdownItem *ngIf="!authService.isAuthenticated()">Sign In</a>
+        <a (click)="onSignOut()" clrDropdownItem *ngIf="authService.isAuthenticated()">Sign Out</a>
       </clr-dropdown-menu>
     </clr-dropdown>
   </div>
