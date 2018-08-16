@@ -17,9 +17,18 @@
 
 <div #requirementContainer style="display:inline;"></div>
 
-<div *ngIf="requirementComponentLoadingCompleted$ | async else loading" style="margin-top: 50px;">
+<div *ngIf="requirementComponentLoadingCompleted$ | async else loading" style="margin-top: 1rem;">
 
   <ng-template [ngIf]="selectedRequirement">
+
+    <hr />
+
+    <h6 style="margin-top: 0.5rem;">Example Sentence</h6>
+    <p class="p1" style="margin-top: 0.5rem; margin-bottom: 0.5rem;">
+      {{ selectedRequirement.descriptionTemplate.example }}
+    </p>
+
+    <hr style="margin-bottom: 1rem;"/>
 
     <clr-alert *ngIf="!requirementTemplateIsValid" [clrAlertType]="'alert-warning'" [clrAlertClosable]="false">
       <div class="alert-item">
