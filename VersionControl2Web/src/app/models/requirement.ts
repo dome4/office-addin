@@ -17,7 +17,6 @@ export class Requirement {
   reason: any;
   descriptionParts: RequirementTemplatePart[];
   relations: any;
-  priority: string;
   keyWords: string[];
   acceptanceCriteria: string;
   descriptionTemplate: RequirementDescriptionTemplate;
