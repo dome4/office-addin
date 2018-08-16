@@ -107,9 +107,9 @@ export class XmlComponent implements OnInit, OnDestroy {
           // array of currently defined placeholders in requirement template
           let richTextElements = [
             { id: `requirement_${requirement._id}_id`, value: requirement._id },
-            { id: `requirement_${requirement._id}_version`, value: requirement.version.toString() },
+            { id: `requirement_${requirement._id}_version`, value: requirement.version ? requirement.version.toString() : '' },
             { id: `requirement_${requirement._id}_name`, value: requirement.name },
-            { id: `requirement_${requirement._id}_duration`, value: requirement.duration.toString() },
+            { id: `requirement_${requirement._id}_duration`, value: requirement.duration ? requirement.duration.toString() : '' },
             { id: `requirement_${requirement._id}_description`, value: string }
           ];
 
@@ -121,6 +121,8 @@ export class XmlComponent implements OnInit, OnDestroy {
 
             // add binding
             this.officeService.addBindingFromNamedItem(element.id, Office.BindingType.Text, element.id, () => {
+
+              // ToDo: bindings have to be deleted after usage
 
               // set value
               this.officeService.setRichTextElementContent(element.id, 'text', element.value);
