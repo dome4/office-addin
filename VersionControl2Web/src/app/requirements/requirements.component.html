@@ -1,1 +1,12 @@
 <router-outlet></router-outlet>
+
+<clr-modal [(clrModalOpen)]="showTemplateModal">
+  <h3 class="modal-title">No Template selected</h3>
+  <div class="modal-body">
+    <p>The current Word document seems to be empty. Do you want to insert the default specification template?</p>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-primary" (click)="insertSpecificationSheet()">Insert</button>
+    <button type="button" class="btn btn-primary" (click)="showTemplateModal = false">Cancel</button>
+  </div>
+</clr-modal>

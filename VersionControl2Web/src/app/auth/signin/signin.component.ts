@@ -45,7 +45,7 @@ export class SigninComponent implements OnDestroy {
               .subscribe(data => {
 
                 // navigate to root page
-                this.router.navigate(['/']);
+                this.router.navigate(['/'], { queryParams: { showStartupModal: true } });
               }, error => {
 
                 console.log('Login failed - try again');
