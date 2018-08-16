@@ -380,8 +380,6 @@ export class RequirementService {
         // cast template string array to object array
         let templatePart: RequirementTemplatePart = this.createObject(descriptionTemplatePart);
 
-        console.log(_.cloneDeep(templatePart))
-
         // new created requirement template part has value of description template part
         // -> should not be displayed especially for inputs
         // handle all datatypes
