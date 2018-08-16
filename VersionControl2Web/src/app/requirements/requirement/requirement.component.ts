@@ -766,6 +766,11 @@ export class RequirementComponent implements OnInit, OnDestroy {
 
               // end loading
               this.storeService.appLoading$.next(false);
+
+              // redirect to requirement details page if new created requirement was edited
+              if (this.route.snapshot.queryParams['newCreatedRequirement'] === 'true') {
+                this.router.navigate(['requirements', this.selectedRequirement._id, 'detail']);
+              }            
             }, (error) => {
               console.log('onSaveRequirement() - observable error');
               console.log(error);

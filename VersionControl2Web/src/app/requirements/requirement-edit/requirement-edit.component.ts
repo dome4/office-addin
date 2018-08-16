@@ -69,7 +69,7 @@ export class RequirementEditComponent implements OnInit {
                       this.storeService.appLoading$.next(false);
 
                       // navigate to new created requirement
-                      this.router.navigate(['/', 'requirements', savedRequirement._id]);
+                      this.router.navigate(['/', 'requirements', savedRequirement._id], { queryParams: { newCreatedRequirement: true } });
 
                     });
                 }, (error) => {
