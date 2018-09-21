@@ -1,0 +1,325 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>version-control documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	      <link rel="stylesheet" href="../styles/style.css">
+    </head>
+    <body>
+
+        <div class="navbar navbar-default navbar-fixed-top visible-xs">
+            <a href="../" class="navbar-brand">version-control documentation</a>
+            <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search">
+    <input type="text" placeholder="Type to search">
+</div>
+            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="hidden-xs menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content component">
+                   <div class="content-data">
+
+
+
+
+<ol class="breadcrumb">
+  <li>Components</li>
+  <li>RequirementListComponent</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="active">
+            <a href="#info" role="tab" id="info-tab" data-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li >
+            <a href="#source" role="tab" id="source-tab" data-toggle="tab" data-link="source">Source</a>
+        </li>
+        <li >
+            <a href="#templateData" role="tab" id="templateData-tab" data-toggle="tab" data-link="template">Template</a>
+        </li>
+        <li >
+            <a href="#tree" role="tab" id="tree-tab" data-toggle="tab" data-link="dom-tree">DOM Tree</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="c-info"><p class="comment">
+    <h3>File</h3>
+</p>
+<p class="comment">
+    <code>src/app/requirements/requirement-list/requirement-list.component.ts</code>
+</p>
+
+
+
+
+
+<section>
+    <h3>Metadata</h3>
+    <table class="table table-sm table-hover">
+        <tbody>
+
+
+
+
+
+
+
+
+
+
+
+            <tr>
+                <td class="col-md-3">selector</td>
+                <td class="col-md-9"><code>app-requirement-list</code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">styleUrls</td>
+                <td class="col-md-9"><code>requirement-list.component.css</code></td>
+            </tr>
+
+
+
+            <tr>
+                <td class="col-md-3">templateUrl</td>
+                <td class="col-md-9"><code>./requirement-list.component.html</code></td>
+            </tr>
+
+
+        </tbody>
+    </table>
+</section>
+
+
+    <section>
+    <h3 id="constructor">Constructor</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+<code>constructor(storeService: <a href="../injectables/StoreService.html">StoreService</a>)</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="9" class="link-to-prism">src/app/requirements/requirement-list/requirement-list.component.ts:9</a></div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                            <div>
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>storeService</td>
+                                                  
+                                                        <td>
+                                                                    <code><a href="../injectables/StoreService.html" target="_self" >StoreService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+</section>
+
+
+
+
+
+
+
+</div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="c-source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, OnInit, OnDestroy } from &#x27;@angular/core&#x27;;
+import { StoreService } from &#x27;../../services/store.service&#x27;;
+
+@Component({
+  selector: &#x27;app-requirement-list&#x27;,
+  templateUrl: &#x27;./requirement-list.component.html&#x27;,
+  styleUrls: [&#x27;./requirement-list.component.css&#x27;]
+})
+export class RequirementListComponent{
+
+  constructor(private storeService: StoreService) { }
+
+}
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="c-templateData">
+        <pre class="line-numbers"><code class="language-html">&lt;div class&#x3D;&quot;row&quot; *ngIf&#x3D;&quot;this.storeService.requirements$ | async as requirements else loading&quot;&gt;
+
+  &lt;h3 class&#x3D;&quot;col-lg-12 col-md-12 col-sm-12 col-xs-12&quot;&gt;Choose a requirement&lt;/h3&gt;
+
+  &lt;div *ngFor&#x3D;&quot;let requirement of requirements&quot;
+       class&#x3D;&quot;col-lg-4 col-md-12 col-sm-12 col-xs-12&quot;&gt;
+    &lt;a [routerLink]&#x3D;&quot;[&#x27;/requirements/&#x27;, requirement._id]&quot;
+       class&#x3D;&quot;card clickable&quot;&gt;
+      &lt;div class&#x3D;&quot;card-block&quot;&gt;
+        &lt;h3 class&#x3D;&quot;card-title&quot;&gt;{{ requirement.name }}&lt;/h3&gt;
+        &lt;p class&#x3D;&quot;card-text&quot;&gt;
+          {{ requirement.description }}
+        &lt;/p&gt;
+      &lt;/div&gt;
+      &lt;div class&#x3D;&quot;card-footer&quot;&gt;
+        &lt;a class&#x3D;&quot;btn btn-sm btn-link&quot;&gt;Select Requirement&lt;/a&gt;
+      &lt;/div&gt;
+    &lt;/a&gt;
+  &lt;/div&gt;
+
+  &lt;div class&#x3D;&quot;col-lg-4 col-md-12 col-sm-12 col-xs-12&quot;&gt;
+    &lt;a [routerLink]&#x3D;&quot;[&#x27;/requirements/new/&#x27;]&quot;
+       class&#x3D;&quot;card clickable&quot;&gt;
+      &lt;div class&#x3D;&quot;card-block&quot;&gt;
+        &lt;h3 class&#x3D;&quot;card-title&quot;&gt;Create new Requirement&lt;/h3&gt;
+        &lt;p class&#x3D;&quot;card-text&quot;&gt;
+          Create a new requirement and submit the necessary data
+        &lt;/p&gt;
+      &lt;/div&gt;
+      &lt;div class&#x3D;&quot;card-footer&quot;&gt;
+        &lt;a class&#x3D;&quot;btn btn-sm btn-link&quot;&gt;Select Requirement&lt;/a&gt;
+      &lt;/div&gt;
+    &lt;/a&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;ng-template #loading&gt;
+  &lt;div style&#x3D;&quot;margin: 30px 0px;&quot;&gt;
+    &lt;span class&#x3D;&quot;spinner spinner-inline&quot;&gt;
+      Loading...
+    &lt;/span&gt;
+    &lt;span&gt;
+      Loading...
+    &lt;/span&gt;
+  &lt;/div&gt;
+&lt;/ng-template&gt;
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="c-tree">
+        <div id="tree-container"></div>
+        <div class="tree-legend">
+            <div class="title">
+                <b>Legend</b>
+            </div>
+            <div>
+                <div class="color htmlelement"></div><span>Html element</span>
+            </div>
+            <div>
+                <div class="color component"></div><span>Component</span>
+            </div>
+            <div>
+                <div class="color directive"></div><span>Html element with directive</span>
+            </div>
+        </div>
+    </div>
+
+    
+</div>
+
+<script src="../js/libs/vis.min.js"></script>
+<script src="../js/libs/htmlparser.js"></script>
+<script src="../js/libs/deep-iterator.js"></script>
+<script>
+        var COMPONENT_TEMPLATE = '<div><div class="row" *ngIf="this.storeService.requirements$ | async as requirements else loading">  <h3 class="col-lg-12 col-md-12 col-sm-12 col-xs-12">Choose a requirement</h3>  <div *ngFor="let requirement of requirements"       class="col-lg-4 col-md-12 col-sm-12 col-xs-12">    <a [routerLink]="[\'/requirements/\', requirement._id]"       class="card clickable">      <div class="card-block">        <h3 class="card-title">{{ requirement.name }}</h3>        <p class="card-text">          {{ requirement.description }}        </p>      </div>      <div class="card-footer">        <a class="btn btn-sm btn-link">Select Requirement</a>      </div>    </a>  </div>  <div class="col-lg-4 col-md-12 col-sm-12 col-xs-12">    <a [routerLink]="[\'/requirements/new/\']"       class="card clickable">      <div class="card-block">        <h3 class="card-title">Create new Requirement</h3>        <p class="card-text">          Create a new requirement and submit the necessary data        </p>      </div>      <div class="card-footer">        <a class="btn btn-sm btn-link">Select Requirement</a>      </div>    </a>  </div></div><ng-template #loading>  <div style="margin: 30px 0px;">    <span class="spinner spinner-inline">      Loading...    </span>    <span>      Loading...    </span>  </div></ng-template></div>'
+    var COMPONENTS = [{'name': 'AlertComponent', 'selector': 'app-alert'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'HeaderComponent', 'selector': 'app-header'},{'name': 'NotFoundComponent', 'selector': 'app-not-found'},{'name': 'RequirementComponent', 'selector': 'app-requirement'},{'name': 'RequirementDetailsComponent', 'selector': 'app-requirement-details'},{'name': 'RequirementEditComponent', 'selector': 'app-requirement-edit'},{'name': 'RequirementListComponent', 'selector': 'app-requirement-list'},{'name': 'RequirementsComponent', 'selector': 'app-requirements'},{'name': 'SigninComponent', 'selector': 'app-signin'},{'name': 'XmlComponent', 'selector': 'app-xml'},{'name': 'XmlDebugComponent', 'selector': 'app-xml-debug'}];
+    var DIRECTIVES = [];
+    var ACTUAL_COMPONENT = {'name': 'RequirementListComponent'};
+</script>
+<script src="../js/tree.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> result-matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'component';
+            var COMPODOC_CURRENT_PAGE_URL = 'RequirementListComponent.html';
+       </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+       <script src="../js/menu-wc.js"></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+       <script src="../js/libs/zepto.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

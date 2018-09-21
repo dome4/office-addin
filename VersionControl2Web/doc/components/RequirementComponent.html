@@ -1,0 +1,2285 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>version-control documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	      <link rel="stylesheet" href="../styles/style.css">
+    </head>
+    <body>
+
+        <div class="navbar navbar-default navbar-fixed-top visible-xs">
+            <a href="../" class="navbar-brand">version-control documentation</a>
+            <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search">
+    <input type="text" placeholder="Type to search">
+</div>
+            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="hidden-xs menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content component">
+                   <div class="content-data">
+
+
+
+
+<ol class="breadcrumb">
+  <li>Components</li>
+  <li>RequirementComponent</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="active">
+            <a href="#info" role="tab" id="info-tab" data-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li >
+            <a href="#source" role="tab" id="source-tab" data-toggle="tab" data-link="source">Source</a>
+        </li>
+        <li >
+            <a href="#templateData" role="tab" id="templateData-tab" data-toggle="tab" data-link="template">Template</a>
+        </li>
+        <li >
+            <a href="#tree" role="tab" id="tree-tab" data-toggle="tab" data-link="dom-tree">DOM Tree</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="c-info"><p class="comment">
+    <h3>File</h3>
+</p>
+<p class="comment">
+    <code>src/app/requirements/requirement/requirement.component.ts</code>
+</p>
+
+
+
+    <p class="comment">
+        <h3>Implements</h3>
+    </p>
+    <p class="comment">
+                <code><a href="https://angular.io/api/core/OnInit" target="_blank" >OnInit</a></code>
+                <code><a href="https://angular.io/api/core/OnDestroy" target="_blank" >OnDestroy</a></code>
+    </p>
+
+
+<section>
+    <h3>Metadata</h3>
+    <table class="table table-sm table-hover">
+        <tbody>
+
+
+
+
+
+
+
+
+
+
+
+            <tr>
+                <td class="col-md-3">selector</td>
+                <td class="col-md-9"><code>app-requirement</code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">styleUrls</td>
+                <td class="col-md-9"><code>requirement.component.css</code></td>
+            </tr>
+
+
+
+            <tr>
+                <td class="col-md-3">templateUrl</td>
+                <td class="col-md-9"><code>./requirement.component.html</code></td>
+            </tr>
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section>
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Properties</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#descriptionTemplate">descriptionTemplate</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#modifiedRequirementTemplateParts">modifiedRequirementTemplateParts</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#requirementComponentLoadingCompleted$">requirementComponentLoadingCompleted$</a>
+                            </li>
+                            <li>
+                                <a href="#requirementContainer">requirementContainer</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#requirements">requirements</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#requirementTemplateIsValid">requirementTemplateIsValid</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#requirementTemplateParts">requirementTemplateParts</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#selectedRequirement">selectedRequirement</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#selectedRequirementId">selectedRequirementId</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#subscriptions">subscriptions</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#createNewRequirementTemplatePart">createNewRequirementTemplatePart</a>
+                            </li>
+                            <li>
+                                <a href="#ngOnDestroy">ngOnDestroy</a>
+                            </li>
+                            <li>
+                                <a href="#ngOnInit">ngOnInit</a>
+                            </li>
+                            <li>
+                                <a href="#onRequirementPartChanged">onRequirementPartChanged</a>
+                            </li>
+                            <li>
+                                <a href="#onSaveRequirement">onSaveRequirement</a>
+                            </li>
+                            <li>
+                                <a href="#onSelectedRequirement">onSelectedRequirement</a>
+                            </li>
+                            <li>
+                                <a href="#renderRequirementTemplate">renderRequirementTemplate</a>
+                            </li>
+                            <li>
+                                <a href="#setChoosenTableOptionActive">setChoosenTableOptionActive</a>
+                            </li>
+                            <li>
+                                <a href="#tableHandler">tableHandler</a>
+                            </li>
+                            <li>
+                                <a href="#wrapperHandler">wrapperHandler</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section>
+    <h3 id="constructor">Constructor</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+<code>constructor(requirementService: <a href="../injectables/RequirementService.html">RequirementService</a>, renderer: <a href="https://angular.io/api/core/Renderer2" target="_blank">Renderer2</a>, storeService: <a href="../injectables/StoreService.html">StoreService</a>, requirementTemplatePartService: <a href="../injectables/RequirementTemplatePartService.html">RequirementTemplatePartService</a>, router: <a href="https://angular.io/api/router/Router" target="_blank">Router</a>, route: <a href="https://angular.io/api/router/ActivatedRoute" target="_blank">ActivatedRoute</a>)</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="57" class="link-to-prism">src/app/requirements/requirement/requirement.component.ts:57</a></div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                            <div>
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>requirementService</td>
+                                                  
+                                                        <td>
+                                                                    <code><a href="../injectables/RequirementService.html" target="_self" >RequirementService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>renderer</td>
+                                                  
+                                                        <td>
+                                                                    <code><a href="https://angular.io/api/core/Renderer2" target="_blank" >Renderer2</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>storeService</td>
+                                                  
+                                                        <td>
+                                                                    <code><a href="../injectables/StoreService.html" target="_self" >StoreService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>requirementTemplatePartService</td>
+                                                  
+                                                        <td>
+                                                                    <code><a href="../injectables/RequirementTemplatePartService.html" target="_self" >RequirementTemplatePartService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>router</td>
+                                                  
+                                                        <td>
+                                                                    <code><a href="https://angular.io/api/router/Router" target="_blank" >Router</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>route</td>
+                                                  
+                                                        <td>
+                                                                    <code><a href="https://angular.io/api/router/ActivatedRoute" target="_blank" >ActivatedRoute</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+</section>
+
+
+
+
+
+    <section>
+    
+        <h3 id="methods">
+            Methods
+        </h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="createNewRequirementTemplatePart"></a>
+                        <span class="name">
+                            <b>
+                            createNewRequirementTemplatePart
+                            </b>
+                            <a href="#createNewRequirementTemplatePart"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+<code>createNewRequirementTemplatePart(templatePart: <a href="../classes/RequirementTemplatePart.html">RequirementTemplatePart</a>)</code>
+                    </td>
+                </tr>
+
+
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="204" class="link-to-prism">src/app/requirements/requirement/requirement.component.ts:204</a></div>
+                            </td>
+                        </tr>
+
+
+                <tr>
+                    <td class="col-md-4">
+                            <div class="io-description"><p>creates new element</p>
+</div>
+
+                            <div class="io-description">
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                                    <td>Description</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>templatePart</td>
+                                                        <td>
+                                                                    <code><a href="../classes/RequirementTemplatePart.html" target="_self" >RequirementTemplatePart</a></code>
+                                                        </td>
+                                                    
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+
+                                                        <td>
+                                                                <code><p>requirement template part</p>
+</code>
+                                                        </td>
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                            <div>
+                            </div>
+                            <div class="io-description">
+                                <b>Returns : </b>    <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                            </div>
+                                <div class="io-description">
+                                    
+                                </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="ngOnDestroy"></a>
+                        <span class="name">
+                            <b>
+                            ngOnDestroy
+                            </b>
+                            <a href="#ngOnDestroy"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+<code>ngOnDestroy()</code>
+                    </td>
+                </tr>
+
+
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="142" class="link-to-prism">src/app/requirements/requirement/requirement.component.ts:142</a></div>
+                            </td>
+                        </tr>
+
+
+                <tr>
+                    <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Returns : </b>    <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                            </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="ngOnInit"></a>
+                        <span class="name">
+                            <b>
+                            ngOnInit
+                            </b>
+                            <a href="#ngOnInit"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+<code>ngOnInit()</code>
+                    </td>
+                </tr>
+
+
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="71" class="link-to-prism">src/app/requirements/requirement/requirement.component.ts:71</a></div>
+                            </td>
+                        </tr>
+
+
+                <tr>
+                    <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Returns : </b>    <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                            </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="onRequirementPartChanged"></a>
+                        <span class="name">
+                            <b>
+                            onRequirementPartChanged
+                            </b>
+                            <a href="#onRequirementPartChanged"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+<code>onRequirementPartChanged(event: )</code>
+                    </td>
+                </tr>
+
+
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="540" class="link-to-prism">src/app/requirements/requirement/requirement.component.ts:540</a></div>
+                            </td>
+                        </tr>
+
+
+                <tr>
+                    <td class="col-md-4">
+                            <div class="io-description"><p>methods gets executed each time an event occurres on one of the requirement template parts</p>
+</div>
+
+                            <div class="io-description">
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                <td>Optional</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>event</td>
+                                                    
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                            <div>
+                            </div>
+                            <div class="io-description">
+                                <b>Returns : </b>    <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                            </div>
+                                <div class="io-description">
+                                    
+                                </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="onSaveRequirement"></a>
+                        <span class="name">
+                            <b>
+                            onSaveRequirement
+                            </b>
+                            <a href="#onSaveRequirement"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+<code>onSaveRequirement()</code>
+                    </td>
+                </tr>
+
+
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="707" class="link-to-prism">src/app/requirements/requirement/requirement.component.ts:707</a></div>
+                            </td>
+                        </tr>
+
+
+                <tr>
+                    <td class="col-md-4">
+                            <div class="io-description"><p>make api calls for changed requirement template parts</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Returns : </b>    <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                            </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="onSelectedRequirement"></a>
+                        <span class="name">
+                            <b>
+                            onSelectedRequirement
+                            </b>
+                            <a href="#onSelectedRequirement"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+<code>onSelectedRequirement()</code>
+                    </td>
+                </tr>
+
+
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="151" class="link-to-prism">src/app/requirements/requirement/requirement.component.ts:151</a></div>
+                            </td>
+                        </tr>
+
+
+                <tr>
+                    <td class="col-md-4">
+                            <div class="io-description"><p>update local variables and run methods if selected requirement changes</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Returns : </b>    <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                            </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="renderRequirementTemplate"></a>
+                        <span class="name">
+                            <b>
+                            renderRequirementTemplate
+                            </b>
+                            <a href="#renderRequirementTemplate"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+<code>renderRequirementTemplate()</code>
+                    </td>
+                </tr>
+
+
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="183" class="link-to-prism">src/app/requirements/requirement/requirement.component.ts:183</a></div>
+                            </td>
+                        </tr>
+
+
+                <tr>
+                    <td class="col-md-4">
+                            <div class="io-description"><p>render requirement template</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Returns : </b>    <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                            </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="setChoosenTableOptionActive"></a>
+                        <span class="name">
+                            <b>
+                            setChoosenTableOptionActive
+                            </b>
+                            <a href="#setChoosenTableOptionActive"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+<code>setChoosenTableOptionActive(descriptionTemplatePart: <a href="../classes/RequirementDescriptionTemplatePart.html">RequirementDescriptionTemplatePart</a>, requirementTemplatePart: <a href="../classes/RequirementDescriptionTemplatePart.html">RequirementDescriptionTemplatePart</a>, newRow: HTMLTableRowElement)</code>
+                    </td>
+                </tr>
+
+
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="473" class="link-to-prism">src/app/requirements/requirement/requirement.component.ts:473</a></div>
+                            </td>
+                        </tr>
+
+
+                <tr>
+                    <td class="col-md-4">
+                            <div class="io-description"><p>set the choosen table option as active
+valid subtypes of table: wrapper, dropdown, input, text</p>
+</div>
+
+                            <div class="io-description">
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>descriptionTemplatePart</td>
+                                                        <td>
+                                                                    <code><a href="../classes/RequirementDescriptionTemplatePart.html" target="_self" >RequirementDescriptionTemplatePart</a></code>
+                                                        </td>
+                                                    
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+
+                                                </tr>
+                                                <tr>
+                                                        <td>requirementTemplatePart</td>
+                                                        <td>
+                                                                    <code><a href="../classes/RequirementDescriptionTemplatePart.html" target="_self" >RequirementDescriptionTemplatePart</a></code>
+                                                        </td>
+                                                    
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+
+                                                </tr>
+                                                <tr>
+                                                        <td>newRow</td>
+                                                        <td>
+                                                                    <code>HTMLTableRowElement</code>
+                                                        </td>
+                                                    
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                            <div>
+                            </div>
+                            <div class="io-description">
+                                <b>Returns : </b>    <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                            </div>
+                                <div class="io-description">
+                                    
+                                </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="tableHandler"></a>
+                        <span class="name">
+                            <b>
+                            tableHandler
+                            </b>
+                            <a href="#tableHandler"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+<code>tableHandler(templatePart: <a href="../classes/RequirementTemplatePart.html">RequirementTemplatePart</a>, newPart: <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">any</a>)</code>
+                    </td>
+                </tr>
+
+
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="275" class="link-to-prism">src/app/requirements/requirement/requirement.component.ts:275</a></div>
+                            </td>
+                        </tr>
+
+
+                <tr>
+                    <td class="col-md-4">
+                            <div class="io-description"><p>create table and its sub elements</p>
+</div>
+
+                            <div class="io-description">
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>templatePart</td>
+                                                        <td>
+                                                                    <code><a href="../classes/RequirementTemplatePart.html" target="_self" >RequirementTemplatePart</a></code>
+                                                        </td>
+                                                    
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+
+                                                </tr>
+                                                <tr>
+                                                        <td>newPart</td>
+                                                        <td>
+                                                                    <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+                                                        </td>
+                                                    
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                            <div>
+                            </div>
+                            <div class="io-description">
+                                <b>Returns : </b>    <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                            </div>
+                                <div class="io-description">
+                                    
+                                </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="wrapperHandler"></a>
+                        <span class="name">
+                            <b>
+                            wrapperHandler
+                            </b>
+                            <a href="#wrapperHandler"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+<code>wrapperHandler(templatePart: <a href="../classes/RequirementTemplatePart.html">RequirementTemplatePart</a>, newPart: <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">any</a>)</code>
+                    </td>
+                </tr>
+
+
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="413" class="link-to-prism">src/app/requirements/requirement/requirement.component.ts:413</a></div>
+                            </td>
+                        </tr>
+
+
+                <tr>
+                    <td class="col-md-4">
+                            <div class="io-description"><p>create the wrapper div and its sub elements</p>
+</div>
+
+                            <div class="io-description">
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>templatePart</td>
+                                                        <td>
+                                                                    <code><a href="../classes/RequirementTemplatePart.html" target="_self" >RequirementTemplatePart</a></code>
+                                                        </td>
+                                                    
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+
+                                                </tr>
+                                                <tr>
+                                                        <td>newPart</td>
+                                                        <td>
+                                                                    <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+                                                        </td>
+                                                    
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                            <div>
+                            </div>
+                            <div class="io-description">
+                                <b>Returns : </b>    <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                            </div>
+                                <div class="io-description">
+                                    
+                                </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+</section>
+
+    <section>
+    
+        <h3 id="inputs">
+            Properties
+        </h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="descriptionTemplate"></a>
+                        <span class="name">
+                            <b>
+                                <span class="modifier">Private</span>
+                            descriptionTemplate
+                            </b>
+                            <a href="#descriptionTemplate"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span><code>descriptionTemplate:     <code><a href="../classes/RequirementDescriptionTemplate.html" target="_self" >RequirementDescriptionTemplate</a></code>
+</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>    <code><a href="../classes/RequirementDescriptionTemplate.html" target="_self" >RequirementDescriptionTemplate</a></code>
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>null</code>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="48" class="link-to-prism">src/app/requirements/requirement/requirement.component.ts:48</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="modifiedRequirementTemplateParts"></a>
+                        <span class="name">
+                            <b>
+                                <span class="modifier">Private</span>
+                            modifiedRequirementTemplateParts
+                            </b>
+                            <a href="#modifiedRequirementTemplateParts"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span><code>modifiedRequirementTemplateParts:     <code><a href="../classes/RequirementTemplatePart.html" target="_self" >RequirementTemplatePart[]</a></code>
+</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>    <code><a href="../classes/RequirementTemplatePart.html" target="_self" >RequirementTemplatePart[]</a></code>
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>[]</code>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="54" class="link-to-prism">src/app/requirements/requirement/requirement.component.ts:54</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="requirementComponentLoadingCompleted$"></a>
+                        <span class="name">
+                            <b>
+                                <span class="modifier">Public</span>
+                            requirementComponentLoadingCompleted$
+                            </b>
+                            <a href="#requirementComponentLoadingCompleted$"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span><code>requirementComponentLoadingCompleted$:     <code>BehaviorSubject&lt;boolean&gt;</code>
+</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>    <code>BehaviorSubject&lt;boolean&gt;</code>
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>new BehaviorSubject&lt;boolean&gt;(true)</code>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="57" class="link-to-prism">src/app/requirements/requirement/requirement.component.ts:57</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="requirementContainer"></a>
+                        <span class="name">
+                            <b>
+                            requirementContainer
+                            </b>
+                            <a href="#requirementContainer"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <code>requirementContainer:     <code><a href="https://angular.io/api/core/ElementRef" target="_blank" >ElementRef</a></code>
+</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>    <code><a href="https://angular.io/api/core/ElementRef" target="_blank" >ElementRef</a></code>
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Decorators : </i><code>ViewChild</code>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="45" class="link-to-prism">src/app/requirements/requirement/requirement.component.ts:45</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="requirements"></a>
+                        <span class="name">
+                            <b>
+                                <span class="modifier">Public</span>
+                            requirements
+                            </b>
+                            <a href="#requirements"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span><code>requirements:     <code><a href="../classes/Requirement.html" target="_self" >Requirement[]</a></code>
+</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>    <code><a href="../classes/Requirement.html" target="_self" >Requirement[]</a></code>
+
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="33" class="link-to-prism">src/app/requirements/requirement/requirement.component.ts:33</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="requirementTemplateIsValid"></a>
+                        <span class="name">
+                            <b>
+                                <span class="modifier">Public</span>
+                            requirementTemplateIsValid
+                            </b>
+                            <a href="#requirementTemplateIsValid"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span><code>requirementTemplateIsValid:     <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>    <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="51" class="link-to-prism">src/app/requirements/requirement/requirement.component.ts:51</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="requirementTemplateParts"></a>
+                        <span class="name">
+                            <b>
+                                <span class="modifier">Private</span>
+                            requirementTemplateParts
+                            </b>
+                            <a href="#requirementTemplateParts"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span><code>requirementTemplateParts:     <code><a href="../classes/RequirementTemplatePart.html" target="_self" >RequirementTemplatePart[]</a></code>
+</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>    <code><a href="../classes/RequirementTemplatePart.html" target="_self" >RequirementTemplatePart[]</a></code>
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>[]</code>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="42" class="link-to-prism">src/app/requirements/requirement/requirement.component.ts:42</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="selectedRequirement"></a>
+                        <span class="name">
+                            <b>
+                                <span class="modifier">Public</span>
+                            selectedRequirement
+                            </b>
+                            <a href="#selectedRequirement"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span><code>selectedRequirement:     <code><a href="../classes/Requirement.html" target="_self" >Requirement</a></code>
+</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>    <code><a href="../classes/Requirement.html" target="_self" >Requirement</a></code>
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>null</code>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="28" class="link-to-prism">src/app/requirements/requirement/requirement.component.ts:28</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="selectedRequirementId"></a>
+                        <span class="name">
+                            <b>
+                                <span class="modifier">Private</span>
+                            selectedRequirementId
+                            </b>
+                            <a href="#selectedRequirementId"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span><code>selectedRequirementId:     <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>    <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="36" class="link-to-prism">src/app/requirements/requirement/requirement.component.ts:36</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="subscriptions"></a>
+                        <span class="name">
+                            <b>
+                                <span class="modifier">Private</span>
+                            subscriptions
+                            </b>
+                            <a href="#subscriptions"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span><code>subscriptions:     <code>Subscription[]</code>
+</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>    <code>Subscription[]</code>
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>[]</code>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="39" class="link-to-prism">src/app/requirements/requirement/requirement.component.ts:39</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+</section>
+
+</div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="c-source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, OnInit, OnDestroy, ViewChild, ElementRef, Renderer2 } from &#x27;@angular/core&#x27;;
+import { RequirementService } from &#x27;../../services/requirement/requirement.service&#x27;;
+import { Requirement } from &#x27;../../models/requirement&#x27;;
+import { Subscription, Observable, Observer, BehaviorSubject, from, merge } from &#x27;rxjs&#x27;;
+import { RequirementTemplatePart } from &#x27;../../models/requirement-template-part&#x27;;
+import { RequirementDescriptionTemplate } from &#x27;../../models/requirement-description-template/requirement-description-template&#x27;;
+import { RequirementDescriptionTemplatePart } from &#x27;../../models/requirement-description-template/requirement-description-template-part&#x27;;
+import { StoreService } from &#x27;../../services/store.service&#x27;;
+import * as _ from &#x27;lodash&#x27;;
+import { RequirementTemplatePartService } from &#x27;../../services/requirement-template-part.service&#x27;;
+import { concatMap, bufferCount } from &#x27;rxjs/operators&#x27;;
+import { Router, ActivatedRoute, Params } from &#x27;@angular/router&#x27;;
+
+// js variable
+//declare var document: any;
+// ToDo replace document with Renderer2
+
+@Component({
+  selector: &#x27;app-requirement&#x27;,
+  templateUrl: &#x27;./requirement.component.html&#x27;,
+  styleUrls: [&#x27;./requirement.component.css&#x27;]
+})
+export class RequirementComponent implements OnInit, OnDestroy {
+
+  /*
+   * in dropdown selected requirement
+   */
+  public selectedRequirement: Requirement &#x3D; null;
+
+  /*
+   * requirements array
+   */
+  public requirements: Requirement[];
+
+  // selected requirement id
+  private selectedRequirementId: string;
+
+  // subscriptions
+  private subscriptions: Subscription[] &#x3D; [];
+
+  // requirement template parts of the current selected requirement
+  private requirementTemplateParts: RequirementTemplatePart[] &#x3D; [];
+
+  // requirement container
+  @ViewChild(&#x27;requirementContainer&#x27;) requirementContainer: ElementRef;
+
+  // ToDo validation Funktion schreiben -&gt; hilft auch beim Aufbau der Anforderung
+  private descriptionTemplate: RequirementDescriptionTemplate &#x3D; null;
+
+  // variable shows if current requirement template is valid
+  public requirementTemplateIsValid: boolean;
+
+  // modified template parts to upload
+  private modifiedRequirementTemplateParts: RequirementTemplatePart[] &#x3D; [];
+
+  // component is loading
+  public requirementComponentLoadingCompleted$: BehaviorSubject&lt;boolean&gt; &#x3D; new BehaviorSubject&lt;boolean&gt;(true);
+
+  /*
+   * constructor
+   */
+  constructor(
+    private requirementService: RequirementService,
+    private renderer: Renderer2,
+    private storeService: StoreService,
+    private requirementTemplatePartService: RequirementTemplatePartService,
+    private router: Router,
+    private route: ActivatedRoute
+  ) { }
+
+  ngOnInit() {
+
+    // app is loading
+    this.requirementComponentLoadingCompleted$.next(false);
+
+    // subscribe to requirements and route params
+    this.subscriptions.push(
+      merge(
+        this.storeService.requirements$,
+        this.route.params
+      )
+        .subscribe((data: Requirement[] | Params) &#x3D;&gt; {
+
+          // requirements$ is a BehaviorSubject with null inital value
+          if (data) {
+
+            // set new data
+            if (data.constructor &#x3D;&#x3D; Object) {
+              // data is of type Params
+
+              // set selected requirement id
+              this.selectedRequirementId &#x3D; data[&#x27;id&#x27;];
+
+            } else if (data.constructor &#x3D;&#x3D; Array) {
+              // data is of type Requirement[]
+
+              // set requirements
+              this.requirements &#x3D; &lt;Requirement[]&gt;data;
+
+            } else {
+              throw new Error(&#x27;RequirementComponent - data is neither of type Requirement[] nor Params&#x27;);
+            }
+
+            // update current data if all observables emitted
+            if (this.selectedRequirementId &amp;&amp; this.requirements) {
+
+              // find current selected requirement in requirements-array
+              let result &#x3D; this.requirements.find((requirement: Requirement) &#x3D;&gt; requirement._id &#x3D;&#x3D;&#x3D; this.selectedRequirementId);
+
+              if (!result) {
+                throw new Error(&#x27;RequirementComponent - requirement not found&#x27;);
+              }
+
+              // set selected requirement
+              this.selectedRequirement &#x3D; result;
+
+              // run predefined method
+              this.onSelectedRequirement();
+            }
+
+            // app loading completed
+            this.requirementComponentLoadingCompleted$.next(true);
+
+          }
+        }, (error) &#x3D;&gt; {
+          console.log(&#x27;RequirementComponent - error occurred in ngOnInit()&#x27;);
+          console.log(error);
+
+          // app loading completed
+          this.requirementComponentLoadingCompleted$.next(true);
+        })
+    );
+
+    // subscribe to requirement template validator
+    this.subscriptions.push(
+      this.requirementService.requirementTemplateIsValid$.subscribe(
+        (validation: boolean) &#x3D;&gt; this.requirementTemplateIsValid &#x3D; validation
+      )
+    );
+  }
+
+  ngOnDestroy() {
+    // unsubscribe all subscriptions
+    this.subscriptions.forEach(sub &#x3D;&gt; sub.unsubscribe());
+  }
+
+  /**
+   * update local variables and run methods if selected requirement changes
+   *
+   */
+  onSelectedRequirement() {
+
+    // set requirement template parts
+    this.requirementTemplateParts &#x3D; this.selectedRequirement.descriptionParts;
+
+    // set description template
+    this.descriptionTemplate &#x3D; this.selectedRequirement.descriptionTemplate;
+
+    // update description template to be a list of objects
+    this.descriptionTemplate.template &#x3D; this.descriptionTemplate.template.map(element &#x3D;&gt; this.requirementService.createObject(element));
+
+    // set container id
+    this.requirementContainer.nativeElement.setAttribute(&#x27;id&#x27;, &#x27;requirementId_&#x27; + this.selectedRequirement._id);
+
+    // render selected requirement template
+    this.renderRequirementTemplate();
+
+    // debug
+    console.log(&#x27;requirement selected&#x27;);
+    console.log(this.selectedRequirement);
+    // debug
+
+    // validate requirement template
+    this.requirementService.validateRequirementTemplate(this.requirementTemplateParts, this.descriptionTemplate);
+
+  }
+
+  /**
+  *
+  * render requirement template
+  *
+  */
+  renderRequirementTemplate() {
+
+    // delete content of current requirement-container
+    this.requirementContainer.nativeElement.innerHTML &#x3D; &#x27;&#x27;;
+
+    // create new DOM elements for the description template
+    this.requirementTemplateParts
+      .forEach((element: RequirementTemplatePart) &#x3D;&gt; {
+
+        let newPart &#x3D; this.createNewRequirementTemplatePart(element);
+
+        // add new created element as the last child of the requirement container to the DOM
+        this.requirementContainer.nativeElement.appendChild(newPart);
+      });
+  }
+
+  /**
+   * creates new element
+   * 
+   * @param templatePart requirement template part
+   */
+  createNewRequirementTemplatePart(templatePart: RequirementTemplatePart) {
+
+    // prevent type errors
+    templatePart &#x3D; this.requirementService.createObject(templatePart);
+
+    // create new element to insert
+    let newPart &#x3D; null;
+
+    // handle element type -&gt; ToDo add id and added attributes
+    switch (templatePart.type) {
+      case &#x27;dropdown&#x27;:
+        newPart &#x3D; document.createElement(&#x27;select&#x27;);
+
+        // create all select options
+        for (var i &#x3D; 0; i &lt; templatePart.descriptionTemplateValue.length; i++) {
+          var option &#x3D; document.createElement(&#x27;option&#x27;);
+          option.setAttribute(&#x27;value&#x27;, templatePart.value[i]);
+          option.innerHTML &#x3D; templatePart.descriptionTemplateValue[i];
+
+          // set active option
+          if (templatePart.descriptionTemplateValue[i].toString() &#x3D;&#x3D;&#x3D; templatePart.value.toString()) {
+            option.selected &#x3D; true;
+          }
+          newPart.appendChild(option);
+        }
+
+        // event listener
+        newPart.addEventListener(&#x27;change&#x27;, this.onRequirementPartChanged.bind(this))
+        break;
+
+      case &#x27;text&#x27;:
+        newPart &#x3D; document.createElement(&#x27;div&#x27;);
+        newPart.innerHTML &#x3D; templatePart.value;
+        newPart.setAttribute(&#x27;style&#x27;, &#x27;display:inline;&#x27;);
+        break;
+
+      case &#x27;input&#x27;:
+        newPart &#x3D; document.createElement(&#x27;input&#x27;);
+        newPart.placeholder &#x3D; templatePart.descriptionTemplateValue;
+        newPart.value &#x3D; templatePart.value;
+
+        // event listener
+        newPart.addEventListener(&#x27;change&#x27;, this.onRequirementPartChanged.bind(this));
+        break;
+
+      case &#x27;table&#x27;:
+        newPart &#x3D; this.tableHandler(templatePart, newPart);
+        break;
+
+      case &#x27;wrapper&#x27;:
+        newPart &#x3D; this.wrapperHandler(templatePart, newPart);
+        break;
+
+      default:
+        console.log(&#x27;createNewRequirementTemplatePart: chosen type not implemented: &#x27; + templatePart.type);
+    }
+
+    // set id and classname
+    newPart.id &#x3D; templatePart._id;
+    newPart.classList.add(&#x27;requirement-part&#x27;);
+
+    return newPart;
+
+  }
+
+  /**
+   * create table and its sub elements
+   * 
+   * @param templatePart
+   * @param newPart
+   */
+  tableHandler(templatePart: RequirementTemplatePart, newPart: any) {
+
+    // create new dom node
+    newPart &#x3D; document.createElement(&#x27;table&#x27;);
+    newPart.setAttribute(&#x27;style&#x27;, &#x27;display:inline;&#x27;); // ToDo check if necessary
+
+    // add children elements
+    // descriptionTemplateValue -&gt; all possible options are stored here -&gt; iterate the length often
+    for (let i &#x3D; 0; i &lt; templatePart.descriptionTemplateValue.length; i++) {
+
+      // local variables
+      let tableChildElement &#x3D; templatePart.descriptionTemplateValue[i];
+      let newChildElement;
+
+      /*
+       * create new DOM element
+       * correct data necessary
+       *
+       * start
+       */
+
+      // ToDo implement all subelements of table:
+      // wrapper, dropdown, input, text
+
+      // if requirement type &#x3D;&#x3D;&#x3D; description type -&gt; descriptionTemplateValue param necessary
+      if (tableChildElement.type &#x3D;&#x3D;&#x3D; templatePart.value[0].type) {
+
+        if (
+          templatePart.value[0].type &#x3D;&#x3D;&#x3D; &#x27;text&#x27; &amp;&amp;
+          tableChildElement.value &#x3D;&#x3D;&#x3D; templatePart.value[0].value
+        ) {
+          // table subelement text
+
+          // create new child element of choosen option 
+          newChildElement &#x3D; this.createNewRequirementTemplatePart(templatePart.value[0]);
+
+        } else if (
+          templatePart.value[0].type &#x3D;&#x3D;&#x3D; &#x27;wrapper&#x27;
+        ) {
+          // table subelement wrapper
+          // ToDo: the correct wrapper has to be choosen
+          // Issue: with the current method only one wrapper per table is allowed
+
+          // create new child element of choosen option 
+          newChildElement &#x3D; this.createNewRequirementTemplatePart(templatePart.value[0]);
+
+        } else {
+          // types are equal but values not
+          // create new child element of not choosen option 
+          newChildElement &#x3D; this.createNewRequirementTemplatePart(tableChildElement);
+        }
+
+      } else {
+        // types are not equal
+        // render not choosen option
+
+        // clone deep -&gt; prevent side effects
+        let descriptionTemplateElement &#x3D; _.cloneDeep(tableChildElement);
+
+        // handle all subelements of table
+        if (tableChildElement.type &#x3D;&#x3D;&#x3D; &#x27;text&#x27;) {
+          // text
+
+          // change nothing
+          // value-property is necessary to render the element
+        } else if (tableChildElement.type &#x3D;&#x3D;&#x3D; &#x27;input&#x27;) {
+          // input
+
+          // set placeholder for creation of subelement
+          descriptionTemplateElement.descriptionTemplateValue &#x3D; _.cloneDeep(descriptionTemplateElement.value);
+          descriptionTemplateElement.value &#x3D; &#x27;&#x27;;
+        } else if (tableChildElement.type &#x3D;&#x3D;&#x3D; &#x27;dropdown&#x27;) {
+          // dropdown
+
+          // set empty array for creation of subelement
+          descriptionTemplateElement.descriptionTemplateValue &#x3D; _.cloneDeep(descriptionTemplateElement.value);
+          descriptionTemplateElement.value &#x3D; [];
+        } else if (tableChildElement.type &#x3D;&#x3D;&#x3D; &#x27;wrapper&#x27;) {
+          // wrapper         
+
+          // changes to descriptionTemplateElement.value would not effect anything
+          // because descriptionTemplateElement is a deep clone
+          // -&gt; handle wrapper in wrapperHandler()         
+        } else {
+          // type not supported as subelement of table
+          throw new Error(&#x60;tableHandler() - type ${templatePart.value[0].type} not supported as subelement of table&#x60;);
+        }
+
+        // create new child element of not choosen option 
+        newChildElement &#x3D; this.createNewRequirementTemplatePart(descriptionTemplateElement);
+      }
+      /*
+       * end
+       */
+
+      // create new row
+      let newRow &#x3D; document.createElement(&#x27;tr&#x27;);
+      this.renderer.addClass(newRow, &#x27;vc-req-table&#x27;);
+
+      // local variables
+      let descriptionTemplatePart &#x3D; this.requirementService.createObject(templatePart.descriptionTemplateValue[i]);
+      let requirementTemplatePart &#x3D; this.requirementService.createObject(templatePart.value[0]);
+
+      // set choosen subtype as active
+      this.setChoosenTableOptionActive(descriptionTemplatePart, requirementTemplatePart, newRow);
+
+      // event listener
+      newRow.addEventListener(&#x27;click&#x27;, this.onRequirementPartChanged.bind(this))
+
+      // value cell
+      let newCell1 &#x3D; document.createElement(&#x27;td&#x27;);
+      newCell1.setAttribute(&#x27;align&#x27;, &#x27;left&#x27;);
+
+      // append new created child element
+      newCell1.appendChild(newChildElement);
+
+      // button cell
+      let newCell2 &#x3D; document.createElement(&#x27;td&#x27;);
+      // add new button
+      // ToDo check what this method does
+      // Simon used the button to choose the next option
+      //newCell2.appendChild(getNewButton(requirementId, childReqElementType, parentId));
+
+      // append new created elements
+      newRow.appendChild(newCell1);
+      newRow.appendChild(newCell2);
+      newPart.appendChild(newRow);
+    }
+
+    return newPart;
+  }
+
+  /**
+   * create the wrapper div and its sub elements
+   * 
+   * @param templatePart
+   * @param newPart
+   */
+  wrapperHandler(templatePart: RequirementTemplatePart, newPart: any) {
+
+    // create new dom node
+    newPart &#x3D; document.createElement(&#x27;div&#x27;);
+    newPart.style.display &#x3D; &#x27;inline&#x27;;
+
+    // add children elements
+    for (let i &#x3D; 0; i &lt; templatePart.value.length; i++) {
+
+      // local variable
+      let tableChildElement &#x3D; templatePart.value[i];
+
+      // handle all subelement types of wrapper: dropdown, input, text
+      // wrapperHandler() called for choosen options -&gt; descriptionTemplateValue already set
+      // wrapperHandler() called for not-choosen options -&gt; descriptionTemplateValue not set
+      switch (tableChildElement.type) {
+        case &#x27;dropdown&#x27;:
+          if (!tableChildElement.descriptionTemplateValue) {
+
+            // set empty array for creation of subelement
+            tableChildElement.descriptionTemplateValue &#x3D; _.cloneDeep(tableChildElement.value);
+            tableChildElement.value &#x3D; [];
+          }
+          break;
+        case &#x27;input&#x27;:
+          if (!tableChildElement.descriptionTemplateValue) {
+
+            // set placeholder for creation of subelement
+            tableChildElement.descriptionTemplateValue &#x3D; _.cloneDeep(tableChildElement.value);
+            tableChildElement.value &#x3D; &#x27;&#x27;;
+          }
+          break;
+        case &#x27;text&#x27;:
+          // do nothing
+          // descriptionTemplateValue is not set and value is needed for rendering
+          break;
+        default:
+          throw new Error(&#x60;wrapperHandler() - type ${tableChildElement.type} is not supported as a subtype of wrapper&#x60;);
+      }
+
+      // create new child element
+      // ToDo handle errors if array is not valid
+      var newChildElement &#x3D; this.createNewRequirementTemplatePart(tableChildElement);
+
+      // append new elements to wrapper
+      newPart.appendChild(newChildElement);
+    }
+
+    return newPart;
+
+  }
+
+  /**
+   * set the choosen table option as active
+   * valid subtypes of table: wrapper, dropdown, input, text
+   * 
+   * @param descriptionTemplatePart
+   * @param requirementTemplatePart
+   * @param newRow
+   */
+  setChoosenTableOptionActive(descriptionTemplatePart: RequirementDescriptionTemplatePart, requirementTemplatePart: RequirementDescriptionTemplatePart, newRow: HTMLTableRowElement) {
+
+    if (requirementTemplatePart.type &#x3D;&#x3D;&#x3D; &#x27;text&#x27;) {
+      // subtype text
+
+      // if type and value are equal
+      if (
+        descriptionTemplatePart.type &#x3D;&#x3D;&#x3D; requirementTemplatePart.type &amp;&amp;
+        descriptionTemplatePart.value &#x3D;&#x3D;&#x3D; requirementTemplatePart.value
+      ) {
+
+        // set option as active
+        newRow.classList.add(&#x27;active&#x27;);
+      }
+
+    } else if (requirementTemplatePart.type &#x3D;&#x3D;&#x3D; &#x27;wrapper&#x27;) {
+      // subtype wrapper
+
+      // both types have to be &#x27;wrapper&#x27;
+      if (descriptionTemplatePart.type &#x3D;&#x3D;&#x3D; requirementTemplatePart.type) {
+
+        // check sub elements
+        requirementTemplatePart.value.forEach((subPart, i) &#x3D;&gt; {
+          this.setChoosenTableOptionActive(subPart, descriptionTemplatePart.value[i], newRow);
+          // ToDo: issue - if only one subelement is valid, the row gets the active class anyway
+        });
+      }
+
+    } else if (requirementTemplatePart.type &#x3D;&#x3D;&#x3D; &#x27;input&#x27;) {
+      // subtype input
+
+      // types are equal and value is not empty
+      if (
+        descriptionTemplatePart.type &#x3D;&#x3D;&#x3D; requirementTemplatePart.type &amp;&amp;
+        requirementTemplatePart.value !&#x3D;&#x3D; &#x27;&#x27;
+      ) {
+        newRow.classList.add(&#x27;active&#x27;);
+      }
+
+    } else if (requirementTemplatePart.type &#x3D;&#x3D;&#x3D; &#x27;dropdown&#x27;) {
+      // subtype dropdown
+
+      // ToDo: case dropdown not debugged yet
+      console.log(&#x27;case dropdown in has not been debugged yet&#x27;);
+
+      // search for option in description template
+      let optionsChoosen &#x3D; Array.from(descriptionTemplatePart.value).find((option: string) &#x3D;&gt; option &#x3D;&#x3D;&#x3D; requirementTemplatePart.value[0]);
+
+      if (
+        descriptionTemplatePart.type &#x3D;&#x3D;&#x3D; requirementTemplatePart.type &amp;&amp;
+        optionsChoosen
+      ) {
+        newRow.classList.add(&#x27;active&#x27;);
+      }
+
+    } else {
+
+      // ToDo update error
+      throw new Error(&#x27;datatype not valid&#x27;)
+    }
+  }
+
+  /**
+   * methods gets executed each time an event occurres on one of the requirement template parts
+   * 
+   * @param event
+   */
+  onRequirementPartChanged(event) {
+
+    if (event.type &#x3D;&#x3D;&#x3D; &#x27;change&#x27;) {
+      // dropdown or input
+
+      let templatePartId &#x3D; event.target.id;
+      let changedTemplatePart: RequirementTemplatePart;
+
+      if (templatePartId !&#x3D;&#x3D; &#x27;undefined&#x27;) {
+
+        // find changed template part -&gt; reference
+        changedTemplatePart &#x3D; RequirementTemplatePart.findById(this.selectedRequirement.descriptionParts, templatePartId);
+
+        if (event.target.nodeName.toLowerCase() &#x3D;&#x3D;&#x3D; &#x27;input&#x27;) {
+          // input
+
+          // set changed value to requirement
+          changedTemplatePart.value &#x3D; event.target.value;
+        } else if (event.target.nodeName.toLowerCase() &#x3D;&#x3D;&#x3D; &#x27;select&#x27;) {
+          // dropdown
+
+          // local variable
+          let select: HTMLSelectElement &#x3D; event.target;
+
+          // set changed value to requirement -&gt; array necessary !
+          changedTemplatePart.value &#x3D; [select.options[select.selectedIndex].textContent];
+        }
+
+        // save chagend data for api call
+        this.modifiedRequirementTemplateParts.push(changedTemplatePart);
+        this.storeService.requirementTemplatePartsModified$.next(true);
+
+      } else {
+        // nested elements hava an id &#x3D;&#x3D;&#x3D; &#x27;undefined&#x27;
+
+        // requirement service method call
+        this.requirementService.findValidParentId(event.target)
+          .subscribe((templatePartId: string) &#x3D;&gt; {
+
+            // find template part -&gt; is a table (see definition, wrapper-elements are always subelements of a table)
+            let templatePart: RequirementTemplatePart &#x3D; RequirementTemplatePart.findById(this.selectedRequirement.descriptionParts, templatePartId);
+
+            if (event.target.nodeName.toLowerCase() &#x3D;&#x3D;&#x3D; &#x27;input&#x27;) {
+              // input
+
+              // local variable
+              let modifiedInput: HTMLInputElement &#x3D; event.target;
+
+              // execute method from above
+              this.requirementService.findModifiedElementInDescriptionTemplate(templatePart, modifiedInput.placeholder, modifiedInput.value);
+
+            } else if (event.target.nodeName.toLowerCase() &#x3D;&#x3D;&#x3D; &#x27;select&#x27;) {
+              // dropdown
+
+              // ToDo if dropdown is in an table element
+              throw new Error(&#x27;onRequirementPartChanged() - dropdown case not implemented yet&#x27;);
+
+              // Issue: findModifiedElementInDescriptionTemplate() does not work for dropdown yet
+              // because value is set to &#x27;&#x27; and not to[]
+            } else {
+              throw new Error(&#x27;onRequirementPartChanged() - neither input nor dropdown element&#x27;);
+            }
+
+            // save chagend data for api call
+            this.modifiedRequirementTemplateParts.push(templatePart);
+            this.storeService.requirementTemplatePartsModified$.next(true);
+          });
+      }
+    } else if (event.type &#x3D;&#x3D;&#x3D; &#x27;click&#x27;) {
+      // table
+
+      // local variable
+      let clickedElement: HTMLElement &#x3D; event.target;
+
+      this.requirementService.findValidParentId(clickedElement).subscribe(
+        (templatePartId: string) &#x3D;&gt; {
+
+          // changed requirement template part -&gt; must be a table due to the click event is only defined for tables yet
+          let templatePart: RequirementTemplatePart &#x3D; RequirementTemplatePart.findById(this.selectedRequirement.descriptionParts, templatePartId);
+
+          //
+          this.requirementService.findParentRow(clickedElement).subscribe(
+            (tableRow: HTMLTableRowElement) &#x3D;&gt; {
+
+              // compare length of child nodelist with templatePart.descriptionTemplateValue.length
+              // templatePart will be always a table
+              if (tableRow.parentNode.childNodes.length !&#x3D;&#x3D; templatePart.descriptionTemplateValue.length) {
+                throw new Error(&#x27;onRequirementPartChanged() - table row count issue&#x27;);
+              }
+
+              // check if choosen option is already active
+              if (!tableRow.classList.contains(&#x27;active&#x27;)) {
+                // option not active
+
+                // local variable of row nodes array
+                let rowNodesArray &#x3D; Array.from(tableRow.parentNode.childNodes);
+
+                // get index of selected option
+                let optinIndex &#x3D; rowNodesArray.indexOf(tableRow);
+
+                // prepare option for insertion
+                let insertableOption &#x3D; _.cloneDeep(templatePart.descriptionTemplateValue[optinIndex]);
+
+                /*
+                 * handle all subtypes of table
+                 *
+                 */
+                let handleTableSubElement &#x3D; (subElement: RequirementTemplatePart) &#x3D;&gt; {
+
+                  switch (subElement.type) {
+                    case &#x27;wrapper&#x27;:
+                      // recursive method call
+                      subElement.value.forEach(wrapperElement &#x3D;&gt; handleTableSubElement(wrapperElement));
+                      break;
+                    case &#x27;dropdown&#x27;:
+                      subElement.descriptionTemplateValue &#x3D; _.cloneDeep(subElement.value);
+                      subElement.value &#x3D; [];
+                      break;
+                    case &#x27;input&#x27;:
+                      subElement.descriptionTemplateValue &#x3D; _.cloneDeep(subElement.value);
+                      subElement.value &#x3D; &#x27;&#x27;;
+                      break;
+                    case &#x27;text&#x27;:
+                      // do nothing
+                      // value is needed for rendering
+                      break;
+                    default:
+                      throw new Error(&#x60;handleTableSubElement() - type ${subElement.type} is no subelement type of table&#x60;);
+                  }
+                };
+
+                // execute method
+                handleTableSubElement(insertableOption);
+
+                // set clicked option
+                templatePart.value &#x3D; [insertableOption];
+
+                // remove css class active from all table rows 
+                rowNodesArray.forEach((row: HTMLTableRowElement) &#x3D;&gt; row.classList.remove(&#x27;active&#x27;));
+
+                // set tableRow active
+                tableRow.classList.add(&#x27;active&#x27;);
+
+                // save chagend data for api call
+                this.modifiedRequirementTemplateParts.push(templatePart);
+                this.storeService.requirementTemplatePartsModified$.next(true);
+
+              }
+            }, (error) &#x3D;&gt; {
+              // if findParentRow() fails
+              throw new Error(error);
+            }
+          );
+        }, (error) &#x3D;&gt; {
+          // if findValidParentId() fails
+          throw new Error(error);
+        }
+      );
+    } else {
+      throw new Error(&#x27;onRequirementPartChanged() - event type not supported&#x27;);
+    }
+  }
+
+  /**
+   * make api calls for changed requirement template parts
+   *
+   */
+  onSaveRequirement() {
+
+    // indicate loading
+    this.storeService.appLoading$.next(true);
+
+    // requirement template parts to update -&gt; local variable
+    let templateParts: RequirementTemplatePart[] &#x3D; _.cloneDeep(this.modifiedRequirementTemplateParts);
+
+    // remove duplicates from behind -&gt; last items are the newest ones
+    templateParts &#x3D; _.uniqWith(templateParts.reverse(), (firstItem, secondItem) &#x3D;&gt; {
+      return firstItem._id &#x3D;&#x3D;&#x3D; secondItem._id;
+    });
+
+    // count variable
+    let templatePartsCount &#x3D; templateParts.length;
+
+    from(templateParts).pipe(
+      concatMap((part: RequirementTemplatePart) &#x3D;&gt; {
+
+        // prepare template parts
+
+        // property descriptionTemplateValue is not in backend model and also not necessary
+        delete part[&#x27;descriptionTemplateValue&#x27;];
+
+        // set correct value datatype
+        if (part.type &#x3D;&#x3D;&#x3D; &#x27;input&#x27; || part.type &#x3D;&#x3D;&#x3D; &#x27;dropdown&#x27; || part.type &#x3D;&#x3D;&#x3D; &#x27;text&#x27;) {
+
+          // do nothing -&gt; string or string array are valid datatypes
+        } else if (part.type &#x3D;&#x3D;&#x3D; &#x27;table&#x27; || part.type &#x3D;&#x3D;&#x3D; &#x27;wrapper&#x27;) {
+
+          // ToDo delete descriptionTemplateValue of subelements
+
+          // stringify table items
+          part.value.forEach(item &#x3D;&gt; item &#x3D; JSON.stringify(item));
+
+        }
+
+        // debug
+        console.log(&#x27;part to save&#x27;)
+        console.log(part)
+
+        return this.requirementTemplatePartService.updateRequirementTemplatePart(part);
+      }),
+      bufferCount(templatePartsCount)
+    )
+      .subscribe(
+        (result) &#x3D;&gt; {
+          console.log(&#x27;save successfull&#x27;)
+          console.log(result)
+
+          // set modified indicator to false
+          this.storeService.requirementTemplatePartsModified$.next(false);
+
+          // reset array of modified requirement template parts
+          this.modifiedRequirementTemplateParts &#x3D; [];
+
+          // reload requirements
+          this.requirementService.reloadRequirements()
+            .subscribe((requirements: Requirement[]) &#x3D;&gt; {
+
+              // end loading
+              this.storeService.appLoading$.next(false);
+
+              // redirect to requirement details page if new created requirement was edited
+              if (this.route.snapshot.queryParams[&#x27;newCreatedRequirement&#x27;] &#x3D;&#x3D;&#x3D; &#x27;true&#x27;) {
+                this.router.navigate([&#x27;requirements&#x27;, this.selectedRequirement._id, &#x27;detail&#x27;]);
+              }            
+            }, (error) &#x3D;&gt; {
+              console.log(&#x27;onSaveRequirement() - observable error&#x27;);
+              console.log(error);
+            });
+        }, (error) &#x3D;&gt; {
+          console.log(&#x27;onSaveRequirement() - updating requirement template parts went wrong&#x27;);
+          console.log(error);
+
+          // end loading
+          this.storeService.appLoading$.next(false);
+        }
+      );
+  }
+}
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="c-templateData">
+        <pre class="line-numbers"><code class="language-html">&lt;div *ngIf&#x3D;&quot;requirementComponentLoadingCompleted$ | async&quot;&gt;
+  &lt;div class&#x3D;&quot;clr-row&quot; style&#x3D;&quot;margin-bottom: 20px;&quot;&gt;
+    &lt;div class&#x3D;&quot;clr-col-12&quot;&gt;
+      &lt;div *ngIf&#x3D;&quot;selectedRequirement &amp;&amp; selectedRequirement.name&quot;&gt;
+        &lt;h3&gt;{{ selectedRequirement.name }}&lt;/h3&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+
+  &lt;div class&#x3D;&quot;clr-row&quot; *ngIf&#x3D;&quot;selectedRequirement&quot;&gt;
+    &lt;div class&#x3D;&quot;clr-col-12&quot;&gt;
+      &lt;h5&gt;Type your Requirement-Description in here:&lt;/h5&gt;
+      &lt;br /&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div #requirementContainer style&#x3D;&quot;display:inline;&quot;&gt;&lt;/div&gt;
+
+&lt;div *ngIf&#x3D;&quot;requirementComponentLoadingCompleted$ | async else loading&quot; style&#x3D;&quot;margin-top: 1rem;&quot;&gt;
+
+  &lt;ng-template [ngIf]&#x3D;&quot;selectedRequirement&quot;&gt;
+
+    &lt;hr /&gt;
+
+    &lt;h6 style&#x3D;&quot;margin-top: 0.5rem;&quot;&gt;Example Sentence&lt;/h6&gt;
+    &lt;p class&#x3D;&quot;p1&quot; style&#x3D;&quot;margin-top: 0.5rem; margin-bottom: 0.5rem;&quot;&gt;
+      {{ selectedRequirement.descriptionTemplate.example }}
+    &lt;/p&gt;
+
+    &lt;hr style&#x3D;&quot;margin-bottom: 1rem;&quot;/&gt;
+
+    &lt;clr-alert *ngIf&#x3D;&quot;!requirementTemplateIsValid&quot; [clrAlertType]&#x3D;&quot;&#x27;alert-warning&#x27;&quot; [clrAlertClosable]&#x3D;&quot;false&quot;&gt;
+      &lt;div class&#x3D;&quot;alert-item&quot;&gt;
+        &lt;span class&#x3D;&quot;alert-text&quot;&gt;
+          Requirement is not valid!
+        &lt;/span&gt;
+      &lt;/div&gt;
+    &lt;/clr-alert&gt;
+
+    &lt;div class&#x3D;&quot;clr-row&quot; *ngIf&#x3D;&quot;this.storeService.requirementTemplatePartsModified$ | async&quot;&gt;
+      &lt;button (click)&#x3D;&quot;onSaveRequirement()&quot; class&#x3D;&quot;btn btn-primary&quot;&gt;Save Changes&lt;/button&gt;
+    &lt;/div&gt;
+
+    &lt;div class&#x3D;&quot;clr-row&quot;&gt;
+      &lt;button [routerLink]&#x3D;&quot;[&#x27;/requirements&#x27;, selectedRequirement._id, &#x27;detail&#x27;]&quot; class&#x3D;&quot;btn btn-primary&quot;&gt;Requirement Details&lt;/button&gt;
+    &lt;/div&gt;
+
+    &lt;app-xml&gt;&lt;/app-xml&gt;
+
+  &lt;/ng-template&gt;
+
+&lt;/div&gt;
+
+&lt;ng-template #loading&gt;
+  &lt;div style&#x3D;&quot;margin: 30px 0px;&quot;&gt;
+    &lt;span class&#x3D;&quot;spinner spinner-inline&quot;&gt;
+      Loading...
+    &lt;/span&gt;
+    &lt;span&gt;
+      Loading...
+    &lt;/span&gt;
+  &lt;/div&gt;
+&lt;/ng-template&gt;
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="c-tree">
+        <div id="tree-container"></div>
+        <div class="tree-legend">
+            <div class="title">
+                <b>Legend</b>
+            </div>
+            <div>
+                <div class="color htmlelement"></div><span>Html element</span>
+            </div>
+            <div>
+                <div class="color component"></div><span>Component</span>
+            </div>
+            <div>
+                <div class="color directive"></div><span>Html element with directive</span>
+            </div>
+        </div>
+    </div>
+
+    
+</div>
+
+<script src="../js/libs/vis.min.js"></script>
+<script src="../js/libs/htmlparser.js"></script>
+<script src="../js/libs/deep-iterator.js"></script>
+<script>
+        var COMPONENT_TEMPLATE = '<div><div *ngIf="requirementComponentLoadingCompleted$ | async">  <div class="clr-row" style="margin-bottom: 20px;">    <div class="clr-col-12">      <div *ngIf="selectedRequirement && selectedRequirement.name">        <h3>{{ selectedRequirement.name }}</h3>      </div>    </div>  </div>  <div class="clr-row" *ngIf="selectedRequirement">    <div class="clr-col-12">      <h5>Type your Requirement-Description in here:</h5>      <br />    </div>  </div></div><div #requirementContainer style="display:inline;"></div><div *ngIf="requirementComponentLoadingCompleted$ | async else loading" style="margin-top: 1rem;">  <ng-template [ngIf]="selectedRequirement">    <hr />    <h6 style="margin-top: 0.5rem;">Example Sentence</h6>    <p class="p1" style="margin-top: 0.5rem; margin-bottom: 0.5rem;">      {{ selectedRequirement.descriptionTemplate.example }}    </p>    <hr style="margin-bottom: 1rem;"/>    <clr-alert *ngIf="!requirementTemplateIsValid" [clrAlertType]="\'alert-warning\'" [clrAlertClosable]="false">      <div class="alert-item">        <span class="alert-text">          Requirement is not valid!        </span>      </div>    </clr-alert>    <div class="clr-row" *ngIf="this.storeService.requirementTemplatePartsModified$ | async">      <button (click)="onSaveRequirement()" class="btn btn-primary">Save Changes</button>    </div>    <div class="clr-row">      <button [routerLink]="[\'/requirements\', selectedRequirement._id, \'detail\']" class="btn btn-primary">Requirement Details</button>    </div>    <app-xml></app-xml>  </ng-template></div><ng-template #loading>  <div style="margin: 30px 0px;">    <span class="spinner spinner-inline">      Loading...    </span>    <span>      Loading...    </span>  </div></ng-template></div>'
+    var COMPONENTS = [{'name': 'AlertComponent', 'selector': 'app-alert'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'HeaderComponent', 'selector': 'app-header'},{'name': 'NotFoundComponent', 'selector': 'app-not-found'},{'name': 'RequirementComponent', 'selector': 'app-requirement'},{'name': 'RequirementDetailsComponent', 'selector': 'app-requirement-details'},{'name': 'RequirementEditComponent', 'selector': 'app-requirement-edit'},{'name': 'RequirementListComponent', 'selector': 'app-requirement-list'},{'name': 'RequirementsComponent', 'selector': 'app-requirements'},{'name': 'SigninComponent', 'selector': 'app-signin'},{'name': 'XmlComponent', 'selector': 'app-xml'},{'name': 'XmlDebugComponent', 'selector': 'app-xml-debug'}];
+    var DIRECTIVES = [];
+    var ACTUAL_COMPONENT = {'name': 'RequirementComponent'};
+</script>
+<script src="../js/tree.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> result-matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'component';
+            var COMPODOC_CURRENT_PAGE_URL = 'RequirementComponent.html';
+       </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+       <script src="../js/menu-wc.js"></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+       <script src="../js/libs/zepto.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>
